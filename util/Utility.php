@@ -1,0 +1,30 @@
+<?php
+class Utility {
+
+    public static function getRawRequestData() {
+        return file_get_contents('php://input');
+    }
+
+    public static function getJsonRequestData() {
+        $rawData = file_get_contents('php://input');
+        return json_decode($rawData, TRUE);
+    }
+
+    public static function getClientIp() {
+        $head = apache_request_headers();
+        $ip = (isset($head['CONFONE_FORWARDED_IP']) ? $head['CONFONE_FORWARDED_IP'] : '');
+
+        if (empty($ip)) { 
+            $ip = (isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '');
+        }
+        if (empty($ip)) { 
+            $ip = (isset($_SERVER['TTP_X_FORWARDED_FOR']) ? $_SERVER['TTP_X_FORWARDED_FOR'] : '');
+        }
+        if (empty($ip)) {
+            $ip = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
+        }
+
+        return $ip;
+    }
+}
+?>

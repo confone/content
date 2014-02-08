@@ -1,0 +1,37 @@
+<?php
+include '/opt/confone/dao/config/config.inc';
+
+$base_host = 'http://local.www.confone.com';
+$base_uri = '/rest';
+
+
+//=======================================================================================
+// auto include directory information
+$autoload_dirs = array( '/opt/confone/util',
+						'/opt/confone/dao' );
+
+
+//=======================================================================================
+// Cache server information
+$cache_servers = array (
+'127.0.0.1' => '11211'
+);
+
+
+//=======================================================================================
+// logging information
+// INFO=4, WARN=3, ERROR=2, FATAL=1, NOTHING=0
+$log_level = 4;
+$log_file = '/opt/confone/logs/portal.log';
+
+$access_on = 1;
+$access_log = '/opt/confone/logs/portal_access.log';
+
+
+//=======================================================================================
+// ip block list
+$ip_block_list = array (
+'000.000.000.000' => 1,
+'127.0.0.1' => 0
+);
+?>
