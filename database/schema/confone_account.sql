@@ -7,8 +7,8 @@ CREATE TABLE {$dbName}.account
 	profile_pic BLOB,
 	description VARCHAR(256),
 	last_login DATETIME,
-	public_key VARHCAR(129),
-	private_key VARHCAR(129),
+	public_key VARCHAR(129),
+	private_key VARCHAR(129),
 	level INT(2),
 	blocked INT(1),
 

@@ -5,22 +5,22 @@ if (!isset($dbconfig)) {
 	$dbconfig = array();
 }
 
-$dbconfig['account'] =
+$dbconfig['confone_account'] =
 	array (
 		'total_shards' => 1,
 		'shards_digit' => 1,
-		'username' => 'lotusyuser',
+		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
 			'127.0.0.1' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
-$dbconfig['lookup_account'] =
+$dbconfig['confone_lookup_account'] =
 	array (
 		'total_shards' => 1,
 		'shards_digit' => 1,
-		'username' => 'lotusyuser',
+		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
 			'127.0.0.1' => array('min'=>0, 'max'=>0)
