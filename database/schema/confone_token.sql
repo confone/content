@@ -1,4 +1,4 @@
-CREATE TABLE {$dbName}.account_email
+CREATE TABLE {$dbName}.reset_token
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	email VARCHAR(61),

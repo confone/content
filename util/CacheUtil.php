@@ -1,8 +1,17 @@
 <?php
 class CacheUtil {
+	private static $instance = null;
 	private $memcache = null;
 
-	public function __construct() {
+	public static function getInstance() {
+		if (self::$instance==null) {
+			self::$instance = new CacheUtil();
+		}
+
+		return self::$instance->getCacheObj();
+	}
+
+	private function __construct() {
 		global $cache_servers;
 		$this->memcache = new Memcached();
 
@@ -11,7 +20,7 @@ class CacheUtil {
 		}
 	}
 
-	public function getCacheObj() {
+	private function getCacheObj() {
 		return $this->memcache;
 	}
 }

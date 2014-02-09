@@ -181,7 +181,7 @@ abstract class ConfoneDao {
 	}
 
 	public function getShardedDatabaseName() {
-		return $this->getOriginalDatabaseName().'_'.$this->shardId;
+		return $this->getShardDomain().'_'.$this->shardId;
 	}
 
 	public function getServerAddress() {
@@ -223,8 +223,7 @@ abstract class ConfoneDao {
 
 		$sequenceKey = $dbName.'.'.$tableName.ConfoneDao::SEQUENCE;
 
-		$cache = new CacheUtil();
-		$mem = $cache->getCacheObj();
+		$mem = CacheUtil::getInstance();
 
 		$sequence = $mem->increment($sequenceKey);
 
@@ -237,10 +236,9 @@ abstract class ConfoneDao {
 	}
 
 	private function getNextShardSequence() {
-		$sequenceKey = $this->getOriginalDatabaseName().ConfoneDao::SEQUENCE;
+		$sequenceKey = $this->getShardDomain().ConfoneDao::SEQUENCE;
 
-		$cache = new CacheUtil();
-		$mem = $cache->getCacheObj();
+		$mem = CacheUtil::getInstance();
 
 		$sequence = $mem->increment($sequenceKey);
 

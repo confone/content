@@ -4,7 +4,7 @@ include '../inc/recaptchalib.php';
 
 $session = CSession::instance();
 
-if (!$session->exist('login_count')) {
+if (!$session->get('login_count')) {
     $session->set('login_count', 0);
 }
 
@@ -18,22 +18,22 @@ if (isset($_POST['confone_admin_username'])) {
         if (!$resp->is_valid) {
             $error = 'Invalid ReCAPTCHA input, please try again.';
         } else {
-            $adminDao = PaymentAdminDao::authenticate( $_POST['confone_admin_username'],
-                                                       $_POST['confone_admin_password'] );
+            $adminDao = AccountDao::authenticate( $_POST['confone_admin_username'],
+                                                  $_POST['confone_admin_password'] );
             if (isset($adminDao)) {
                 $session->set('login_count', 0);
-                $session->set(CSession::$AUTHINDEX, $adminDao->var[PaymentAdminDao::IDCOLUMN]);
+                $session->set(CSession::$AUTHINDEX, $adminDao->var[AccountDao::IDCOLUMN]);
             } else {
                 $error = 'Invalid username/password combination.';
                 Logger::warn('Login attemp: '.$_POST['confone_admin_username'].':'.$_POST['confone_admin_password'].' failed!');
             }
         }
     } else {
-        $adminDao = PaymentAdminDao::authenticate( $_POST['confone_admin_username'],
-                                                   $_POST['confone_admin_password'] );
+        $adminDao = AccountDao::authenticate( $_POST['confone_admin_username'],
+                                              $_POST['confone_admin_password'] );
         if (isset($adminDao)) {
             $session->set('login_count', 0);
-            $session->set(CSession::$AUTHINDEX, $adminDao->var[PaymentAdminDao::IDCOLUMN]);
+            $session->set(CSession::$AUTHINDEX, $adminDao->var[AccountDao::IDCOLUMN]);
         } else {
             $error = 'Invalid username/password combination.';
             $session->set('login_count', $session->get('login_count')+1);
@@ -42,14 +42,11 @@ if (isset($_POST['confone_admin_username'])) {
     }
 }
 
-if ($session->exist(CSession::$AUTHINDEX)) {
+if ($session->get(CSession::$AUTHINDEX)) {
     header('Location: ../admin/welcome.php');
 }
-
-$stylesheets = array('admin.css');
 ?>
-
-<?php include '../include/header.php'?>
+<?php include '../inc/header.php'?>
 <div class='signin'>
 <?php if (isset($error)) { echo '<label class="error">- '.$error.'</label>'; }?>
     <form class="pure-form" method="post" action="">
@@ -66,4 +63,4 @@ $stylesheets = array('admin.css');
 	</form>
 </div>
 
-<?php include '../include/footer.php'?>
+<?php include '../inc/footer.php'?>

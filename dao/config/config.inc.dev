@@ -12,7 +12,7 @@ $dbconfig['confone_account'] =
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
-			'127.0.0.1' => array('min'=>0, 'max'=>0)
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -23,7 +23,7 @@ $dbconfig['confone_lookup_account'] =
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
-			'127.0.0.1' => array('min'=>0, 'max'=>0)
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
 		) 
 	);
 ?>

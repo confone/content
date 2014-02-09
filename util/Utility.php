@@ -26,5 +26,9 @@ class Utility {
 
         return $ip;
     }
+
+	public static function hashString($str) {
+		return abs(crc32($str));
+	}
 }
 ?>
