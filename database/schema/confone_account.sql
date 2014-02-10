@@ -4,7 +4,7 @@ CREATE TABLE {$dbName}.account
 	email VARCHAR(61),
 	password VARCHAR(41),
 	name VARCHAR(128),
-	profile_pic BLOB,
+	profile_pic VARCHAR(61),
 	description VARCHAR(256),
 	last_login DATETIME,
 	public_key VARCHAR(41),

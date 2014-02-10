@@ -16,7 +16,84 @@ $dbconfig['confone_account'] =
 		) 
 	);
 
+$dbconfig['confone_token'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_project'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_image'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_text'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
 $dbconfig['confone_lookup_account'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_lookup_project'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_lookup_image'] =
+	array (
+		'total_shards' => 1,
+		'shards_digit' => 1,
+		'username' => 'confoneuser',
+		'password' => 'password',
+		'server_list' => array (
+			'192.168.0.123' => array('min'=>0, 'max'=>0)
+		) 
+	);
+
+$dbconfig['confone_lookup_text'] =
 	array (
 		'total_shards' => 1,
 		'shards_digit' => 1,
