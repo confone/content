@@ -1,6 +1,10 @@
 <?php
 class ProjectDao extends ConfoneDao {
 
+	const NAME = 'name';
+	const OWNERID = 'owner_id';
+	const LASTMODIFY = 'last_modify';
+	const CREATETIME = 'create_time';
 
 	const IDCOLUMN = 'id';
 	const SHARDDOMAIN = '';
@@ -15,9 +19,19 @@ class ProjectDao extends ConfoneDao {
 
 	protected function init() {
 		$this->var[ProjectDao::IDCOLUMN] = 0;
+		$this->var[ProjectDao::NAME] = '';
+		$this->var[ProjectDao::OWNERID] = 0;
+
+		$date = gmdate('Y-m-d H:i:s');
+		$this->var[ProjectDao::LASTMODIFY] = $date;
+		$this->var[ProjectDao::CREATETIME] = $date;
 	}
 
 	protected function beforeInsert() {
+		$lookup = new LookupProjectAccountDao();
+		$lookup->var[LookupProjectAccountDao::ACCOUNTID] = $this->var[ProjectDao::OWNERID];
+		$lookup->var[LookupProjectAccountDao::PROJECTID] = $this->var[ProjectDao::IDCOLUMN];
+		$lookup->save();
 	}
 
 	public function getShardDomain() {
