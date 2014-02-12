@@ -21,8 +21,12 @@ if (isset($_POST['confone_admin_username'])) {
             $adminDao = AccountDao::authenticate( $_POST['confone_admin_username'],
                                                   $_POST['confone_admin_password'] );
             if (isset($adminDao)) {
-                $session->set('login_count', 0);
-                $session->set(CSession::$AUTHINDEX, $adminDao->var[AccountDao::IDCOLUMN]);
+            	if ($adminDao->isBlocked()) {
+                	$error = 'Your account is not activated, send activation email.';
+            	} else {
+                	$session->set('login_count', 0);
+                	$session->set(CSession::$AUTHINDEX, $adminDao->var[AccountDao::IDCOLUMN]);
+            	}
             } else {
                 $error = 'Invalid username/password combination.';
                 Logger::warn('Login attemp: '.$_POST['confone_admin_username'].':'.$_POST['confone_admin_password'].' failed!');

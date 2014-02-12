@@ -16,11 +16,11 @@ class AccountDao extends ConfoneDao {
 	const SHARDDOMAIN = 'confone_account';
 	const TABLE = 'account';
 
-	const LEVEL_COMMUNITY = 0;
-	const LEVEL_BUSINESS = 1;
-	const LEVEL_ENTERPRISE = 2;
-	const LEVEL_PREMIUM = 3;
-	const LEVEL_DEMAND = 4;
+	const LEVEL_COMMUNITY = '0';
+	const LEVEL_BUSINESS = '1';
+	const LEVEL_ENTERPRISE = '2';
+	const LEVEL_PREMIUM = '3';
+	const LEVEL_DEMAND = '4';
 
 // =============================================== public function =================================================
 
@@ -57,6 +57,11 @@ class AccountDao extends ConfoneDao {
 		return $account;
 	}
 
+	public function isBlocked() {
+		return $this->var[AccountDao::BLOCKED] == 'Y';
+	}
+
+
 // ============================================ override functions ==================================================
 
 	protected function init() {
@@ -70,7 +75,7 @@ class AccountDao extends ConfoneDao {
 		$this->var[AccountDao::PUBLICKEY] = '';
 		$this->var[AccountDao::PRIVATEKEY] = '';
 		$this->var[AccountDao::LEVEL] = AccountDao::LEVEL_COMMUNITY;
-		$this->var[AccountDao::BLOCKED] = 'N';
+		$this->var[AccountDao::BLOCKED] = 'Y';
 	}
 
 	protected function beforeInsert() {
