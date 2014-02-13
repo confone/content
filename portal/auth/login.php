@@ -22,7 +22,7 @@ if (isset($_POST['confone_admin_username'])) {
                                                   $_POST['confone_admin_password'] );
             if (isset($adminDao)) {
             	if ($adminDao->isBlocked()) {
-                	$error = 'Your account is not activated, send activation email.';
+                	$error = 'Your account is not activated, please <a href="javascript:sendActivationEmail(\''.$account->var[AccountDao::EMAIL].'\', '.$account->var[AccountDao::IDCOLUMN].')">click here</a> to send an activation email.';
             	} else {
                 	$session->set('login_count', 0);
                 	$session->set(CSession::$AUTHINDEX, $adminDao->var[AccountDao::IDCOLUMN]);
@@ -49,10 +49,12 @@ if (isset($_POST['confone_admin_username'])) {
 if ($session->get(CSession::$AUTHINDEX)) {
     header('Location: ../admin/welcome.php');
 }
+
+$scripts = array('auth.js');
 ?>
 <?php include '../inc/header.php'?>
 <div class='signin'>
-<?php if (isset($error)) { echo '<label class="error">- '.$error.'</label>'; }?>
+<?php if (isset($error)) { echo '<label id="msg" class="error">- '.$error.'</label>'; }?>
     <form class="pure-form" method="post" action="">
         <fieldset class="pure-group">
             <input type="text" class="pure-input-1" placeholder="Email" name="confone_admin_username">
