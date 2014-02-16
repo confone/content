@@ -10,6 +10,11 @@ class ProjectDao extends ConfoneDao {
 	const SHARDDOMAIN = '';
 	const TABLE = '';
 
+	const ACCESSLEVEL_NONE = '1000';
+	const ACCESSLEVEL_ROOT = '0';
+	const ACCESSLEVEL_ADMIN = '1';
+	const ACCESSLEVEL_WRITE = '2';
+	const ACCESSLEVEL_READ = '3';
 
 // =============================================== public function =================================================
 

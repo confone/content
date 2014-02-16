@@ -45,4 +45,6 @@ abstract class Handler {
     protected function getValidator() {
     	return $this->validator;
     }
+
+    abstract protected function handle($params);
 }

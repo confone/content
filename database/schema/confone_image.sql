@@ -2,6 +2,7 @@ CREATE TABLE {$dbName}.image
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	code VARCHAR(33),
+	project_id INT (10) UNSIGNED,
 	project_path_id INT(10) UNSIGNED,
 	account_id INT(10) UNSIGNED,
 	create_time DATETIME,
@@ -19,7 +20,7 @@ CREATE TABLE {$dbName}.image_version
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	image_id INT(10) UNSIGNED, 
 	file_path VARCHAR(61),
-	version INT(4),
+	version TINYINT,
 	create_time DATETIME,
 
 	PRIMARY KEY (id)

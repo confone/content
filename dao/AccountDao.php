@@ -57,10 +57,29 @@ class AccountDao extends ConfoneDao {
 		return $account;
 	}
 
+	public static function canViewProjectContent($accountId, $projectId) {
+		$accessLevel =  LookupProjectAccountDao::getAccessLevel($projectId, $accountId);
+		return $accessLevel <= ProjectDao::ACCESSLEVEL_READ;
+	}
+
+	public static function canModifyProjectContent($accountId, $projectId) {
+		$accessLevel =  LookupProjectAccountDao::getAccessLevel($projectId, $accountId);
+		return $accessLevel <= ProjectDao::ACCESSLEVEL_WRITE;
+	}
+
+	public static function canModifyProjectUser($accountId, $projectId) {
+		$accessLevel =  LookupProjectAccountDao::getAccessLevel($projectId, $accountId);
+		return $accessLevel <= ProjectDao::ACCESSLEVEL_ADMIN;
+	}
+
+	public static function canModifyProjectAdmin($accountId, $projectId) {
+		$accessLevel =  LookupProjectAccountDao::getAccessLevel($projectId, $accountId);
+		return $accessLevel <= ProjectDao::ACCESSLEVEL_ROOT;
+	}
+
 	public function isBlocked() {
 		return $this->var[AccountDao::BLOCKED] == 'Y';
 	}
-
 
 // ============================================ override functions ==================================================
 

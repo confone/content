@@ -9,7 +9,6 @@ class LookupProjectAccountDao extends ConfoneDao {
 	const SHARDDOMAIN = '';
 	const TABLE = '';
 
-
 // =============================================== public function =================================================
 
 	public static function getLookupsByAccountId($accountId) {
@@ -23,21 +22,26 @@ class LookupProjectAccountDao extends ConfoneDao {
 		$connect = DBUtil::getConn($lookup);
 		$rows = DBUtil::selectDataList($connect, $sql);
 
-		return $lookup->makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
+		return ConfoneDao::makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
 	}
 
-	public static function getLookupsByProjectId($projectId, $shardAccountId) {
+	public static function getAccessLevel($projectId, $accountId) {
 		$lookup = new LookupProjectAccountDao();
-		$sequence = Utility::hashString($shardAccountId);
+		$sequence = Utility::hashString($accountId);
 		$lookup->setShardId($sequence);
 
-		$sql = "SELECT * FROM ".LookupProjectAccountDao::TABLE." WHERE "
-				.LookupProjectAccountDao::PROJECTID."=$projectId";
+		$sql = "SELECT ".LookupProjectAccountDao::ACCESSLEVEL." FROM ".LookupProjectAccountDao::TABLE." WHERE "
+				.LookupProjectAccountDao::PROJECTID."=$projectId AND "
+				.LookupProjectAccountDao::ACCOUNTID."=$accountId";
 
 		$connect = DBUtil::getConn($lookup);
-		$rows = DBUtil::selectDataList($connect, $sql);
+		$res = DBUtil::selectData($connect, $sql);
 
-		return $lookup->makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
+		if ($res) {
+			return $res[LookupProjectAccountDao::ACCESSLEVEL];
+		} else {
+			return ProjectDao::ACCESSLEVEL_NONE;
+		}
 	}
 
 // ============================================ override functions ==================================================
@@ -46,10 +50,15 @@ class LookupProjectAccountDao extends ConfoneDao {
 		$this->var[LookupProjectAccountDao::IDCOLUMN] = 0;
 		$this->var[LookupProjectAccountDao::PROJECTID] = 0;
 		$this->var[LookupProjectAccountDao::ACCOUNTID] = 0;
-		$this->var[LookupProjectAccountDao::ACCESSLEVEL] = 0;
+		$this->var[LookupProjectAccountDao::ACCESSLEVEL] = ProjectDao::ACCESSLEVEL_READ;
 	}
 
 	protected function beforeInsert() {
+		$sequence = Utility::hashString($this->var[LookupProjectAccountDao::ACCOUNTID]);
+		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
 		$sequence = Utility::hashString($this->var[LookupProjectAccountDao::ACCOUNTID]);
 		$this->setShardId($sequence);
 	}

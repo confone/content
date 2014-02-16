@@ -192,7 +192,7 @@ abstract class ConfoneDao {
 		return $this->fromdb;
 	}
 
-    protected function makeObjectFromSelectResult($res, $class) {
+    public static function makeObjectFromSelectResult($res, $class) {
 		$object = null;
 		if ($res) {
 			$object = new $class;
@@ -203,7 +203,7 @@ abstract class ConfoneDao {
 		return $object;
 	}
 
-	protected function makeObjectsFromSelectListResult($rows, $class) {
+	public static function makeObjectsFromSelectListResult($rows, $class) {
 		$objects = array();
 		if (isset($rows)) {
 			foreach ($rows as $row) {

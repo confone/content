@@ -2,6 +2,7 @@ CREATE TABLE {$dbName}.text
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	code VARCHAR(33),
+	project_id INT(10) UNSIGNED,
 	project_path_id INT(10) UNSIGNED,
 	account_id INT(10) UNSIGNED,
 	create_time DATETIME,
@@ -18,7 +19,7 @@ CREATE TABLE {$dbName}.text_version
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	text_id INT(10) UNSIGNED, 
-	file_path VARCHAR(61),
+	content TEXT,
 	version INT(4),
 	create_time DATETIME,
 
