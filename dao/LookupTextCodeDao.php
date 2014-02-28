@@ -1,5 +1,5 @@
 <?php
-class LookupTextCodeDao extends ConfoneDao {
+class LookupTextCodeDao extends ContentDao {
 
 	const CODE = 'code';
 	const TEXTID = 'text_id';

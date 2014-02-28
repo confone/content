@@ -1,5 +1,5 @@
 <?php
-class LookupImageProjectPathDao extends ConfoneDao {
+class LookupImageProjectPathDao extends ContentDao {
 
 	const IMAGEID = 'image_id';
 	const PROJECTPATHID = 'project_path_id';

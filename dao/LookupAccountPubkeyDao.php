@@ -1,5 +1,5 @@
 <?php
-class LookupAccountPubkeyDao extends ConfoneDao {
+class LookupAccountPubkeyDao extends ContentDao {
 
 	const PUBKEY = 'pubkey';
 	const ACCOUNTID = 'account_id';

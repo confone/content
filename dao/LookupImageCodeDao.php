@@ -1,5 +1,5 @@
 <?php
-class LookupImageCodeDao extends ConfoneDao {
+class LookupImageCodeDao extends ContentDao {
 
 	const CODE = 'code';
 	const IMAGEID = 'image_id';

@@ -1,5 +1,5 @@
 <?php
-class ProjectDao extends ConfoneDao {
+class ProjectDao extends ContentDao {
 
 	const NAME = 'name';
 	const OWNERID = 'owner_id';

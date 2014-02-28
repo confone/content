@@ -1,5 +1,5 @@
 <?php
-class TextDao extends ConfoneDao {
+class TextDao extends ContentDao {
 
 	const CODE = 'code';
 	const PROJECTID = 'project_id';

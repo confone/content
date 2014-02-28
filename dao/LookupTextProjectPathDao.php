@@ -1,5 +1,5 @@
 <?php
-class LookupTextProjectPathDao extends ConfoneDao {
+class LookupTextProjectPathDao extends ContentDao {
 
 	const TEXTID = 'text_id';
 	const PROJECTPATHID = 'project_path_id';

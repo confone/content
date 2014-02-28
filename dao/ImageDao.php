@@ -1,5 +1,5 @@
 <?php
-class ImageDao extends ConfoneDao {
+class ImageDao extends ContentDao {
 
 	const CODE = 'code';
 	const PROJECTID = 'project_id';

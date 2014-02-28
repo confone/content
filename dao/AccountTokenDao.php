@@ -1,5 +1,5 @@
 <?php
-class AccountTokenDao extends ConfoneDao {
+class AccountTokenDao extends ContentDao {
 
 	const TOKEN = 'token';
 	const ACCOUNTID = 'account_id';

@@ -1,5 +1,5 @@
 <?php
-class TextVersionDao extends ConfoneDao {
+class TextVersionDao extends ContentDao {
 
 	const TEXTID = 'text_id';
 	const CONTENT = 'content';
@@ -50,7 +50,7 @@ class TextVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($textVersion);
 		$res = DBUtil::selectData($connect, $sql);
 
-		return ConfoneDao::makeObjectFromSelectResult($res, "TextVersionDao");
+		return ContentDao::makeObjectFromSelectResult($res, "TextVersionDao");
 	}
 
 	public static function getCurrentText($textId) {
@@ -64,7 +64,7 @@ class TextVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($textVersion);
 		$res = DBUtil::selectData($connect, $sql);
 
-		return ConfoneDao::makeObjectFromSelectResult($res, "TextVersionDao");
+		return ContentDao::makeObjectFromSelectResult($res, "TextVersionDao");
 	}
 
 	public static function getTexts($textId) {
@@ -78,7 +78,7 @@ class TextVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($textVersion);
 		$rows = DBUtil::selectDataList($connect, $sql);
 
-		return ConfoneDao::makeObjectsFromSelectListResult($rows, "TextVersionDao");
+		return ContentDao::makeObjectsFromSelectListResult($rows, "TextVersionDao");
 	}
 
 	public static function isPreviewTextPublished($textId) {

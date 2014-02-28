@@ -1,5 +1,5 @@
 <?php
-class PubkeyTokenDao extends ConfoneDao {
+class PubkeyTokenDao extends ContentDao {
 
 	const TOKEN = 'token';
 	const PUBKEY = 'pubkey';

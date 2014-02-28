@@ -1,5 +1,5 @@
 <?php
-class ProjectPathDao extends ConfoneDao {
+class ProjectPathDao extends ContentDao {
 
 	const PROJECTID = 'project_id';
 	const PARENTPATHID = 'parent_path_id';
@@ -43,7 +43,7 @@ class ProjectPathDao extends ConfoneDao {
 		$connect = DBUtil::getConn($projectPath);
 		$rows = DBUtil::selectDataList($connect, $sql);
 
-		return ConfoneDao::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
+		return ContentDao::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
 	}
 
 	public static function getProjectPath($projectId, $pathId) {
@@ -58,7 +58,7 @@ class ProjectPathDao extends ConfoneDao {
 		$connect = DBUtil::getConn($projectPath);
 		$res = DBUtil::selectData($connect, $sql);
 
-		return ConfoneDao::makeObjectFromSelectResult($res, 'ProjectPathDao');
+		return ContentDao::makeObjectFromSelectResult($res, 'ProjectPathDao');
 	}
 
 // ============================================ override functions ==================================================

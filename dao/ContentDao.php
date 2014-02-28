@@ -1,5 +1,5 @@
 <?php
-abstract class ConfoneDao {
+abstract class ContentDao {
 
 	const SEQUENCE = '_shard_sequence';
 
@@ -221,7 +221,7 @@ abstract class ConfoneDao {
 		$dbName = $this->getShardedDatabaseName();
 		$tableName = $this->getTableName();
 
-		$sequenceKey = $dbName.'.'.$tableName.ConfoneDao::SEQUENCE;
+		$sequenceKey = $dbName.'.'.$tableName.ContentDao::SEQUENCE;
 
 		$mem = CacheUtil::getInstance();
 
@@ -236,7 +236,7 @@ abstract class ConfoneDao {
 	}
 
 	private function getNextShardSequence() {
-		$sequenceKey = $this->getShardDomain().ConfoneDao::SEQUENCE;
+		$sequenceKey = $this->getShardDomain().ContentDao::SEQUENCE;
 
 		$mem = CacheUtil::getInstance();
 

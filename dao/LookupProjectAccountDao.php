@@ -1,5 +1,5 @@
 <?php
-class LookupProjectAccountDao extends ConfoneDao {
+class LookupProjectAccountDao extends ContentDao {
 
 	const PROJECTID = 'project_id';
 	const ACCOUNTID = 'account_id';
@@ -22,7 +22,7 @@ class LookupProjectAccountDao extends ConfoneDao {
 		$connect = DBUtil::getConn($lookup);
 		$rows = DBUtil::selectDataList($connect, $sql);
 
-		return ConfoneDao::makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
+		return ContentDao::makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
 	}
 
 	public static function getAccessLevel($projectId, $accountId) {

@@ -1,5 +1,5 @@
 <?php
-class ImageVersionDao extends ConfoneDao {
+class ImageVersionDao extends ContentDao {
 
 	const IMAGEID = 'image_id';
 	const FILEPATH = 'file_path';
@@ -50,7 +50,7 @@ class ImageVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($imageVersion);
 		$res = DBUtil::selectData($connect, $sql);
 
-		return ConfoneDao::makeObjectFromSelectResult($res, "ImageVersionDao");
+		return ContentDao::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
 
 	public static function getCurrentImage($imageId) {
@@ -64,7 +64,7 @@ class ImageVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($imageVersion);
 		$res = DBUtil::selectData($connect, $sql);
 
-		return ConfoneDao::makeObjectFromSelectResult($res, "ImageVersionDao");
+		return ContentDao::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
 
 	public static function getImages($imageId) {
@@ -78,7 +78,7 @@ class ImageVersionDao extends ConfoneDao {
 		$connect = DBUtil::getConn($imageVersion);
 		$rows = DBUtil::selectDataList($connect, $sql);
 
-		return ConfoneDao::makeObjectsFromSelectListResult($rows, "ImageVersionDao");
+		return ContentDao::makeObjectsFromSelectListResult($rows, "ImageVersionDao");
 	}
 
 	public static function isPreviewImagePublished($imageId) {

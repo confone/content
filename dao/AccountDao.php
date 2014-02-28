@@ -1,5 +1,5 @@
 <?php
-class AccountDao extends ConfoneDao {
+class AccountDao extends ContentDao {
 
 	const EMAIL = 'email';
 	const PASSWORD = 'password';

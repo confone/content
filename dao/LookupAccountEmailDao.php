@@ -1,5 +1,5 @@
 <?php
-class LookupAccountEmailDao extends ConfoneDao {
+class LookupAccountEmailDao extends ContentDao {
 
 	const EMAIL = 'email';
 	const ACCOUNTID = 'account_id';
