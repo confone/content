@@ -1,4 +1,4 @@
 <?php
-include '../config/config.inc';
-header('Location: '.$web_url);
+global $base_url;
+header('Location: '.$base_url);
 ?>
