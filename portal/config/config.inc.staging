@@ -1,0 +1,38 @@
+<?php 
+$base_url = 'http://staging.account.confone.com';
+$www_url = 'http://staging.www.confone.com';
+$security_url = 'http://staging.security.confone.com';
+$content_url = 'http://staging.content.confone.com';
+
+
+// =======================================================================================
+// auto include directory information
+$autoload_dirs = array( '../util',
+						'../dao',
+						'../dao/parent',
+						'controller',
+						'model');
+
+
+//=======================================================================================
+// Cache server information
+$cache_servers = array (
+'192.168.175.46' => '11211'
+);
+
+
+//=======================================================================================
+// Session expiration duration in seconds
+$session_expires_in = 900;
+
+
+//=======================================================================================
+// logging information
+// INFO=4, WARN=3, ERROR=2, FATAL=1, NOTHING=0
+$log_level = 4;
+$log_file = '/opt/confone/content/logs/portal.log';
+
+$access_on = 1;
+$access_log = '/opt/confone/content/logs/portal_access.log';
+
+?>

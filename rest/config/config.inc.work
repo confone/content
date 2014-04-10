@@ -1,0 +1,38 @@
+<?php
+$base_host = 'http://local.www.confone.com';
+$base_uri = '/rest';
+
+
+//=======================================================================================
+// auto include directory information
+$autoload_dirs = array( 'handler', 
+                        'requester', 
+                        'validator', 
+                        '../util', 
+                        '../dao' );
+
+
+//=======================================================================================
+// Cache server information
+$cache_servers = array (
+'192.168.175.197' => '11211'
+);
+
+
+//=======================================================================================
+// logging information
+// INFO=4, WARN=3, ERROR=2, FATAL=1, NOTHING=0
+$log_level = 4;
+$log_file = '/opt/confone/rest/logs/rest.log';
+
+$access_on = 1;
+$access_log = '/opt/confone/rest/logs/rest_access.log';
+
+
+//=======================================================================================
+// ip block list
+$ip_block_list = array (
+'000.000.000.000' => 1,
+'192.168.175.197' => 0
+);
+?>
