@@ -14,7 +14,9 @@ $autoload_dirs = array( '../util',
 						'controller',
 						'controller/image',
 						'controller/text',
-						'controller/page' );
+						'controller/page',
+						'controller/howto',
+						'controller/project' );
 
 
 //=======================================================================================
