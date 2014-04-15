@@ -9,7 +9,7 @@ $dbconfig['content_project'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -22,7 +22,7 @@ $dbconfig['content_image'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -35,7 +35,7 @@ $dbconfig['content_text'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -48,7 +48,7 @@ $dbconfig['content_lookup_project'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -61,7 +61,7 @@ $dbconfig['content_lookup_image'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -74,7 +74,7 @@ $dbconfig['content_lookup_text'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -87,7 +87,7 @@ $dbconfig['content_client'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
@@ -100,7 +100,7 @@ $dbconfig['content_iterm'] =
 	array (
 		'total_shards' => 3,
 		'shards_digit' => 10,
-		'username' => 'confoneuser',
+		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
 			'192.168.175.105' => array('min'=>0, 'max'=>0),
