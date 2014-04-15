@@ -5,10 +5,10 @@ if (!isset($dbconfig)) {
 	$dbconfig = array();
 }
 
-$dbconfig['confone_account'] =
+$dbconfig['content_project'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -18,10 +18,10 @@ $dbconfig['confone_account'] =
 		) 
 	);
 
-$dbconfig['confone_token'] =
+$dbconfig['content_image'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -31,10 +31,10 @@ $dbconfig['confone_token'] =
 		) 
 	);
 
-$dbconfig['confone_project'] =
+$dbconfig['content_text'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -44,10 +44,10 @@ $dbconfig['confone_project'] =
 		) 
 	);
 
-$dbconfig['confone_image'] =
+$dbconfig['content_lookup_project'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -57,10 +57,10 @@ $dbconfig['confone_image'] =
 		) 
 	);
 
-$dbconfig['confone_text'] =
+$dbconfig['content_lookup_image'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -70,10 +70,10 @@ $dbconfig['confone_text'] =
 		) 
 	);
 
-$dbconfig['confone_lookup_account'] =
+$dbconfig['content_lookup_text'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -83,10 +83,10 @@ $dbconfig['confone_lookup_account'] =
 		) 
 	);
 
-$dbconfig['confone_lookup_project'] =
+$dbconfig['content_client'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (
@@ -96,36 +96,10 @@ $dbconfig['confone_lookup_project'] =
 		) 
 	);
 
-$dbconfig['confone_lookup_image'] =
+$dbconfig['content_iterm'] =
 	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
-		'username' => 'confoneuser',
-		'password' => 'password',
-		'server_list' => array (
-			'192.168.175.105' => array('min'=>0, 'max'=>0),
-			'192.168.175.207' => array('min'=>1, 'max'=>1),
-			'192.168.175.236' => array('min'=>2, 'max'=>2)
-		) 
-	);
-
-$dbconfig['confone_lookup_text'] =
-	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
-		'username' => 'confoneuser',
-		'password' => 'password',
-		'server_list' => array (
-			'192.168.175.105' => array('min'=>0, 'max'=>0),
-			'192.168.175.207' => array('min'=>1, 'max'=>1),
-			'192.168.175.236' => array('min'=>2, 'max'=>2)
-		) 
-	);
-
-$dbconfig['confone_lookup_token'] =
-	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
+		'total_shards' => 3,
+		'shards_digit' => 10,
 		'username' => 'confoneuser',
 		'password' => 'password',
 		'server_list' => array (

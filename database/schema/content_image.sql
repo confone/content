@@ -2,7 +2,7 @@ CREATE TABLE {$dbName}.image
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	code VARCHAR(33),
-	project_id INT (10) UNSIGNED,
+	project_id INT(10) UNSIGNED,
 	project_path_id INT(10) UNSIGNED,
 	account_id INT(10) UNSIGNED,
 	create_time DATETIME,

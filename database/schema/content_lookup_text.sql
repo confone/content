@@ -1,4 +1,4 @@
-CREATE TABLE {$dbName}.text_code
+CREATE TABLE {$dbName}.lookup_text_code
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	code VARCHAR(33),
@@ -8,11 +8,11 @@ CREATE TABLE {$dbName}.text_code
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE INDEX {$dbName}_text_code_code_index ON {$dbName}.text_code (code(32));
-CREATE INDEX {$dbName}_text_code_project_id_index ON {$dbName}.text_code (project_id);
+CREATE INDEX {$dbName}_text_code_code_index ON {$dbName}.lookup_text_code (code(32));
+CREATE INDEX {$dbName}_text_code_project_id_index ON {$dbName}.lookup_text_code (project_id);
 
 
-CREATE TABLE {$dbName}.text_project_path
+CREATE TABLE {$dbName}.lookup_text_project_path
 (
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	project_path_id INT(10) UNSIGNED,
@@ -21,7 +21,7 @@ CREATE TABLE {$dbName}.text_project_path
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE INDEX {$dbName}_text_project_path_project_path_id_index ON {$dbName}.text_project_path (project_path_id);
+CREATE INDEX {$dbName}_text_project_path_project_path_id_index ON {$dbName}.lookup_text_project_path (project_path_id);
 
 
 GRANT ALL ON {$dbName}.* TO '{$uname}'@'%' IDENTIFIED BY '{$passwd}';

@@ -1,5 +1,5 @@
 <?php
-abstract class ContentDao {
+abstract class ContentDaoBase {
 
 	const SEQUENCE = '_shard_sequence';
 
