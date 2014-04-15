@@ -1,17 +1,5 @@
 <?php
-class TextDao extends ContentDao {
-
-	const CODE = 'code';
-	const PROJECTID = 'project_id';
-	const PROJECTPATHID = 'project_path_id';
-	const ACCOUNTID = 'account_id';
-	const CREATETIME = 'create_time';
-	const LASTMODIFY = 'last_modify';
-
-	const IDCOLUMN = 'id';
-	const SHARDDOMAIN = 'confone_text';
-	const TABLE = 'text';
-
+class TextDao extends TextDaoParent {
 
 // =============================================== public function =================================================
 
@@ -41,20 +29,7 @@ class TextDao extends ContentDao {
 		return $atReturn;
 	}
 
-
 // ============================================ override functions ==================================================
-
-	protected function init() {
-		$this->var[TextDao::IDCOLUMN] = 0;
-		$this->var[TextDao::CODE] = '';
-		$this->var[TextDao::PROJECTID] = 0;
-		$this->var[TextDao::PROJECTPATHID] = 0;
-		$this->var[TextDao::ACCOUNTID] = 0;
-
-		$date = gmdate('Y-m-d H:i:s');
-		$this->var[TextDao::CREATETIME] = $date;
-		$this->var[TextDao::LASTMODIFY] = $date;
-	}
 
 	protected function beforeInsert() {
 		$lookup = new LookupTextCodeDao();
@@ -70,18 +45,6 @@ class TextDao extends ContentDao {
 		$lookup->var[LookupTextProjectPathDao::PROJECTPATHID] = $projectPathId!=0 ? $projectPathId : $projectId;
 		$lookup->var[LookupTextProjectPathDao::TEXTID] = $this->var[TextDao::IDCOLUMN];
 		$lookup->save();
-	}
-
-	public function getShardDomain() {
-		return TextDao::SHARDDOMAIN;
-	}
-
-	public function getTableName() {
-		return TextDao::TABLE;
-	}
-
-	public function getIdColumnName() {
-		return TextDao::IDCOLUMN;
 	}
 
 	protected function isShardBaseObject() {

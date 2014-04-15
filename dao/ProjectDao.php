@@ -1,14 +1,5 @@
 <?php
-class ProjectDao extends ContentDao {
-
-	const NAME = 'name';
-	const OWNERID = 'owner_id';
-	const LASTMODIFY = 'last_modify';
-	const CREATETIME = 'create_time';
-
-	const IDCOLUMN = 'id';
-	const SHARDDOMAIN = '';
-	const TABLE = '';
+class ProjectDao extends ProjectDaoParent {
 
 	const ACCESSLEVEL_NONE = '1000';
 	const ACCESSLEVEL_ROOT = '0';
@@ -22,33 +13,15 @@ class ProjectDao extends ContentDao {
 
 // ============================================ override functions ==================================================
 
-	protected function init() {
-		$this->var[ProjectDao::IDCOLUMN] = 0;
-		$this->var[ProjectDao::NAME] = '';
-		$this->var[ProjectDao::OWNERID] = 0;
-
-		$date = gmdate('Y-m-d H:i:s');
-		$this->var[ProjectDao::LASTMODIFY] = $date;
-		$this->var[ProjectDao::CREATETIME] = $date;
-	}
-
 	protected function beforeInsert() {
+		$date = gmdate('Y-m-d H:i:s');
+		$this->setCreateTime($date);
+		$this->setLastModify($date);
+
 		$lookup = new LookupProjectAccountDao();
-		$lookup->var[LookupProjectAccountDao::ACCOUNTID] = $this->var[ProjectDao::OWNERID];
-		$lookup->var[LookupProjectAccountDao::PROJECTID] = $this->var[ProjectDao::IDCOLUMN];
+		$lookup->setAccountId($this->getOwnerId());
+		$lookup->setProjectId($this->getId());
 		$lookup->save();
-	}
-
-	public function getShardDomain() {
-		return ProjectDao::SHARDDOMAIN;
-	}
-
-	public function getTableName() {
-		return ProjectDao::TABLE;
-	}
-
-	public function getIdColumnName() {
-		return ProjectDao::IDCOLUMN;
 	}
 
 	protected function isShardBaseObject() {

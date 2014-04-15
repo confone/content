@@ -1,31 +1,27 @@
 <?php
-class LookupImageCodeDao extends LookupImageCodeDaoParent {
+class LookupPubkeyProjectDao extends LookupPubkeyProjectDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getImageId($code, $projectId) {
-		$lookup = new LookupImageCodeDao();
-		$sequence = Utility::hashString($code);
+	public static function lookupProjectIdByPubvateKey($pubkey) {
+		$lookup = new LookupPubkeyProjectDao();
+		$sequence = Utility::hashString($pubkey);
 		$lookup->setShardId($sequence);
 
 		$builder = new QueryBuilder($lookup);
-		$res = $builder->select('image_id')
-					   ->where('code', $code)
-					   ->where('project_id', $projectId)
-					   ->find();
+		$res = $builder->select('project_id')->where('pub_key', $pubkey)->find();
 
 		if ($res) {
-			return $res['image_id'];
+			return $res['project_id'];
 		} else {
 			return 0;
 		}
 	}
 
-
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {
-		$sequence = Utility::hashString($this->getCode());
+		$sequence = Utility::hashString($this->getPubKey());
 		$this->setShardId($sequence);
 	}
 

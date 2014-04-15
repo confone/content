@@ -1,21 +1,11 @@
 <?php
-class ImageVersionDao extends ContentDao {
-
-	const IMAGEID = 'image_id';
-	const FILEPATH = 'file_path';
-	const VERSION = 'version';
-	const CREATETIME = 'create_time';
-
-	const IDCOLUMN = 'id';
-	const SHARDDOMAIN = 'confone_image';
-	const TABLE = 'image_version';
-
+class ImageVersionDao extends ImageVersionDaoParent {
 
 // =============================================== public function =================================================
 
 	public static function updatePreview($imageId, $filePath) {
 		$previewImageVersion = ImageVersionDao::getPreviewImage($imageId);
-		$previewImageVersion->var[ImageVersionDao::FILEPATH] = $filePath;
+		$previewImageVersion->setFilePath($filePath);
 		$previewImageVersion->save();
 	}
 
@@ -27,12 +17,10 @@ class ImageVersionDao extends ContentDao {
 			$imageVersion = new ImageVersionDao();
 			$imageVersion->var = $previewImageVersion->var;
 
-			$sql = "SELECT COUNT(*) AS count FROM ".ImageVersionDao::TABLE." WHERE "
-					.ImageVersionDao::IMAGEID."=".$this->var[ImageVersionDao::IMAGEID];
-			$connect = DBUtil::getConn($imageVersion);
-			$res = DBUtil::selectData($connect, $sql);
+			$builder = new QueryBuilder($imageVersion);
+			$res = $builder->select('COUNT(*) AS count')->where('image_id', $this->getImageId())->find();
 
-			$imageVersion->var[ImageVersionDao::VERSION] = $res['count'];
+			$imageVersion->setVersion($res['count']);
 			return $imageVersion->save();
 		} else {
 			return false;
@@ -41,88 +29,59 @@ class ImageVersionDao extends ContentDao {
 
 	public static function getPreviewImage($imageId) {
 		$imageVersion = new ImageVersionDao();
-		$sequence = Utility::hashString($imageId);
+		$sequence = $imageId;
 		$imageVersion->setShardId($sequence);
 
-		$sql = "SELECT * from ".ImageVersionDao::TABLE." WHERE "
-				.ImageVersionDao::VERSION."=-1";
+		$builder = new QueryBuilder($imageVersion);
+		$res = $builder->select('*')->where('version', -1)->find();
 
-		$connect = DBUtil::getConn($imageVersion);
-		$res = DBUtil::selectData($connect, $sql);
-
-		return ContentDao::makeObjectFromSelectResult($res, "ImageVersionDao");
+		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
 
 	public static function getCurrentImage($imageId) {
 		$imageVersion = new ImageVersionDao();
-		$sequence = Utility::hashString($imageId);
+		$sequence = $imageId;
 		$imageVersion->setShardId($sequence);
 
-		$sql = "SELECT * from ".ImageVersionDao::TABLE." ORDER BY "
-				.ImageVersionDao::IDCOLUMN." DESC LIMIT 0, 1";
+		$builder = new QueryBuilder($imageVersion);
+		$res = $builder->select('*')->order('id', true)->limit(0, 1)->find();
 
-		$connect = DBUtil::getConn($imageVersion);
-		$res = DBUtil::selectData($connect, $sql);
-
-		return ContentDao::makeObjectFromSelectResult($res, "ImageVersionDao");
+		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
 
 	public static function getImages($imageId) {
 		$imageVersion = new ImageVersionDao();
-		$sequence = Utility::hashString($imageId);
+		$sequence = $imageId;
 		$imageVersion->setShardId($sequence);
 
-		$sql = "SELECT * from ".ImageVersionDao::TABLE." WHERE "
-				.ImageVersionDao::IMAGEID."=$imageId";
+		$builder = new QueryBuilder($imageVersion);
+		$rows = $builder->select('*')->where('image_id', $imageId)->findList();
 
-		$connect = DBUtil::getConn($imageVersion);
-		$rows = DBUtil::selectDataList($connect, $sql);
-
-		return ContentDao::makeObjectsFromSelectListResult($rows, "ImageVersionDao");
+		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ImageVersionDao");
 	}
 
 	public static function isPreviewImagePublished($imageId) {
 		$currentImage = ImageVersionDao::getCurrentImage($imageId);
 		$previewImage = ImageVersionDao::getPreviewImage($imageId);
 
-		$currentImageFilePath = $currentImage->var[ImageVersionDao::FILEPATH];
-		$previewImageFilePath = $previewImage->var[ImageVersionDao::FILEPATH];
+		$currentImageFilePath = $currentImage->getFilePath();
+		$previewImageFilePath = $previewImage->getFilePath();
 
 		return $currentImageFilePath == $previewImageFilePath;
 	}
 
 // ============================================ override functions ==================================================
 
-	protected function init() {
-		$this->var[ImageVersionDao::IDCOLUMN] = 0;
-		$this->var[ImageVersionDao::IMAGEID] = 0;
-		$this->var[ImageVersionDao::FILEPATH] = '';
-		$this->var[ImageVersionDao::VERSION] = -1;
-		$this->var[ImageVersionDao::CREATETIME] = '';
-	}
-
 	protected function beforeInsert() {
-		$sequence = Utility::hashString($this->var[ImageVersionDao::IMAGEID]);
+		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
-		$this->var[ImageVersionDao::CREATETIME] = gmdate('Y-m-d H:i:s');
+		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 
 	protected function beforeUpdate() {
-		$sequence = Utility::hashString($this->var[ImageVersionDao::IMAGEID]);
+		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
-		$this->var[ImageVersionDao::CREATETIME] = gmdate('Y-m-d H:i:s');
-	}
-
-	public function getShardDomain() {
-		return ImageVersionDao::SHARDDOMAIN;
-	}
-
-	public function getTableName() {
-		return ImageVersionDao::TABLE;
-	}
-
-	public function getIdColumnName() {
-		return ImageVersionDao::IDCOLUMN;
+		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 
 	protected function isShardBaseObject() {
