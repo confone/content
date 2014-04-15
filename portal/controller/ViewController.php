@@ -10,11 +10,28 @@ abstract class ViewController {
 			include 'view/'.$view;
 		} else {
 			throw new Exception('View does not exist.');
+			Logger::error('View '.$view.' does not exist.');
 		}
 	}
 
+	protected function redirect($url) {
+		header('Location: '.$url);
+		exit;
+	}
+
 	public function execute() {
+		if ($this->checkLogin()) {
+			global $base_host, $account_url, $_CSESSION, $_URI;
+			if (!$_CSESSION->hasUserId()) {
+				$this->redirect($account_url.'/login?redirect_uri='.$base_host.$_URI);
+			}
+		}
+
 		$this->control();
+	}
+
+	protected function checkLogin() {
+		return true;
 	}
 
 	abstract protected function control();

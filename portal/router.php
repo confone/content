@@ -9,7 +9,7 @@ include '../dao/config/config.inc';
 
 $uri = rtrim($_SERVER['REQUEST_URI'], '/');
 
-$_ASESSION = ASession::instance();
+$_CSESSION = CSession::instance();
 
 date_default_timezone_set('America/Vancouver');
 header('X-Powered-By: Confone Inc.');
@@ -37,10 +37,7 @@ if (!empty($uri)) {
     }
 }
 
-if (is_dir($uri) || empty($uri)) {
-	header('Location: '.$uri.'/index');
-	exit;
-}
+if (empty($uri)) { $uri = '/index'; }
 
 $uris = explode('/', $uri);
 foreach ($services as $key=>$val) {

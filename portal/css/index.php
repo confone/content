@@ -1,4 +1,4 @@
 <?php
-global $base_url;
-header('Location: '.$base_url);
+global $base_host;
+header('Location: '.$base_host);
 ?>
