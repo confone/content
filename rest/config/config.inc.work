@@ -5,11 +5,13 @@ $base_uri = '/rest';
 
 //=======================================================================================
 // auto include directory information
-$autoload_dirs = array( 'handler', 
+$autoload_dirs = array( '../util', 
+						'../model',
+                        '../dao',
+                        '../dao/parent',
+                        'handler', 
                         'requester', 
-                        'validator', 
-                        '../util', 
-                        '../dao' );
+                        'validator' );
 
 
 //=======================================================================================

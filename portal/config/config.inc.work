@@ -9,6 +9,7 @@ $account_url = 'http://local.account.confone.com';
 // =======================================================================================
 // auto include directory information
 $autoload_dirs = array( '../util',
+						'../model',
 						'../dao',
 						'../dao/parent',
 						'controller',
