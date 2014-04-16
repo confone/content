@@ -12,7 +12,7 @@ CREATE TABLE {$dbName}.image
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE INDEX {$dbName}_image_code_index ON {$dbName}.image (code(32));
-CREATE INDEX {$dbName}_image_project_path_id_index ON {$dbName}.image (project_path_id);
+CREATE INDEX {$dbName}_image_ppid_index ON {$dbName}.image (project_path_id);
 
 
 CREATE TABLE {$dbName}.image_version
@@ -26,7 +26,7 @@ CREATE TABLE {$dbName}.image_version
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE INDEX {$dbName}_version_image_id_index ON {$dbName}.version (image_id);
+CREATE INDEX {$dbName}_image_version_iid_index ON {$dbName}.image_version (image_id);
 
 
 GRANT ALL ON {$dbName}.* TO '{$uname}'@'%' IDENTIFIED BY '{$passwd}';

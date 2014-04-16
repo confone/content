@@ -12,7 +12,7 @@ CREATE TABLE {$dbName}.text
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE INDEX {$dbName}_text_code_index ON {$dbName}.text (code(32));
-CREATE INDEX {$dbName}_text_project_path_id_index ON {$dbName}.text (project_path_id);
+CREATE INDEX {$dbName}_text_ppid_index ON {$dbName}.text (project_path_id);
 
 
 CREATE TABLE {$dbName}.text_version
@@ -26,7 +26,7 @@ CREATE TABLE {$dbName}.text_version
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE INDEX {$dbName}_version_text_id_index ON {$dbName}.version (text_id);
+CREATE INDEX {$dbName}_text_version_tid_index ON {$dbName}.text_version (text_id);
 
 
 GRANT ALL ON {$dbName}.* TO '{$uname}'@'%' IDENTIFIED BY '{$passwd}';
