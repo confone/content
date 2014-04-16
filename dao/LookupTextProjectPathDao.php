@@ -3,13 +3,14 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getTextIds($projectPathId) {
+	public static function getTextIds($projectId, $projectPathId) {
 		$lookup = new LookupTextProjectPathDao();
-		$sequence = Utility::hashString($projectPathId);
+		$sequence = $projectId;
 		$lookup->setShardId($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$rows = $builder->select('text_id')
+						->where('project_id', $projectId)
 						->where('project_path_id', $projectPathId)
 						->findList();
 
@@ -24,11 +25,10 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 		}
 	}
 
-
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {
-		$sequence = Utility::hashString($this->getProjectPathId());
+		$sequence = $this->getProjectId();
 		$this->setShardId($sequence);
 	}
 

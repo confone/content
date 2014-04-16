@@ -7,6 +7,7 @@ abstract class ProjectPathDaoParent extends ContentDaoBase {
         $this->var['parent_path_id'] = '';
         $this->var['path'] = '';
         $this->var['path_full'] = '';
+        $this->var['is_deleted'] = '';
         $this->var['last_modify'] = '';
         $this->var['create_time'] = '';
 
@@ -15,6 +16,7 @@ abstract class ProjectPathDaoParent extends ContentDaoBase {
         $this->update['parent_path_id'] = false;
         $this->update['path'] = false;
         $this->update['path_full'] = false;
+        $this->update['is_deleted'] = false;
         $this->update['last_modify'] = false;
         $this->update['create_time'] = false;
     }
@@ -53,6 +55,14 @@ abstract class ProjectPathDaoParent extends ContentDaoBase {
     }
     public function getPathFull() {
         return $this->var['path_full'];
+    }
+
+    public function setIsDeleted($isDeleted) {
+        $this->var['is_deleted'] = $isDeleted;
+        $this->update['is_deleted'] = true;
+    }
+    public function getIsDeleted() {
+        return $this->var['is_deleted'];
     }
 
     public function setLastModify($lastModify) {

@@ -5,7 +5,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 
 	public static function getLookupsByAccountId($accountId) {
 		$lookup = new LookupProjectAccountDao();
-		$sequence = Utility::hashString($accountId);
+		$sequence = $accountId;
 		$lookup->setShardId($sequence);
 
 		$builder = new QueryBuilder($lookup);
@@ -18,7 +18,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 
 	public static function getAccessLevel($projectId, $accountId) {
 		$lookup = new LookupProjectAccountDao();
-		$sequence = Utility::hashString($accountId);
+		$sequence = $accountId;
 		$lookup->setShardId($sequence);
 
 		$builder = new QueryBuilder($lookup);
@@ -32,6 +32,20 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 		} else {
 			return ProjectDao::ACCESSLEVEL_NONE;
 		}
+	}
+
+	public static function removeLookup($projectId, $accountId) {
+		$lookup = new LookupProjectAccountDao();
+		$sequence = $accountId;
+		$lookup->setShardId($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		$res = $builder->delete()
+					   ->where('project_id', $projectId)
+					   ->where('account_id', $accountId)
+					   ->query();
+
+		return $res;
 	}
 
 // ============================================ override functions ==================================================

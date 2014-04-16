@@ -33,17 +33,15 @@ class TextDao extends TextDaoParent {
 
 	protected function beforeInsert() {
 		$lookup = new LookupTextCodeDao();
-		$lookup->var[LookupTextCodeDao::CODE] = $this->var[TextDao::CODE];
-		$lookup->var[LookupTextCodeDao::TEXTID] = $this->var[TextDao::IDCOLUMN];
-		$lookup->var[LookupTextCodeDao::PROJECTID] = $this->var[TextDao::PROJECTID];
+		$lookup->setCode($this->getCode());
+		$lookup->setTextId($this->getId());
+		$lookup->setProjectId($this->getProjectId());
 		$lookup->save();
 
-		$projectPathId = $this->var[TextDao::PROJECTPATHID];
-		$projectId = $this->var[TextDao::PROJECTID];
-
 		$lookup = new LookupTextProjectPathDao();
-		$lookup->var[LookupTextProjectPathDao::PROJECTPATHID] = $projectPathId!=0 ? $projectPathId : $projectId;
-		$lookup->var[LookupTextProjectPathDao::TEXTID] = $this->var[TextDao::IDCOLUMN];
+		$lookup->setProjectId($this->getProjectId());
+		$lookup->setProjectPathId($this->getProjectPathId());
+		$lookup->setTextId($this->getId());
 		$lookup->save();
 	}
 

@@ -40,11 +40,9 @@ class ImageDao extends ImageDaoParent {
 		$lookup->setProjectId($this->getProjectId());
 		$lookup->save();
 
-		$projectPathId = $this->getProjectPathId();
-		$projectId = $this->getProjectId();
-
 		$lookup = new LookupImageProjectPathDao();
-		$lookup->setProjectPathId($projectPathId!=0 ? $projectPathId : $projectId);
+		$lookup->setProjectId($this->getProjectId());
+		$lookup->setProjectPathId($this->getProjectPathId());
 		$lookup->setImageId($this->getId());
 		$lookup->save();
 	}

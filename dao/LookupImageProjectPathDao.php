@@ -3,14 +3,15 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getImageIds($projectPathId) {
+	public static function getImageIds($projectId, $projectPathId) {
 		$lookup = new LookupImageProjectPathDao();
-		$sequence = Utility::hashString($projectPathId);
+		$sequence = $projectId;
 		$lookup->setShardId($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$rows = $builder->select('image_id')
-						->where('project_id', $projectPathId)
+						->where('project_id', $projectId)
+						->where('project_path_id', $projectPathId)
 						->findList();
 
 		if ($rows) {
@@ -27,7 +28,7 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {
-		$sequence = Utility::hashString($this->getProjectPathId());
+		$sequence = $this->getProjectId();
 		$this->setShardId($sequence);
 	}
 

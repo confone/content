@@ -46,6 +46,11 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
 	}
 
+	public function delete() {
+		$this->setIsDeleted('Y');
+		$this->save();
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {
@@ -53,14 +58,16 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$this->setCreateTime($date);
 		$this->setLastModify($date);
 
+		$this->setIsDeleted('N');
+		if (empty($this->getParentPathId())) {
+			$this->setParentPathId(0);
+		}
+
 		$sequence = $this->getProjectId();
 		$this->setShardId($sequence);
 
 		if ($this->getParentPathId()!=0) {
 			$parentPath = ProjectPathDao::getProjectPath($this->getProjectId(), $this->getParentPathId());
-		}
-
-		if (isset($parentPath)) {
 			$this->setPathFull($parentPath->getPathFull().'/'.$this->getPath());
 		} else {
 			$this->setPathFull('/'.$this->getPath());
@@ -71,17 +78,13 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$date = gmdate('Y-m-d H:i:s');
 		$this->setLastModify($date);
 
-		$sequence = $this->getProjectId();
-		$this->setShardId($sequence);
-	
-		if ($this->getParentPathId()!=0) {
-			$parentPath = ProjectPathDao::getProjectPath($this->getProjectId(), $this->getParentPathId());
-		}
-
-		if (isset($parentPath)) {
-			$this->setPathFull($parentPath->getPathFull().'/'.$this->getPath());
-		} else {
-			$this->setPathFull('/'.$this->getPath());
+		if ($this->update['path']) {
+			if ($this->getParentPathId()!=0) {
+				$parentPath = ProjectPathDao::getProjectPath($this->getProjectId(), $this->getParentPathId());
+				$this->setPathFull($parentPath->getPathFull().'/'.$this->getPath());
+			} else {
+				$this->setPathFull('/'.$this->getPath());
+			}
 		}
 	}
 
