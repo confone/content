@@ -13,7 +13,12 @@ class ProjectPath extends Model {
 		return $this->dao->getId();
 	}
 	protected function init() {
-		$this->dao = $this->getInput();
+		$input = $this->getInput();
+		if (is_array($input)) {
+			$this->dao = ProjectPathDao::getProjectPath($input[0], $input[1]);
+		} else {
+			$this->dao = $this->getInput();
+		}
 	}
 	public function persist() {
 		$this->dao->save();
@@ -72,26 +77,50 @@ class ProjectPath extends Model {
 	}
 
 	public function addSubProjectPath($path) {
-		$pathDao = new ProjectPathDao();
-		$pathDao->setPath($path);
-		$pathDao->setProjectId($this->dao->getProjectId());
-		$pathDao->setParentPathId($this->getId());
-		$pathDao->save();
+		$pathExist = ProjectPathDao::isProjectPahtExist ( 
+					$this->dao->getProjectId(), $this->getId(), $path);
 
-		if (!empty($this->subProjectPaths)) {
-			$this->subProjectPaths[$pathDao->getId()] = new ProjectPath($pathDao->getid());
+		$rv = false;
+		if (!$pathExist) {
+			$pathDao = new ProjectPathDao();
+			$pathDao->setPath($path);
+			$pathDao->setProjectId($this->dao->getProjectId());
+			$pathDao->setParentPathId($this->getId());
+			$rv = $pathDao->save();
+
+			if (!empty($this->subProjectPaths)) {
+				$this->subProjectPaths[$pathDao->getId()] = new ProjectPath($pathDao->getid());
+			}
 		}
+
+		return $rv;
 	}
 
 	public function getSubProjectPaths() {
 		if (empty($this->subProjectPaths)) {
-			$ids = ProjectPathDao::getSubPathIds($this->dao->getProjectId(), $this->getId());
-			foreach ($ids as $id) {
-				$this->subProjectPaths[$id] = new ProjectPath($id);
+			$paths = ProjectPathDao::getChildrenPath($this->dao->getProjectId(), $this->getId());
+			foreach ($paths as $path) {
+				$this->subProjectPaths[$path->getId()] = new ProjectPath($path);
 			}
 		}
 
 		return $this->subProjectPaths;
 	}
+
+    public function getPath() {
+        return $this->dao->getPath();
+    }
+    public function getPathFull() {
+        return $this->dao->getPathFull();
+    }
+    public function isDeleted() {
+        return $this->dao->getIsDeleted()!='Y';
+    }
+    public function getLastModify() {
+        return $this->dao->getLastModify();
+    }
+    public function getCreateTime() {
+        return $this->dao->getCreateTime();
+    }
 }
 ?>

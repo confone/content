@@ -1,6 +1,8 @@
 <?php
 class ProjectPathDao extends ProjectPathDaoParent {
 
+	const ROOT_PATH = '_ROOT';
+
 // =============================================== public function =================================================
 
 	public static function isProjectPahtExist($projectId, $parentPahtId, $path) {
@@ -18,7 +20,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		return $res['count']>0;
 	}
 
-	public static function getChildrenPath($projectId, $pathId=0) {
+	public static function getChildrenPath($projectId, $parentPathId=0) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
 		$projectPath->setShardId($sequence);
@@ -26,7 +28,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$builder = new QueryBuilder($projectPath);
 		$rows = $builder->select('*')
 						->where('project_id', $projectId)
-						->where('parent_path_id', $pathId)
+						->where('parent_path_id', $parentPathId)
 						->findList();
 
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
@@ -39,8 +41,22 @@ class ProjectPathDao extends ProjectPathDaoParent {
 
 		$builder = new QueryBuilder($projectPath);
 		$res = $builder->select('*')
-					   ->where('project_id', $projectId)
 					   ->where('id', $pathId)
+					   ->find();
+
+		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
+	}
+
+	public static function getProjectRootPath($projectId) {
+		$projectPath = new ProjectPathDao();
+		$sequence = $projectId;
+		$projectPath->setShardId($sequence);
+
+		$builder = new QueryBuilder($projectPath);
+		$res = $builder->select('*')
+					   ->where('project_id', $projectId)
+					   ->where('parent_path_id', 0)
+					   ->where('path', self::ROOT_PATH)
 					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
@@ -59,7 +75,8 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$this->setLastModify($date);
 
 		$this->setIsDeleted('N');
-		if (empty($this->getParentPathId())) {
+		$parentPathId = $this->getParentPathId();
+		if (empty($parentPathId)) {
 			$this->setParentPathId(0);
 		}
 

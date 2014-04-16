@@ -16,7 +16,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "LookupProjectAccountDao");
 	}
 
-	public static function getAccessLevel($projectId, $accountId) {
+	public static function getUserAccessLevelOnProject($projectId, $accountId) {
 		$lookup = new LookupProjectAccountDao();
 		$sequence = $accountId;
 		$lookup->setShardId($sequence);

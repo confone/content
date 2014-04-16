@@ -11,7 +11,12 @@ class Text extends Model {
 		return $this->dao->getId();
 	}
 	protected function init() {
-		$this->dao = $this->getInput();
+		$input = $this->getInput();
+		if (is_numeric($input)) {
+			$this->dao = new TextDao($input);
+		} else {
+			$this->dao = $this->getInput();
+		}
 	}
 	public function persist() {
 		$this->dao->save();
@@ -58,12 +63,12 @@ class Text extends Model {
 		return TextVersionDao::publish($this->getId());
 	}
 
-	public function getFilePath() {
+	public function getContent() {
 		$path = '';
 
 		$versionDao = TextVersionDao::getCurrentText($this->getId());
 		if (isset($versionDao)) {
-			$path = $versionDao->getFilePath();
+			$path = $versionDao->getContent();
 		}
 
 		return $path;

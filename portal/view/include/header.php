@@ -14,7 +14,7 @@ global $base_host;
 <link rel="stylesheet" href="/portal/css/common.css">
 <?php if (isset($stylesheets)) {
     foreach ($stylesheets as $stylesheet) {
-        echo '<link rel="stylesheet" href="/css/'.$stylesheet.'">';
+        echo '<link rel="stylesheet" href="/portal/css/'.$stylesheet.'">';
     }
 } ?>
 </head>

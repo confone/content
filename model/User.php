@@ -11,14 +11,24 @@ class User extends Model {
     public function persist() {}
 
 	public function addProject($name) {
+		$rv = false;
+
 		$project = new ProjectDao();
 		$project->setName($name);
 		$project->setOwnerId($this->getId());
-		$project->save();
-		
+		$rv = $project->save();
+
+		$projectPath = new ProjectPathDao();
+		$projectPath->setParentPathId(0);
+		$projectPath->setProjectId($project->getId());
+		$projectPath->setPath(ProjectPathDao::ROOT_PATH);
+		$projectPath->save();
+
 		if (empty($this->projects)) {
 			$this->projects[$project->getId()] = new Project($project);
 		}
+
+		return $rv;
 	}
 
 	public function removeProject($project) {

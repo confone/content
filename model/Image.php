@@ -11,7 +11,12 @@ class Image extends Model {
 		return $this->dao->getId();
 	}
 	protected function init() {
-		$this->dao = $this->getInput();
+		$input = $this->getInput();
+		if (is_numeric($input)) {
+			$this->dao = new ImageDao($input);
+		} else {
+			$this->dao = $this->getInput();
+		}
 	}
 	public function persist() {
 		$this->dao->save();

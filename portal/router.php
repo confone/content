@@ -6,9 +6,10 @@ blockIp();
 include 'config/mapping.php';
 include '../dao/config/config.inc';
 
+global $_URI;
+$_URI = rtrim($_SERVER['REQUEST_URI'], '/');
 
-$uri = rtrim($_SERVER['REQUEST_URI'], '/');
-
+global $_CSESSION;
 $_CSESSION = CSession::instance();
 
 date_default_timezone_set('America/Vancouver');
@@ -17,12 +18,14 @@ header('X-Powered-By: Confone Inc.');
 $_PARAM = array();
 
 global $access_on;
-if ($access_on!=0) { Logger::access($uri); }
+if ($access_on!=0) { Logger::access($_URI); }
 
-// if $uri is set add .php ot its end for include as file name
+$uri = $_URI;
+
+// if $_URI is set add .php ot its end for include as file name
 //
-if (!empty($uri)) {
-    $gets = explode('?', $uri, 2);
+if (!empty($_URI)) {
+    $gets = explode('?', $_URI, 2);
 
     if (count($gets)>1) {
 	    $getParams = explode('&', $gets[1]);
@@ -104,7 +107,7 @@ function param($key) {
 		if (isset($_PARAM[$key])) {
 			return $_PARAM[$key];
 		} else {
-			return '';
+			return null;
 		}
 	}
 }
