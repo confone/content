@@ -1,16 +1,18 @@
 <?php
 abstract class Model {
 
-	private $id = null;
+	private $input = null;
 
-	public function __construct($id) {
-		$this->id = $id;
+	public function __construct($input) {
+		$this->input = $input;
 		$this->init();
 	}
 
-	public function getId() {
-		return $this->id;
+	protected function &getInput() {
+		return $this->input;
 	}
+
+	abstract public function getId();
 
 	abstract protected function init();
 

@@ -3,18 +3,16 @@ class TextDao extends TextDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getAllTexts($projectId, $projectPathId=0) {
-		$paths = ProjectPathDao::getChildrenPath($projectId, $projectPathId);
+	public static function getTexts($projectId, $projectPathId) {
+		$texts = array();
 
-		$atReturn = array();
-		foreach ($paths as $path) {
-			$ppid = $projectPathId!=0 ? $projectPathId : $projectId;
-			$textId = LookupTextProjectPathDao::getTextIds($ppid);
-			$text = new TextDao($textId);
-			array_push($atReturn, $text);
+		$ids = LookupTextProjectPathDao::getTextIds($projectId, $projectPathId);
+
+		foreach ($ids as $id) {
+			array_push($texts, new TextDao($id));
 		}
 
-		return $atReturn;
+		return $texts;
 	}
 
 	public static function getTextsByCode($code, $projectId) {

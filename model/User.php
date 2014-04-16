@@ -3,16 +3,22 @@ class User extends Model {
 
 	private $projects = array();
 
+	public function getId() {
+		return $this->getInput();
+	}
+
 	protected function init() {}
-	public function persist() {}
+    public function persist() {}
 
-	public function addProject($project) {
-		$lookup = new LookupProjectAccountDao();
-		$lookup->setAccountId($this->getId());
-		$lookup->setProjectId($project->getId());
-		$lookup->save();
-
-		$this->projects[$project->getId()] = $project;
+	public function addProject($name) {
+		$project = new ProjectDao();
+		$project->setName($name);
+		$project->setOwnerId($this->getId());
+		$project->save();
+		
+		if (empty($this->projects)) {
+			$this->projects[$project->getId()] = new Project($project);
+		}
 	}
 
 	public function removeProject($project) {

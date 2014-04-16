@@ -5,18 +5,26 @@ class Project extends Model {
 
 	private $projectPaths = array();
 
+	public function getId() {
+		return $this->dao->getId();
+	}
 	protected function init() {
-		$this->dao = new ProjectDao($this->getId());
+		$this->dao = $this->getInput();
 	}
 	public function persist() {
 		$this->dao->save();
 	}
 
-    public function addProjectPath($projectPath) {
-    	$projectPath->setProjectId($this->getId());
-    	$projectPath->persist();
+    public function addProjectPath($path) {
+		$pathDao = new ProjectPathDao();
+		$pathDao->setPath($path);
+		$pathDao->setProjectId($this->dao->getProjectId());
+		$pathDao->setParentPathId(0);
+		$pathDao->save();
 
-    	$this->projectPaths[$projectPath->getId()] = $projectPath;
+		if (!empty($this->projectPaths)) {
+			$this->projectPaths[$pathDao->getId()] = new ProjectPath($pathDao->getid());
+		}
     }
 
     public function removeProjectPath($projectPath) {

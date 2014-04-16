@@ -3,20 +3,16 @@ class ImageDao extends ImageDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getAllImages($projectId, $projectPathId=0) {
-		$paths = ProjectPathDao::getChildrenPath($projectId, $projectPathId);
+	public static function getImages($projectId, $projectPathId) {
+		$images = array();
 
-		$atReturn = array();
-		foreach ($paths as $path) {
-			$ppid = $projectPathId!=0 ? $projectPathId : $projectId;
-			$imageIds = LookupImageProjectPathDao::getImageIds($ppid);
-			foreach ($imageIds as $imageId) {
-				$image = new ImageDao($imageId);
-				array_push($atReturn, $image);
-			}
+		$ids = LookupImageProjectPathDao::getImageIds($projectId, $projectPathId);
+
+		foreach ($ids as $id) {
+			array_push($images, new ImageDao($id));
 		}
 
-		return $atReturn;
+		return $images;
 	}
 
 	public static function getImagesByCode($code, $projectId) {

@@ -7,8 +7,11 @@ class Text extends Model {
 
 	private $versions = array();
 
+	public function getId() {
+		return $this->dao->getId();
+	}
 	protected function init() {
-		$this->dao = new TextDao($this->getId());
+		$this->dao = $this->getInput();
 	}
 	public function persist() {
 		$this->dao->save();
@@ -37,7 +40,7 @@ class Text extends Model {
 		}
 	}
 
-	public function getAllVersionFiles() {
+	public function getAllVersionContent() {
 		if (empty($this->versions)) {
 			$textVersionDaos = TextVersionDao::getTexts($this->getId());
 			foreach ($textVersionDaos as $textVersionDao) {

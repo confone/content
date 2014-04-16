@@ -9,15 +9,18 @@ class ProjectPath extends Model {
 
 	private $subProjectPaths = array();
 
+	public function getId() {
+		return $this->dao->getId();
+	}
 	protected function init() {
-		$this->dao = new ProjectPathDao($this->getId());
+		$this->dao = $this->getInput();
 	}
 	public function persist() {
 		$this->dao->save();
 	}
 
 	public function remove() {
-		$this->getDao()->delete();
+		$this->dao->delete();
 	}
 
 	public function addImage($userId, $code) {
@@ -29,15 +32,15 @@ class ProjectPath extends Model {
 		$image->save();
 
 		if (!empty($this->images)) {
-			$this->images[$image->getId()] = new Image($image->getId());
+			$this->images[$image->getId()] = new Image($image);
 		}
 	}
 
 	public function getImages() {
 		if (empty($this->images)) {
-			$ids = LookupImageProjectPathDao::getImageIds($this->dao->getProjectId(), $this->getId());
-			foreach ($ids as $id) {
-				$this->images[$id] = new Image($id);
+			$images = ImageDao::getImages($this->dao->getProjectId(), $this->getId());
+			foreach ($images as $image) {
+				$this->images[$image->getId()] = new Image($image);
 			}
 		}
 
@@ -59,9 +62,9 @@ class ProjectPath extends Model {
 
 	public function getTexts() {
 		if (empty($this->texts)) {
-			$ids = LookupTextProjectPathDao::getTextIds($this->dao->getProjectId(), $this->getId());
-			foreach ($ids as $id) {
-				$this->texts[$id] = new Text($id);
+			$texts = TextDao::getTexts($this->dao->getProjectId(), $this->getId());
+			foreach ($texts as $text) {
+				$this->texts[$text->getId()] = new Text($text);
 			}
 		}
 
@@ -82,9 +85,9 @@ class ProjectPath extends Model {
 
 	public function getSubProjectPaths() {
 		if (empty($this->subProjectPaths)) {
-			$daos = ProjectPathDao::getChildrenPath($this->dao->getProjectId(), $this->getId());
-			foreach ($daos as $dao) {
-				$this->subProjectPaths[$dao->getId()] = new ProjectPath($dao->getId());
+			$ids = ProjectPathDao::getSubPathIds($this->dao->getProjectId(), $this->getId());
+			foreach ($ids as $id) {
+				$this->subProjectPaths[$id] = new ProjectPath($id);
 			}
 		}
 

@@ -7,8 +7,11 @@ class Image extends Model {
 
 	private $versions = array();
 
+	public function getId() {
+		return $this->dao->getId();
+	}
 	protected function init() {
-		$this->dao = new ImageDao($this->getId());
+		$this->dao = $this->getInput();
 	}
 	public function persist() {
 		$this->dao->save();
