@@ -8,7 +8,13 @@ class ProjectDetailController extends ViewController {
 			$this->redirect('/project/list');
 		}
 
+		global $_CSESSION;
+
 		$project = new Project($projectId);
+
+		if (!$project->isAvailableToUser($_CSESSION->getUserId())) {
+			$this->redirect('/project/list');
+		}
 
 		$path = param('project_path');
 		if (isset($path)) {

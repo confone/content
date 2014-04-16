@@ -29,6 +29,11 @@ class Project extends Model {
     	return $this->rootPath;
     }
 
+    public function isAvailableToUser($userId) {
+    	$access = LookupProjectAccountDao::getUserAccessLevelOnProject($this->getId(), $userId);
+    	return $access != ProjectDao::ACCESSLEVEL_NONE;
+    }
+
     public function setName($name) {
     	$this->dao->setName($name);
     }
