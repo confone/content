@@ -1,21 +1,19 @@
 <?php
 abstract class Model {
-	private $dao = null;
 
-	public function __construct($dao) {
-		$this->dao = $dao;
+	private $id = null;
+
+	public function __construct($id) {
+		$this->id = $id;
+		$this->init();
 	}
 
 	public function getId() {
-		return $this->dao->getId();
+		return $this->id;
 	}
 
-	protected function getDao() {
-		return $this->dao;
-	}
+	abstract protected function init();
 
-    public function persist() {
-    	$this->dao->save();
-    }
+    abstract public function persist();
 }
 ?>

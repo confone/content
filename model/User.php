@@ -2,11 +2,8 @@
 class User extends Model {
 
 	private $projects = array();
-	
-	public function getId() {
-		return $this->getDao();
-	}
 
+	protected function init() {}
 	public function persist() {}
 
 	public function addProject($project) {

@@ -1,6 +1,8 @@
 <?php
 class ImageVersionDao extends ImageVersionDaoParent {
 
+	const PREVIEW_VERSION = -1;
+
 // =============================================== public function =================================================
 
 	public static function updatePreview($imageId, $filePath) {
@@ -14,14 +16,18 @@ class ImageVersionDao extends ImageVersionDaoParent {
 
 		if ($image->isFromDatabase()) {
 			$previewImageVersion = ImageVersionDao::getPreviewImage($imageId);
-			$imageVersion = new ImageVersionDao();
-			$imageVersion->var = $previewImageVersion->var;
-
-			$builder = new QueryBuilder($imageVersion);
-			$res = $builder->select('COUNT(*) AS count')->where('image_id', $this->getImageId())->find();
-
-			$imageVersion->setVersion($res['count']);
-			return $imageVersion->save();
+			if (isset($previewImageVersion)) {
+				$imageVersion = new ImageVersionDao();
+				$imageVersion->var = $previewImageVersion->var;
+	
+				$builder = new QueryBuilder($imageVersion);
+				$res = $builder->select('COUNT(*) AS count')->where('image_id', $this->getImageId())->find();
+	
+				$imageVersion->setVersion($res['count']);
+				return $imageVersion->save();
+			} else {
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -33,7 +39,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$imageVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
-		$res = $builder->select('*')->where('version', -1)->find();
+		$res = $builder->select('*')->where('version', self::PREVIEW_VERSION)->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
@@ -44,7 +50,11 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$imageVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
-		$res = $builder->select('*')->order('id', true)->limit(0, 1)->find();
+		$res = $builder->select('*')
+					   ->where('image_id', $imageId)
+					   ->order('id', true)
+					   ->limit(0, 1)
+					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
@@ -72,15 +82,22 @@ class ImageVersionDao extends ImageVersionDaoParent {
 
 // ============================================ override functions ==================================================
 
+	protected function doDelete() {
+		$builder = new QueryBuilder($this);
+		$builder->delete()->where('id', $this->getId())->query();
+	}
+
 	protected function beforeInsert() {
+		$previewDao = self::getPreviewImage($this->getImageId());
+		if (isset($previewDao)) { $previewDao->delete(); }
+
 		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
+		$this->setVersion(self::PREVIEW_VERSION);
 	}
 
 	protected function beforeUpdate() {
-		$sequence = $this->getImageId();
-		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 

@@ -1,7 +1,16 @@
 <?php
 class Project extends Model {
 
+	private $dao = null;
+
 	private $projectPaths = array();
+
+	protected function init() {
+		$this->dao = new ProjectDao($this->getId());
+	}
+	public function persist() {
+		$this->dao->save();
+	}
 
     public function addProjectPath($projectPath) {
     	$projectPath->setProjectId($this->getId());
@@ -31,9 +40,6 @@ class Project extends Model {
     }
     public function getName() {
         return $this->dao->getName();
-    }
-    public function setOwnerId($ownerId) {
-    	$this->dao->setOwnerId($ownerId);
     }
     public function getOwnerId() {
         return $this->dao->getOwnerId();

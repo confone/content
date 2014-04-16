@@ -62,6 +62,15 @@ abstract class ContentDaoBase {
 	}
 
 	/**
+	 * Delete the object form database
+	 */
+	public function delete() {
+		$this->doDelete();
+		$this->fromdb = false;
+		$this->var[$this->getIdColumnName()] = 0;
+	}
+
+	/**
 	 * 
 	 * Retrive an object from database based on id
 	 * @param $id - the database primary key id
@@ -256,6 +265,8 @@ abstract class ContentDaoBase {
     protected function beforeUpdate() {}
 
     protected function beforeInsert() {}
+
+    protected function doDelete() {}
 
 //========================================================= abstract functions =============================================================
 

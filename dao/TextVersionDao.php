@@ -1,6 +1,8 @@
 <?php
 class TextVersionDao extends TextVersionDaoParent {
 
+	const PREVIEW_VERSION = -1;
+
 // =============================================== public function =================================================
 
 	public static function updatePreview($textId, $content) {
@@ -33,7 +35,7 @@ class TextVersionDao extends TextVersionDaoParent {
 		$textVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($textVersion);
-		$res = $builder->select('*')->where('version', -1)->find();
+		$res = $builder->select('*')->where('version', self::PREVIEW_VERSION)->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "TextVersionDao");
 	}
@@ -72,15 +74,22 @@ class TextVersionDao extends TextVersionDaoParent {
 
 // ============================================ override functions ==================================================
 
+	protected function doDelete() {
+		$builder = new QueryBuilder($this);
+		$builder->delete()->where('id', $this->getId())->query();
+	}
+
 	protected function beforeInsert() {
+		$previewDao = self::getPreviewText($this->getTextId());
+		if (isset($previewDao)) { $previewDao->delete(); }
+
 		$sequence = $this->getTextId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
+		$this->setVersion(self::PREVIEW_VERSION);
 	}
 
 	protected function beforeUpdate() {
-		$sequence = $this->getTextId();
-		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 
