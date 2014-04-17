@@ -10,12 +10,16 @@ class CreateProjectPathController extends ViewController {
 		if ($project->isAvailableToUser($_CSESSION->getUserId())) {
 			$parentPathId = param('parent_path_id');
 
-			$projectPath = new ProjectPath($projectId, $parentPathId);
+			if ($parentPathId==0) {
+				$parentPath = $project->getRootPath();
+			} else {
+				$parentPath = new ProjectPath($projectId, $parentPathId);
+			}
 
 			$path = param('project_path');
 
 			if (isset($path)) {
-				$projectPath->addSubProjectPath($path);
+				$parentPath->addSubProjectPath($path);
 			}
 		}
 

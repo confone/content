@@ -41,6 +41,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 
 		$builder = new QueryBuilder($projectPath);
 		$res = $builder->select('*')
+					   ->where('project_id', $projectId)
 					   ->where('id', $pathId)
 					   ->find();
 
