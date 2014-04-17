@@ -2,7 +2,7 @@
 include '../../dao/config/config.inc';
 
 $username = 'root';
-$password = $argv[1];;
+$password = $argv[1];
 
 foreach ($dbconfig as $key=>$val) {
 	createDatabases($key, $val);
