@@ -19,6 +19,11 @@ abstract class ViewController {
 		exit;
 	}
 
+	protected function response($body) {
+		echo json_encode($body);
+		exit;
+	}
+
 	public function execute() {
 		if ($this->checkLogin()) {
 			global $base_host, $account_url, $_CSESSION, $_URI;

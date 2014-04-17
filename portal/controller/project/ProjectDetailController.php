@@ -16,12 +16,6 @@ class ProjectDetailController extends ViewController {
 			$this->redirect('/project/list');
 		}
 
-		$path = param('project_path');
-		if (isset($path)) {
-			$rootPath = $project->getRootPath();
-			$rootPath->addSubProjectPath($path);
-		}
-
 		$this->render( array(
 			'title' => 'Project Information | Confone',
 			'view' => 'project/detail.php',

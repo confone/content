@@ -3,7 +3,7 @@ class Project extends Model {
 
 	private $dao = null;
 
-	private $rootPath = array();
+	private $rootPath = null;
 
 	public function getId() {
 		return $this->dao->getId();
@@ -21,12 +21,32 @@ class Project extends Model {
 	}
 
     public function getRootPath() {
-    	if (empty($this->rootPath)) {
+    	if (!isset($this->rootPath)) {
     		$pathDao = ProjectPathDao::getProjectRootPath($this->getId());
     		$this->rootPath = new ProjectPath($pathDao);
     	}
 
     	return $this->rootPath;
+    }
+
+    public function addImage($code) {
+		$image = new ImageDao();
+		$image->setAccountId($this->dao->getOwnerId());
+		$image->setCode($code);
+		$image->setProjectId($this->getId());
+		$image->save();
+
+		$this->getRootPath()->addImage($image->getId());
+    }
+
+    public function addText($code) {
+		$text = new TextDao();
+		$text->setAccountId($this->dao->getOwnerId());
+		$text->setCode($code);
+		$text->setProjectId($this->getId());
+		$text->save();
+
+		$this->getRootPath()->addText($text->getId());
     }
 
     public function isAvailableToUser($userId) {

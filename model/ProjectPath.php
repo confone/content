@@ -28,16 +28,15 @@ class ProjectPath extends Model {
 		$this->dao->delete();
 	}
 
-	public function addImage($userId, $code) {
-		$image = new ImageDao();
-		$image->setAccountId($userId);
-		$image->setCode($code);
-		$image->setProjectId($this->dao->getProjectId());
-		$image->setProjectPathId($this->getId());
-		$image->save();
+	public function addImage($imageId) {
+		$lookup = new LookupImageProjectPathDao();
+		$lookup->setProjectId($this->dao->getProjectId());
+		$lookup->setProjectPathId($this->getId);
+		$lookup->setImageId($imageId);
+		$lookup->save();
 
 		if (!empty($this->images)) {
-			$this->images[$image->getId()] = new Image($image);
+			$this->images[$imageId] = new Image($imageId);
 		}
 	}
 
@@ -52,16 +51,15 @@ class ProjectPath extends Model {
 		return $this->images;
 	}
 
-	public function addText($userId, $code) {
-		$text = new TextDao();
-		$text->setAccountId($userId);
-		$text->setCode($code);
-		$text->setProjectId($this->dao->getProjectId());
-		$text->setProjectPathId($this->getId());
-		$text->save();
+	public function addText($textId) {
+		$lookup = new LookupTextProjectPathDao();
+		$lookup->setProjectId($this->dao->getProjectId());
+		$lookup->setProjectPathId($this->getId);
+		$lookup->setTextId($textId);
+		$lookup->save();
 
 		if (!empty($this->texts)) {
-			$this->texts[$text->getId()] = new Text($text->getId());
+			$this->texts[$textId] = new Text($textId);
 		}
 	}
 

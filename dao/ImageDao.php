@@ -35,12 +35,6 @@ class ImageDao extends ImageDaoParent {
 		$lookup->setImageId($this->getId());
 		$lookup->setProjectId($this->getProjectId());
 		$lookup->save();
-
-		$lookup = new LookupImageProjectPathDao();
-		$lookup->setProjectId($this->getProjectId());
-		$lookup->setProjectPathId($this->getProjectPathId());
-		$lookup->setImageId($this->getId());
-		$lookup->save();
 	}
 
 	protected function isShardBaseObject() {

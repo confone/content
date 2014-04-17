@@ -5,7 +5,6 @@ abstract class ImageDaoParent extends ContentDaoBase {
         $this->var['id'] = '';
         $this->var['code'] = '';
         $this->var['project_id'] = '';
-        $this->var['project_path_id'] = '';
         $this->var['account_id'] = '';
         $this->var['create_time'] = '';
         $this->var['last_modify'] = '';
@@ -13,7 +12,6 @@ abstract class ImageDaoParent extends ContentDaoBase {
         $this->update['id'] = false;
         $this->update['code'] = false;
         $this->update['project_id'] = false;
-        $this->update['project_path_id'] = false;
         $this->update['account_id'] = false;
         $this->update['create_time'] = false;
         $this->update['last_modify'] = false;
@@ -37,14 +35,6 @@ abstract class ImageDaoParent extends ContentDaoBase {
     }
     public function getProjectId() {
         return $this->var['project_id'];
-    }
-
-    public function setProjectPathId($projectPathId) {
-        $this->var['project_path_id'] = $projectPathId;
-        $this->update['project_path_id'] = true;
-    }
-    public function getProjectPathId() {
-        return $this->var['project_path_id'];
     }
 
     public function setAccountId($accountId) {

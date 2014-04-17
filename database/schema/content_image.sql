@@ -3,7 +3,6 @@ CREATE TABLE {$dbName}.image
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	code VARCHAR(33),
 	project_id INT(10) UNSIGNED,
-	project_path_id INT(10) UNSIGNED,
 	account_id INT(10) UNSIGNED,
 	create_time DATETIME,
 	last_modify DATETIME,
@@ -12,7 +11,6 @@ CREATE TABLE {$dbName}.image
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE INDEX {$dbName}_image_code_index ON {$dbName}.image (code(32));
-CREATE INDEX {$dbName}_image_ppid_index ON {$dbName}.image (project_path_id);
 
 
 CREATE TABLE {$dbName}.image_version

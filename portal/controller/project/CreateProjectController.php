@@ -15,11 +15,9 @@ class CreateProjectController extends ViewController {
 			}
 		}
 
-		$this->render( array(
-			'title' => 'New Content Management Project | Confone',
-			'view' => 'project/new.php',
-			'error' => isset($error) ? $error : null
-		));
+		$this->redirect('/project/list');
+
+//		$this->response(array());
 	}
 }
 ?>

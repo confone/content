@@ -85,9 +85,9 @@ class ProjectPathDao extends ProjectPathDaoParent {
 
 		if ($this->getParentPathId()!=0) {
 			$parentPath = ProjectPathDao::getProjectPath($this->getProjectId(), $this->getParentPathId());
-			$this->setPathFull($parentPath->getPathFull().'/'.$this->getPath());
+			$this->setPathFull($parentPath->getPathFull().$this->getPath().'/');
 		} else {
-			$this->setPathFull('/'.$this->getPath());
+			$this->setPathFull('/');
 		}
 	}
 
