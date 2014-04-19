@@ -5,16 +5,16 @@ $scripts = array('project.js');
 include 'view/include/header.php';
 ?>
 <div class="add_image">
-<form action="/image/path" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="text" name="image_id" placeholder="(Image Id)" />
+<form action="/image/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<input type="text" name="code" placeholder="(Image Code)" />
 <input type="hidden" name="parent_path_id" value="<?=$projectPath->getId() ?>" />
 <input type="hidden" name="project_id" value="<?=$projectId ?>" />
 <input type="submit" class="button" value="Submit" />
 </form>
 </div>
 <div class="add_text">
-<form action="/text/path" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="text" name="project_path" placeholder="(Project Path)" />
+<form action="/text/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<input type="text" name="code" placeholder="(Text Code)" />
 <input type="hidden" name="parent_path_id" value="<?=$projectPath->getId() ?>" />
 <input type="hidden" name="project_id" value="<?=$projectId ?>" />
 <input type="submit" class="button" value="Submit" />

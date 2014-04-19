@@ -41,7 +41,7 @@ class Image extends Model {
 		$versionDao->save();
 
 		if (!empty($this->versions)) {
-			$this->versions[ImageVersionDao::PREVIEW_VERSION] = $versionDao;
+			$this->versions[''.ImageVersionDao::PREVIEW_VERSION] = $versionDao;
 		}
 	}
 
@@ -91,7 +91,12 @@ class Image extends Model {
     public function getCode() {
         return $this->dao->getCode();
     }
-
+	public function getProjectId() {
+		return $this->dao->getProjectId();
+	}
+    public function getAccountId() {
+        return $this->dao->getAccountId();
+    }
     public function getCreateTime() {
         return $this->dao->getCreateTime();
     }

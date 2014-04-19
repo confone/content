@@ -29,19 +29,19 @@ include 'view/include/header.php';
 <div>
 Groups:<br>
 <?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
-<div><a href="/project/path-detail?project_id=<?=$project->getId() ?>&id=<?=$path->getId() ?>"><?=$path->getPath(); ?></a></div>
+<div><a href="/project/path?project_id=<?=$project->getId() ?>&id=<?=$path->getId() ?>"><?=$path->getPath(); ?></a></div>
 <?php } ?>
 </div>
 <div>
 Images:<br>
 <?php foreach ($project->getRootPath()->getImages() as $image) { ?>
-<div><?=$image->getFilePath(); ?></div>
+<div><a href="/image/detail?project_id=<?=$project->getId() ?>&id=<?=$image->getId() ?>"><?=$image->getCode(); ?></a></div>
 <?php } ?>
 </div>
 <div>
 Texts:<br>
 <?php foreach ($project->getRootPath()->getTexts() as $text) { ?>
-<div><?=$text->getContent(); ?></div>
+<div><?=$text->getCode(); ?></div>
 <?php } ?>
 </div>
 <?php 

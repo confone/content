@@ -3,7 +3,7 @@ class LookupImageCodeDao extends LookupImageCodeDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getImageId($code, $projectId) {
+	public static function lookupImageId($code, $projectId) {
 		$lookup = new LookupImageCodeDao();
 		$sequence = Utility::hashString($code);
 		$lookup->setShardId($sequence);

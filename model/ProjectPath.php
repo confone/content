@@ -31,7 +31,7 @@ class ProjectPath extends Model {
 	public function addImage($imageId) {
 		$lookup = new LookupImageProjectPathDao();
 		$lookup->setProjectId($this->dao->getProjectId());
-		$lookup->setProjectPathId($this->getId);
+		$lookup->setProjectPathId($this->getId());
 		$lookup->setImageId($imageId);
 		$lookup->save();
 
