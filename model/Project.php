@@ -29,24 +29,32 @@ class Project extends Model {
     	return $this->rootPath;
     }
 
-    public function addImage($code) {
+    public function addImage($code, $rootPath=false) {
 		$image = new ImageDao();
 		$image->setAccountId($this->dao->getOwnerId());
 		$image->setCode($code);
 		$image->setProjectId($this->getId());
 		$image->save();
 
-		$this->getRootPath()->addImage($image->getId());
+		if ($rootPath) {
+			$this->getRootPath()->addImage($image->getId());
+		}
+
+		return $image->getId();
     }
 
-    public function addText($code) {
+    public function addText($code, $rootPath=false) {
 		$text = new TextDao();
 		$text->setAccountId($this->dao->getOwnerId());
 		$text->setCode($code);
 		$text->setProjectId($this->getId());
 		$text->save();
 
-		$this->getRootPath()->addText($text->getId());
+		if ($rootPath) {
+			$this->getRootPath()->addText($text->getId());
+		}
+
+		return $text->getId();
     }
 
     public function isAvailableToUser($userId) {

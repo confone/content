@@ -8,9 +8,23 @@ class CreateTextController extends ViewController {
 		$project = new Project($projectId);
 
 		if ($project->isAvailableToUser($_CSESSION->getUserId())) {
+			$projPathId = param('project_path_id');
+
 			$code = param('code');
 
-			$project->addText($code);
+			$isProjectPath = false;
+			if (isset($projPathId) && $projPathId>0) {
+				$projPath = new ProjectPath($projectId, $projPathId);
+				$textId = $project->addText($code);
+				$projPath->addText($textId);
+				$isProjectPath = true;
+			} else {
+				$project->addText($code, true);
+			}
+		}
+
+		if ($isProjectPath) {
+			$this->redirect('/project/path?project_id='.$projectId.'&id='.$projPathId);
 		}
 
 		$this->redirect('/project/detail?id='.$projectId);

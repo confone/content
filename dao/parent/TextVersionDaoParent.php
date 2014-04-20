@@ -5,12 +5,14 @@ abstract class TextVersionDaoParent extends ContentDaoBase {
         $this->var['id'] = '';
         $this->var['text_id'] = '';
         $this->var['content'] = '';
+        $this->var['language'] = '';
         $this->var['version'] = '';
         $this->var['create_time'] = '';
 
         $this->update['id'] = false;
         $this->update['text_id'] = false;
         $this->update['content'] = false;
+        $this->update['language'] = false;
         $this->update['version'] = false;
         $this->update['create_time'] = false;
     }
@@ -33,6 +35,14 @@ abstract class TextVersionDaoParent extends ContentDaoBase {
     }
     public function getContent() {
         return $this->var['content'];
+    }
+
+    public function setLanguage($language) {
+        $this->var['language'] = $language;
+        $this->update['language'] = true;
+    }
+    public function getLanguage() {
+        return $this->var['language'];
     }
 
     public function setVersion($version) {

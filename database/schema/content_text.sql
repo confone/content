@@ -18,13 +18,15 @@ CREATE TABLE {$dbName}.text_version
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	text_id INT(10) UNSIGNED, 
 	content TEXT,
-	version INT(4),
+	language VARCHAR(3),
+	version TINYINT,
 	create_time DATETIME,
 
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE INDEX {$dbName}_text_version_tid_index ON {$dbName}.text_version (text_id);
+CREATE INDEX {$dbName}_text_version_text_id_index ON {$dbName}.text_version (text_id);
+CREATE INDEX {$dbName}_text_version_language_index ON {$dbName}.text_version (language(2));
 
 
 GRANT ALL ON {$dbName}.* TO '{$uname}'@'%' IDENTIFIED BY '{$passwd}';

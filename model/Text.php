@@ -34,14 +34,18 @@ class Text extends Model {
 		return $this->owner;
 	}
 
-	public function addNewVersion($content) {
+	public function addNewVersion($content, $language='en') {
 		$versionDao = new TextVersionDao();
 		$versionDao->setContent($content);
 		$versionDao->setTextId($this->getId());
+		$versionDao->setLanguage($language);
 		$versionDao->save();
 
 		if (!empty($this->versions)) {
-			$this->versions[TextVersionDao::PREVIEW_VERSION] = $versionDao;
+			if (!isset($this->versions[$language])) {
+				$this->versions[$language] = array();
+			}
+			$this->versions[$language][TextVersionDao::PREVIEW_VERSION] = $versionDao;
 		}
 	}
 
@@ -49,24 +53,28 @@ class Text extends Model {
 		if (empty($this->versions)) {
 			$textVersionDaos = TextVersionDao::getTexts($this->getId());
 			foreach ($textVersionDaos as $textVersionDao) {
+				$language = $textVersionDao->getLanguage();
+				if (!isset($this->versions[$language])) {
+					$this->versions[$language] = array();
+				}
 				$version = $textVersionDao->getVersion();
-				$this->versions[$version] = array();
-				$this->versions[$version]['content'] = $textVersionDao->getContent();
-				$this->versions[$version]['create_time'] = $textVersionDao->getCreateTime();
+				$this->versions[$language][$version] = array();
+				$this->versions[$language][$version]['content'] = $textVersionDao->getContent();
+				$this->versions[$language][$version]['create_time'] = $textVersionDao->getCreateTime();
 			}
 		}
 
 		return $this->versions;
 	}
 
-	public function publishNewVersion() {
-		return TextVersionDao::publish($this->getId());
+	public function publishNewVersion($language='en') {
+		return TextVersionDao::publish($this->getId(), $language);
 	}
 
-	public function getContent() {
+	public function getContent($language='en') {
 		$path = '';
 
-		$versionDao = TextVersionDao::getCurrentText($this->getId());
+		$versionDao = TextVersionDao::getCurrentText($this->getId(), $language);
 		if (isset($versionDao)) {
 			$path = $versionDao->getContent();
 		}
@@ -74,12 +82,12 @@ class Text extends Model {
 		return $path;
 	}
 
-	public function getPreviewFilePath() {
+	public function getPreviewContent($language='en') {
 		$path = '';
 
-		$versionDao = TextVersionDao::getPreviewText($this->getId());
+		$versionDao = TextVersionDao::getPreviewText($this->getId(), $language);
 		if (isset($versionDao)) {
-			$path = $versionDao->getFilePath();
+			$path = $versionDao->getContent();
 		}
 
 		return $path;

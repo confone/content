@@ -105,6 +105,9 @@ class ProjectPath extends Model {
 		return $this->subProjectPaths;
 	}
 
+    public function getProjectId() {
+        return $this->dao->getProjectId();
+    }
     public function getPath() {
         return $this->dao->getPath();
     }

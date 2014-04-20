@@ -13,9 +13,10 @@ class CreateTextVersionController extends ViewController {
 			$text = new Text($textId);
 
 			$content = param('content');
+			$language = param('language');
 
 			if (isset($content)) {
-				$text->addNewVersion($content);
+				$text->addNewVersion($content, $language);
 			}
 		}
 

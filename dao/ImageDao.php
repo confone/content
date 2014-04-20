@@ -7,7 +7,7 @@ class ImageDao extends ImageDaoParent {
 		$images = array();
 
 		$ids = LookupImageProjectPathDao::getImageIds($projectId, $projectPathId);
-
+Logger::info(json_encode($ids));
 		foreach ($ids as $id) {
 			array_push($images, new ImageDao($id));
 		}

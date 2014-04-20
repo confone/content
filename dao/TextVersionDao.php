@@ -5,66 +5,96 @@ class TextVersionDao extends TextVersionDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function updatePreview($textId, $content) {
-		$previewTextVersion = TextVersionDao::getPreviewText($textId);
+	public static function updatePreview($textId, $content, $language='en') {
+		$previewTextVersion = TextVersionDao::getPreviewText($textId, $language);
 		$previewTextVersion->setContent($content);
+		$previewTextVersion->setLanguage($language);
 		$previewTextVersion->save();
 	}
 
-	public static function publish($textId) {
+	public static function publish($textId, $language='en') {
 		$text = new TextDao($textId);
 
 		if ($text->isFromDatabase()) {
-			$previewTextVersion = TextVersionDao::getPreviewText($textId);
+			$previewTextVersion = TextVersionDao::getPreviewText($textId, $language);
 			$textVersion = new TextVersionDao();
 			$textVersion->var = $previewTextVersion->var;
 
 			$builder = new QueryBuilder($imageVersion);
-			$res = $builder->select('COUNT(*) AS count')->where('text_id', $this->getTextId())->find();
+			$res = $builder->select('COUNT(*) AS count')
+						   ->where('text_id', $this->getTextId())
+						   ->where('language', $language)
+						   ->find();
 
-			$textVersion->var[TextVersionDao::VERSION] = $res['count'];
+			$textVersion->setVersion($res['count']);
 			return $textVersion->save();
 		} else {
 			return false;
 		}
 	}
 
-	public static function getPreviewText($textId) {
+	public static function getPreviewText($textId, $language='en') {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
 		$textVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($textVersion);
-		$res = $builder->select('*')->where('version', self::PREVIEW_VERSION)->find();
+		$res = $builder->select('*')
+					   ->where('version', self::PREVIEW_VERSION)
+					   ->where('language', $language)
+					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "TextVersionDao");
 	}
 
-	public static function getCurrentText($textId) {
+	public static function getCurrentText($textId, $language='en') {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
 		$textVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($textVersion);
-		$res = $builder->select('*')->order('id', true)->limit(0, 1)->find();
+		$res = $builder->select('*')
+					   ->where('language', $language)
+					   ->order('id', true)
+					   ->limit(0, 1)
+					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "TextVersionDao");
 	}
 
-	public static function getTexts($textId) {
+	public static function getTexts($textId, $language=null) {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
 		$textVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($textVersion);
-		$rows = $builder->select('*')->where('text_id', $textId)->findList();
+		$builder->select('*')->where('text_id', $textId);
+		if (isset($language)) {
+			$builder->where('language', $language);
+		}
+		$rows = $builder->findList();
 
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "TextVersionDao");
 	}
 
-	public static function isPreviewTextPublished($textId) {
-		$currentText = TextVersionDao::getCurrentText($textId);
-		$previewText = TextVersionDao::getPreviewText($textId);
+	public static function getTextsInRange($textId, $range, $language=null) {
+		$textVersion = new TextVersionDao();
+		$sequence = $textId;
+		$textVersion->setShardId($sequence);
+
+		$builder = new QueryBuilder($textVersion);
+		$builder->select('*')->in('id', $range);
+		if (isset($language)) {
+			$builder->where('language', $language);
+		}
+		$rows = $builder->findList();
+
+		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "TextVersionDao");
+	}
+
+	public static function isPreviewTextPublished($textId, $language='en') {
+		$currentText = TextVersionDao::getCurrentText($textId, $language);
+		$previewText = TextVersionDao::getPreviewText($textId, $language);
 
 		$currentTextContent = $currentText->getContent();
 		$previewTextContent = $previewText->getContent();
@@ -80,7 +110,7 @@ class TextVersionDao extends TextVersionDaoParent {
 	}
 
 	protected function beforeInsert() {
-		$previewDao = self::getPreviewText($this->getTextId());
+		$previewDao = self::getPreviewText($this->getTextId(), $this->getLanguage());
 		if (isset($previewDao)) { $previewDao->delete(); }
 
 		$sequence = $this->getTextId();
