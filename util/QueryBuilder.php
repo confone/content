@@ -128,8 +128,6 @@ class QueryBuilder {
 	}
 
 	public function query() {
-		Logger::info($this->query);
-
 		if ($this->isInsert) {
 			if ($this->connection->query($this->query)) {
 				$this->result = $this->connection->insert_id;
@@ -179,7 +177,7 @@ class QueryBuilder {
 
 		$db_username = $dbconfig[$domain]['username'];
 		$db_password = $dbconfig[$domain]['password'];
-
+Logger::info($this->object->getServerAddress().', '.$db_username.', '.$db_password.', '.$this->object->getShardedDatabaseName());
 		$this->connection = mysqli_connect( 'p:'.$this->object->getServerAddress(), 
 											$db_username,
 											$db_password,

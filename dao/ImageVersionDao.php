@@ -21,7 +21,9 @@ class ImageVersionDao extends ImageVersionDaoParent {
 				$imageVersion->var = $previewImageVersion->var;
 	
 				$builder = new QueryBuilder($imageVersion);
-				$res = $builder->select('COUNT(*) AS count')->where('image_id', $this->getImageId())->find();
+				$res = $builder->select('COUNT(*) AS count')
+							   ->where('image_id', $this->getImageId())
+							   ->find();
 	
 				$imageVersion->setVersion($res['count']);
 				return $imageVersion->save();
@@ -39,7 +41,10 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$imageVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
-		$res = $builder->select('*')->where('version', self::PREVIEW_VERSION)->find();
+		$res = $builder->select('*')
+					   ->where('image_id', $imageId)
+					   ->where('version', self::PREVIEW_VERSION)
+					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
@@ -65,7 +70,9 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$imageVersion->setShardId($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
-		$rows = $builder->select('*')->where('image_id', $imageId)->findList();
+		$rows = $builder->select('*')
+						->where('image_id', $imageId)
+						->findList();
 
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ImageVersionDao");
 	}
@@ -88,13 +95,13 @@ class ImageVersionDao extends ImageVersionDaoParent {
 	}
 
 	protected function beforeInsert() {
-		$previewDao = self::getPreviewImage($this->getImageId());
-		if (isset($previewDao)) { $previewDao->delete(); }
-
 		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 		$this->setVersion(self::PREVIEW_VERSION);
+
+		$previewDao = self::getPreviewImage($this->getImageId());
+		if (isset($previewDao)) { $previewDao->delete(); }
 	}
 
 	protected function beforeUpdate() {
