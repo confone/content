@@ -96,6 +96,9 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$date = gmdate('Y-m-d H:i:s');
 		$this->setLastModify($date);
 
+		$sequence = $this->getProjectId();
+		$this->setShardId($sequence);
+
 		if ($this->update['path']) {
 			if ($this->getParentPathId()!=0) {
 				$parentPath = ProjectPathDao::getProjectPath($this->getProjectId(), $this->getParentPathId());
