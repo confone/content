@@ -3,7 +3,7 @@ class LookupTextCodeDao extends LookupTextCodeDaoParent {
 
 // =============================================== public function =================================================
 
-	public static function getTextId($code, $projectId) {
+	public static function lookupTextId($code, $projectId) {
 		$lookup = new LookupTextCodeDao();
 		$sequence = Utility::hashString($code);
 		$lookup->setShardId($sequence);

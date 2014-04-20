@@ -51,7 +51,7 @@ class Text extends Model {
 			foreach ($textVersionDaos as $textVersionDao) {
 				$version = $textVersionDao->getVersion();
 				$this->versions[$version] = array();
-				$this->versions[$version]['file_path'] = $textVersionDao->getFilePath();
+				$this->versions[$version]['content'] = $textVersionDao->getContent();
 				$this->versions[$version]['create_time'] = $textVersionDao->getCreateTime();
 			}
 		}
@@ -91,7 +91,12 @@ class Text extends Model {
     public function getCode() {
         return $this->dao->getCode();
     }
-
+	public function getProjectId() {
+		return $this->dao->getProjectId();
+	}
+    public function getAccountId() {
+        return $this->dao->getAccountId();
+    }
     public function getCreateTime() {
         return $this->dao->getCreateTime();
     }

@@ -15,7 +15,7 @@ register('/image/version/new', new CreateImageVersionController());
 register('/text/detail',      new TextDetailController());
 register('/text/new',         new CreateTextController());
 register('/text/path',        new TextToPathController());
-register('/tect/version/new', new CreateTextVersionController());
+register('/text/version/new', new CreateTextVersionController());
 
 register('/howto', new ContentHowtoController());
 ?>

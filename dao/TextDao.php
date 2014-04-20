@@ -16,7 +16,7 @@ class TextDao extends TextDaoParent {
 	}
 
 	public static function getTextsByCode($code, $projectId) {
-		$textIds = LookupTextCodeDao::getTextId($code, $projectId);
+		$textIds = LookupTextCodeDao::lookupTextId($code, $projectId);
 
 		$atReturn = array();
 		foreach ($textIds as $textId) {
@@ -34,12 +34,6 @@ class TextDao extends TextDaoParent {
 		$lookup->setCode($this->getCode());
 		$lookup->setTextId($this->getId());
 		$lookup->setProjectId($this->getProjectId());
-		$lookup->save();
-
-		$lookup = new LookupTextProjectPathDao();
-		$lookup->setProjectId($this->getProjectId());
-		$lookup->setProjectPathId($this->getProjectPathId());
-		$lookup->setTextId($this->getId());
 		$lookup->save();
 	}
 

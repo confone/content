@@ -54,7 +54,7 @@ class ProjectPath extends Model {
 	public function addText($textId) {
 		$lookup = new LookupTextProjectPathDao();
 		$lookup->setProjectId($this->dao->getProjectId());
-		$lookup->setProjectPathId($this->getId);
+		$lookup->setProjectPathId($this->getId());
 		$lookup->setTextId($textId);
 		$lookup->save();
 

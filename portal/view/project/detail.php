@@ -41,7 +41,7 @@ Images:<br>
 <div>
 Texts:<br>
 <?php foreach ($project->getRootPath()->getTexts() as $text) { ?>
-<div><?=$text->getCode(); ?></div>
+<div><a href="/text/detail?project_id=<?=$project->getId() ?>&id=<?=$text->getId() ?>"><?=$text->getCode(); ?></a></div>
 <?php } ?>
 </div>
 <?php 
