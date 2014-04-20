@@ -107,23 +107,27 @@ class TextVersionDao extends TextVersionDaoParent {
 // ============================================ override functions ==================================================
 
 	protected function doDelete() {
-Logger::info('i am here ... 0');
+		$sequence = $this->getTextId();
+		$this->setShardId($sequence);
+
 		$builder = new QueryBuilder($this);
 		$builder->delete()->where('id', $this->getId())->query();
-Logger::info('i am here ... 1');
 	}
 
 	protected function beforeInsert() {
+		$previewDao = self::getPreviewText($this->getTextId(), $this->getLanguage());
+		if (isset($previewDao)) { $previewDao->delete(); }
+
 		$sequence = $this->getTextId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 		$this->setVersion(self::PREVIEW_VERSION);
-
-		$previewDao = self::getPreviewText($this->getTextId(), $this->getLanguage());
-		if (isset($previewDao)) { $previewDao->delete(); }
 	}
 
 	protected function beforeUpdate() {
+		$sequence = $this->getTextId();
+		$this->setShardId($sequence);
+
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 

@@ -90,18 +90,21 @@ class ImageVersionDao extends ImageVersionDaoParent {
 // ============================================ override functions ==================================================
 
 	protected function doDelete() {
+		$sequence = $this->getImageId();
+		$this->setShardId($sequence);
+
 		$builder = new QueryBuilder($this);
 		$builder->delete()->where('id', $this->getId())->query();
 	}
 
 	protected function beforeInsert() {
+		$previewDao = self::getPreviewImage($this->getImageId());
+		if (isset($previewDao)) { $previewDao->delete(); }
+
 		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 		$this->setVersion(self::PREVIEW_VERSION);
-
-		$previewDao = self::getPreviewImage($this->getImageId());
-		if (isset($previewDao)) { $previewDao->delete(); }
 	}
 
 	protected function beforeUpdate() {
