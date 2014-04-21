@@ -20,7 +20,11 @@ Files to upload:
 </div>
 Versions:
 <?php foreach ($image->getAllVersionFiles() as $key=>$version) { ?>
-<div>Version <?=$key ?>: <?=$version['file_path'] ?></div>
+<div>Version <?=$key ?>: <?php 
+global $image_separator; 
+$paths = explode($image_separator, $version['file_path']); 
+echo $paths[1];
+?></div>
 <?php } ?>
 <div class="publish">
 <form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">

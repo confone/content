@@ -8,9 +8,9 @@ class CreateImageVersionController extends ViewController {
 		$project = new Project($projectId);
 
 		if ($project->isAvailableToUser($_CSESSION->getUserId())) {
-			global $image_upload_dir;
+			global $image_upload_dir, $image_separator;
 
-			$fileName = date('YmdHis').'_'.rand(1, 10000).'_'.$_FILES['file']['name'];
+			$fileName = date('YmdHis').'_'.$_CSESSION->getUserId().'_'.rand(1, 10000).$image_separator.$_FILES['file']['name'];
 
 			$saved = move_uploaded_file($_FILES['file']['tmp_name'], $image_upload_dir.$fileName);
 
