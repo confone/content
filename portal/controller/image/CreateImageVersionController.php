@@ -3,25 +3,34 @@ class CreateImageVersionController extends ViewController {
 
 	protected function control() {
 		$projectId = param('project_id');
-	
+
 		global $_CSESSION;
 		$project = new Project($projectId);
 
 		if ($project->isAvailableToUser($_CSESSION->getUserId())) {
-			$imageId = param('image_id');
+			global $image_upload_dir;
 
-			$image = new Image($imageId);
+			$fileName = date('YmdHis').'_'.rand(1, 10000).'_'.$_FILES['file']['name'];
 
-			$path = param('path');
+			$saved = move_uploaded_file($_FILES['file']['tmp_name'], $image_upload_dir.$fileName);
 
-			if (isset($path)) {
-				$image->addNewVersion($path);
+			if ($saved) {
+				$imageId = param('image_id');
+
+				$image = new Image($imageId);
+
+				if (isset($fileName)) {
+					$image->addNewVersion($fileName);
+				}
+			} else {
+				header('HTTP/1.0 500 Internal Server Error');
+				$response = array('status' => 'error');
+				$response['description'] = 'Cannot Save File!';
+				$this->response($response);
 			}
 		}
 
-		$this->redirect('/image/detail?project_id='.$projectId.'&id='.$imageId);
-
-//		$this->response(array());
+		$this->response(array('status' => 'success'));
 	}
 }
 ?>

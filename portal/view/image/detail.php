@@ -1,15 +1,21 @@
 <?php
 $stylesheets = array('image.css');
-$scripts = array('image.js');
+$scripts = array('image-detail.js');
 
 include 'view/include/header.php';
 ?>
 <div class="add_version">
 <form action="/image/version/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="text" name="path" placeholder="(Image File Path)" />
-<input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
-<input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
-<input type="submit" class="button" value="Submit" />
+<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+<div>
+Files to upload:
+<input type="file" id="fileselect" name="file" />
+<div id="filedrag">or drop an image file here</div>
+</div>
+<!-- input type="text" name="path" placeholder="(Image File Path)" / -->
+<input type="hidden" id="image_id" name="image_id" value="<?=$image->getId() ?>" />
+<input type="hidden" id="project_id" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="submit" class="button" value="Submit" id="submitbutton" />
 </form>
 </div>
 Versions:

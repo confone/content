@@ -28,6 +28,11 @@ $cache_servers = array (
 
 
 //=======================================================================================
+// Image storage location
+$image_upload_dir = '/opt/confone/content/images/';
+
+
+//=======================================================================================
 // Session expiration duration in seconds
 $session_expires_in = 900;
 
