@@ -6,7 +6,7 @@ class LookupImageCodeDao extends LookupImageCodeDaoParent {
 	public static function lookupImageId($code, $projectId) {
 		$lookup = new LookupImageCodeDao();
 		$sequence = Utility::hashString($code);
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$res = $builder->select('image_id')
@@ -27,6 +27,11 @@ class LookupImageCodeDao extends LookupImageCodeDaoParent {
 	protected function beforeInsert() {
 		$sequence = Utility::hashString($this->getCode());
 		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
+		$sequence = Utility::hashString($this->getCode());
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

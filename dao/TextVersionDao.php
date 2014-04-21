@@ -1,7 +1,7 @@
 <?php
 class TextVersionDao extends TextVersionDaoParent {
 
-	const PREVIEW_VERSION = -1;
+	const PREVIEW_VERSION = 0;
 
 // =============================================== public function =================================================
 
@@ -17,17 +17,24 @@ class TextVersionDao extends TextVersionDaoParent {
 
 		if ($text->isFromDatabase()) {
 			$previewTextVersion = TextVersionDao::getPreviewText($textId, $language);
-			$textVersion = new TextVersionDao();
-			$textVersion->var = $previewTextVersion->var;
+			if (isset($previewTextVersion)) {
+				$textVersion = new TextVersionDao();
+				$sequence = $textId;
+				$textVersion->setShardId($sequence);
 
-			$builder = new QueryBuilder($imageVersion);
-			$res = $builder->select('COUNT(*) AS count')
-						   ->where('text_id', $this->getTextId())
-						   ->where('language', $language)
-						   ->find();
+				$textVersion->var = $previewTextVersion->var;
 
-			$textVersion->setVersion($res['count']);
-			return $textVersion->save();
+				$builder = new QueryBuilder($textVersion);
+				$res = $builder->select('COUNT(*) AS count')
+							   ->where('text_id', $textId)
+							   ->where('language', $language)
+							   ->find();
+
+				$textVersion->setVersion($res['count']);
+				return $textVersion->save();
+			} else {
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -36,7 +43,7 @@ class TextVersionDao extends TextVersionDaoParent {
 	public static function getPreviewText($textId, $language='en') {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
-		$textVersion->setShardId($sequence);
+		$textVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($textVersion);
 		$res = $builder->select('*')
@@ -51,7 +58,7 @@ class TextVersionDao extends TextVersionDaoParent {
 	public static function getCurrentText($textId, $language='en') {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
-		$textVersion->setShardId($sequence);
+		$textVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($textVersion);
 		$res = $builder->select('*')
@@ -67,14 +74,14 @@ class TextVersionDao extends TextVersionDaoParent {
 	public static function getTexts($textId, $language=null) {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
-		$textVersion->setShardId($sequence);
+		$textVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($textVersion);
 		$builder->select('*')->where('text_id', $textId);
 		if (isset($language)) {
 			$builder->where('language', $language);
 		}
-		$rows = $builder->findList();
+		$rows = $builder->order('language', true)->findList();
 
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "TextVersionDao");
 	}
@@ -82,7 +89,7 @@ class TextVersionDao extends TextVersionDaoParent {
 	public static function getTextsInRange($textId, $range, $language=null) {
 		$textVersion = new TextVersionDao();
 		$sequence = $textId;
-		$textVersion->setShardId($sequence);
+		$textVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($textVersion);
 		$builder->select('*')->in('id', $range);
@@ -108,25 +115,28 @@ class TextVersionDao extends TextVersionDaoParent {
 
 	protected function doDelete() {
 		$sequence = $this->getTextId();
-		$this->setShardId($sequence);
+		$this->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($this);
 		$builder->delete()->where('id', $this->getId())->query();
 	}
 
 	protected function beforeInsert() {
-		$previewDao = self::getPreviewText($this->getTextId(), $this->getLanguage());
-		if (isset($previewDao)) { $previewDao->delete(); }
-
 		$sequence = $this->getTextId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
-		$this->setVersion(self::PREVIEW_VERSION);
+
+		$version = $this->getVersion();
+		if (empty($version)) {
+			$previewDao = self::getPreviewText($this->getTextId(), $this->getLanguage());
+			if (isset($previewDao)) { $previewDao->delete(); }
+			$this->setVersion(self::PREVIEW_VERSION);
+		}
 	}
 
 	protected function beforeUpdate() {
 		$sequence = $this->getTextId();
-		$this->setShardId($sequence);
+		$this->setServerAddress($sequence);
 
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}

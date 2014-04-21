@@ -19,6 +19,14 @@ Language <?=$lang ?>:<br>
 <?php foreach ($versions as $key=>$version) {?>
 <div>Version <?=$key ?>: <?=$version['content'] ?></div>
 <?php } ?>
+<div class="publish">
+<form action="/text/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<input type="hidden" name="text_id" value="<?=$text->getId() ?>" />
+<input type="hidden" name="project_id" value="<?=$text->getProjectId() ?>" />
+<input type="hidden" name="language" value="<?=$lang ?>" />
+<input type="submit" class="button" value="Publish" />
+</form>
+</div>
 <?php } ?>
 <?php 
 include 'view/include/footer.php';

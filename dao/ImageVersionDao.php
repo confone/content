@@ -1,7 +1,7 @@
 <?php
 class ImageVersionDao extends ImageVersionDaoParent {
 
-	const PREVIEW_VERSION = -1;
+	const PREVIEW_VERSION = 0;
 
 // =============================================== public function =================================================
 
@@ -18,11 +18,14 @@ class ImageVersionDao extends ImageVersionDaoParent {
 			$previewImageVersion = ImageVersionDao::getPreviewImage($imageId);
 			if (isset($previewImageVersion)) {
 				$imageVersion = new ImageVersionDao();
+				$sequence = $imageId;
+				$imageVersion->setShardId($sequence);
+
 				$imageVersion->var = $previewImageVersion->var;
-	
+
 				$builder = new QueryBuilder($imageVersion);
 				$res = $builder->select('COUNT(*) AS count')
-							   ->where('image_id', $this->getImageId())
+							   ->where('image_id', $imageId)
 							   ->find();
 	
 				$imageVersion->setVersion($res['count']);
@@ -38,7 +41,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 	public static function getPreviewImage($imageId) {
 		$imageVersion = new ImageVersionDao();
 		$sequence = $imageId;
-		$imageVersion->setShardId($sequence);
+		$imageVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
 		$res = $builder->select('*')
@@ -52,7 +55,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 	public static function getCurrentImage($imageId) {
 		$imageVersion = new ImageVersionDao();
 		$sequence = $imageId;
-		$imageVersion->setShardId($sequence);
+		$imageVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
 		$res = $builder->select('*')
@@ -67,7 +70,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 	public static function getImages($imageId) {
 		$imageVersion = new ImageVersionDao();
 		$sequence = $imageId;
-		$imageVersion->setShardId($sequence);
+		$imageVersion->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($imageVersion);
 		$rows = $builder->select('*')
@@ -90,24 +93,30 @@ class ImageVersionDao extends ImageVersionDaoParent {
 // ============================================ override functions ==================================================
 
 	protected function doDelete() {
-		$sequence = $this->getImageId();
-		$this->setShardId($sequence);
+ 		$sequence = $this->getImageId();
+ 		$this->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($this);
 		$builder->delete()->where('id', $this->getId())->query();
 	}
 
 	protected function beforeInsert() {
-		$previewDao = self::getPreviewImage($this->getImageId());
-		if (isset($previewDao)) { $previewDao->delete(); }
-
 		$sequence = $this->getImageId();
 		$this->setShardId($sequence);
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
-		$this->setVersion(self::PREVIEW_VERSION);
+
+		$version = $this->getVersion();
+		if (empty($version)) {
+			$previewDao = self::getPreviewImage($this->getImageId());
+			if (isset($previewDao)) { $previewDao->delete(); }
+			$this->setVersion(self::PREVIEW_VERSION);
+		}
 	}
 
 	protected function beforeUpdate() {
+		$sequence = $this->getImageId();
+		$this->setServerAddress($sequence);
+
 		$this->setCreateTime(gmdate('Y-m-d H:i:s'));
 	}
 

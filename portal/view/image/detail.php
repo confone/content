@@ -16,6 +16,13 @@ Versions:
 <?php foreach ($image->getAllVersionFiles() as $key=>$version) { ?>
 <div>Version <?=$key ?>: <?=$version['file_path'] ?></div>
 <?php } ?>
+<div class="publish">
+<form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
+<input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="submit" class="button" value="Publish" />
+</form>
+</div>
 <?php 
 include 'view/include/footer.php';
 ?>

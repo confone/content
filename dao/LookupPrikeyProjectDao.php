@@ -6,7 +6,7 @@ class LookupPrikeyProjectDao extends LookupPrikeyProjectDaoParent {
 	public static function lookupProjectIdByPrivateKey($prikey) {
 		$lookup = new LookupPrikeyProjectDao();
 		$sequence = Utility::hashString($prikey);
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$res = $builder->select('project_id')->where('pri_key', $prikey)->find();
@@ -23,6 +23,11 @@ class LookupPrikeyProjectDao extends LookupPrikeyProjectDaoParent {
 	protected function beforeInsert() {
 		$sequence = Utility::hashString($this->getPriKey());
 		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
+		$sequence = Utility::hashString($this->getPriKey());
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

@@ -6,7 +6,7 @@ class LookupPubkeyProjectDao extends LookupPubkeyProjectDaoParent {
 	public static function lookupProjectIdByPubvateKey($pubkey) {
 		$lookup = new LookupPubkeyProjectDao();
 		$sequence = Utility::hashString($pubkey);
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$res = $builder->select('project_id')->where('pub_key', $pubkey)->find();
@@ -23,6 +23,11 @@ class LookupPubkeyProjectDao extends LookupPubkeyProjectDaoParent {
 	protected function beforeInsert() {
 		$sequence = Utility::hashString($this->getPubKey());
 		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
+		$sequence = Utility::hashString($this->getPubKey());
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

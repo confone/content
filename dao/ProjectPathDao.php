@@ -8,7 +8,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 	public static function isProjectPahtExist($projectId, $parentPahtId, $path) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
-		$projectPath->setShardId($sequence);
+		$projectPath->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($projectPath);
 		$res = $builder->select('CONST(*) as count')
@@ -23,7 +23,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 	public static function getChildrenPath($projectId, $parentPathId=0) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
-		$projectPath->setShardId($sequence);
+		$projectPath->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($projectPath);
 		$rows = $builder->select('*')
@@ -37,7 +37,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 	public static function getProjectPath($projectId, $pathId) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
-		$projectPath->setShardId($sequence);
+		$projectPath->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($projectPath);
 		$res = $builder->select('*')
@@ -51,7 +51,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 	public static function getProjectRootPath($projectId) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
-		$projectPath->setShardId($sequence);
+		$projectPath->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($projectPath);
 		$res = $builder->select('*')
@@ -97,7 +97,7 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		$this->setLastModify($date);
 
 		$sequence = $this->getProjectId();
-		$this->setShardId($sequence);
+		$this->setServerAddress($sequence);
 
 		if ($this->update['path']) {
 			if ($this->getParentPathId()!=0) {

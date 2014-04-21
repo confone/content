@@ -6,7 +6,7 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 	public static function getTextIds($projectId, $projectPathId) {
 		$lookup = new LookupTextProjectPathDao();
 		$sequence = $projectId;
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$rows = $builder->select('text_id')
@@ -30,6 +30,11 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 	protected function beforeInsert() {
 		$sequence = $this->getProjectId();
 		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
+		$sequence = $this->getProjectId();
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

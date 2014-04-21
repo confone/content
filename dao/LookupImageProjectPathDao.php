@@ -6,7 +6,7 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 	public static function getImageIds($projectId, $projectPathId) {
 		$lookup = new LookupImageProjectPathDao();
 		$sequence = $projectId;
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$rows = $builder->select('image_id')
@@ -30,6 +30,11 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 	protected function beforeInsert() {
 		$sequence = $this->getProjectId();
 		$this->setShardId($sequence);
+	}
+
+	protected function beforeUpdate() {
+		$sequence = $this->getProjectId();
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

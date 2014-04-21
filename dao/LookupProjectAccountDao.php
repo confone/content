@@ -6,7 +6,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 	public static function getLookupsByAccountId($accountId) {
 		$lookup = new LookupProjectAccountDao();
 		$sequence = $accountId;
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$rows = $builder->select('*')
@@ -19,7 +19,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 	public static function getUserAccessLevelOnProject($projectId, $accountId) {
 		$lookup = new LookupProjectAccountDao();
 		$sequence = $accountId;
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$res = $builder->select('access_level')
@@ -37,7 +37,7 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 	public static function removeLookup($projectId, $accountId) {
 		$lookup = new LookupProjectAccountDao();
 		$sequence = $accountId;
-		$lookup->setShardId($sequence);
+		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
 		$res = $builder->delete()
@@ -53,13 +53,13 @@ class LookupProjectAccountDao extends LookupProjectAccountDaoParent {
 	protected function beforeInsert() {
 		$this->setAccessLevel(ProjectDao::ACCESSLEVEL_READ);
 
-		$sequence = Utility::hashString($this->getAccountId());
+		$sequence = $this->getAccountId();
 		$this->setShardId($sequence);
 	}
 
 	protected function beforeUpdate() {
-		$sequence = Utility::hashString($this->getAccountId());
-		$this->setShardId($sequence);
+		$sequence = $this->getAccountId();
+		$this->setServerAddress($sequence);
 	}
 
 	protected function isShardBaseObject() {

@@ -65,6 +65,7 @@ abstract class ContentDaoBase {
 	 * Delete the object form database
 	 */
 	public function delete() {
+Logger::info('delete - '.json_encode($this->var));
 		$this->doDelete();
 		$this->fromdb = false;
 		$this->var[$this->getIdColumnName()] = 0;
