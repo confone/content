@@ -23,7 +23,7 @@ $autoload_dirs = array( '../util',
 //=======================================================================================
 // Cache server information
 $cache_servers = array (
-'192.168.0.119' => '11211'
+'localhost' => '11211'
 );
 
 

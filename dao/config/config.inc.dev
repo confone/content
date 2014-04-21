@@ -12,7 +12,7 @@ $dbconfig['content_project'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -23,7 +23,7 @@ $dbconfig['content_image'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -34,7 +34,7 @@ $dbconfig['content_text'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -45,7 +45,7 @@ $dbconfig['content_lookup_project'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -56,7 +56,7 @@ $dbconfig['content_lookup_image'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -67,7 +67,7 @@ $dbconfig['content_lookup_text'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -78,7 +78,7 @@ $dbconfig['content_client'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 
@@ -89,7 +89,7 @@ $dbconfig['content_iterm'] =
 		'username' => 'contentuser',
 		'password' => 'password',
 		'server_list' => array (
-			'192.168.0.119' => array('min'=>0, 'max'=>0)
+			'localhost' => array('min'=>0, 'max'=>0)
 		) 
 	);
 ?>
