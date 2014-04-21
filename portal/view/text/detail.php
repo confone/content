@@ -6,7 +6,7 @@ include 'view/include/header.php';
 ?>
 <div class="add_version">
 <form action="/text/version/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="text" name="content" placeholder="(Text Content)" />
+<textarea name="content"></textarea><br>
 <input type="text" name="language" placeholder="(Language)" />
 <input type="hidden" name="text_id" value="<?=$text->getId() ?>" />
 <input type="hidden" name="project_id" value="<?=$text->getProjectId() ?>" />
