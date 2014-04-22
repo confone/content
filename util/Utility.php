@@ -18,7 +18,7 @@ class Utility {
             $ip = (isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '');
         }
         if (empty($ip)) { 
-            $ip = (isset($_SERVER['TTP_X_FORWARDED_FOR']) ? $_SERVER['TTP_X_FORWARDED_FOR'] : '');
+            $ip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '');
         }
         if (empty($ip)) {
             $ip = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
@@ -27,12 +27,17 @@ class Utility {
         return $ip;
     }
 
-    public static function generateAccountToken($mid='') {
-    	$token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(8, 10));
-    	$token.= '.'.$mid.'.';
+    public static function generateToken($mid='') {
+    	$token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(7, 9));
+    	$token.= $mid;
     	$token.= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(7, 10));
 
     	return $token;
+    }
+
+    public static function extension($file) {
+    	$parts = explode('.', $file);
+    	return $parts[count($parts)-1];
     }
 
 	public static function hashString($str) {

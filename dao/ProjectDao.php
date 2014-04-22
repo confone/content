@@ -22,6 +22,16 @@ class ProjectDao extends ProjectDaoParent {
 		$lookup->setAccountId($this->getOwnerId());
 		$lookup->setProjectId($this->getId());
 		$lookup->save();
+
+		$lookup = new LookupPubkeyProjectDao();
+		$lookup->setPubKey('pub_'.Utility::generateToken('_'.$this->getOwnerId().'_'));
+		$lookup->setProjectId($this->getId());
+		$lookup->save();
+
+		$lookup = new LookupPrikeyProjectDao();
+		$lookup->setPriKey('pri_'.Utility::generateToken('_'.$this->getOwnerId().'_'));
+		$lookup->setProjectId($this->getId());
+		$lookup->save();
 	}
 
 	protected function isShardBaseObject() {

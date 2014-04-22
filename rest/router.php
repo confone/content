@@ -4,6 +4,7 @@ include 'config/config.inc';
 blockIp();
 $services = array('GET'=>array(), 'POST'=>array(), 'PUT'=>array(), 'DELETE'=>array());
 include 'config/mapping.php';
+include '../dao/config/config.inc';
 
 $uri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -149,19 +150,19 @@ function parseGetparams($uri) {
  * Function validates all neccessary headers incluidng app-key and Content-Type
  */
 function validateHeaders() {
-    global $_CLIENT;
+    global $_PROJECTID;
 
     $headers = apache_request_headers();
 
-    if (isset($headers['app-key'])) {
-        $_CLIENT = ClientDao::getClientByAppKey($headers['app-key']);
+    if (isset($headers['private-key'])) {
+        $_PROJECTID = LookupPrikeyProjectDao::lookupProjectIdByPrivateKey($headers['private-key']);
     } else {
         if (strpos($_SERVER['REQUEST_URI'], 'display')!==FALSE) {
             return;
         }
     }
 
-    if (!$_CLIENT) {
+    if (!$_PROJECTID) {
         header('HTTP/1.0 401 Unauthorized');
         echo '{"error":"401 Unauthorized"}';
         exit;

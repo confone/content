@@ -15,16 +15,12 @@ class ImageDao extends ImageDaoParent {
 		return $images;
 	}
 
-	public static function getImagesByCode($code, $projectId) {
-		$imageIds = LookupImageCodeDao::getImageId($code, $projectId);
+	public static function getImageByCode($code, $projectId) {
+		$imageId = LookupImageCodeDao::lookupImageId($code, $projectId);
 
-		$atReturn = array();
-		foreach ($imageIds as $imageId) {
-			$image = new ImageDao($imageId);
-			array_push($atReturn, $image);
-		}
+		$imageDao = new ImageDao($imageId);
 
-		return $atReturn;
+		return $imageDao;
 	}
 
 // ============================================ override functions ==================================================

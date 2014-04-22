@@ -52,6 +52,20 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
 	}
 
+	public static function getVersionImage($imageId, $version) {
+		$imageVersion = new ImageVersionDao();
+		$sequence = $imageId;
+		$imageVersion->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($imageVersion);
+		$res = $builder->select('*')
+					   ->where('image_id', $imageId)
+					   ->where('version', $version)
+					   ->find();
+
+		return ContentDaoBase::makeObjectFromSelectResult($res, "ImageVersionDao");
+	}
+
 	public static function getCurrentImage($imageId) {
 		$imageVersion = new ImageVersionDao();
 		$sequence = $imageId;
@@ -60,7 +74,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$builder = new QueryBuilder($imageVersion);
 		$res = $builder->select('*')
 					   ->where('image_id', $imageId)
-					   ->order('id', true)
+					   ->order('version', true)
 					   ->limit(0, 1)
 					   ->find();
 

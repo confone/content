@@ -22,6 +22,12 @@ $cache_servers = array (
 
 
 //=======================================================================================
+// Image storage location
+$image_upload_dir = '/opt/confone/content/images/';
+$image_separator = ':::';
+
+
+//=======================================================================================
 // logging information
 // INFO=4, WARN=3, ERROR=2, FATAL=1, NOTHING=0
 $log_level = 4;

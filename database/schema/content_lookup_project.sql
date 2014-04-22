@@ -38,8 +38,4 @@ CREATE INDEX {$dbName}_pri_proj_pri_index ON {$dbName}.lookup_prikey_project (pr
 CREATE INDEX {$dbName}_pri_proj_pid_index ON {$dbName}.lookup_prikey_project (project_id);
 
 
-INSERT INTO lookup_prikey_project (pri_key, project_id)
-VALUES ('b1d6771652e4ed621de446b2c721d435', 1);
-
-
 GRANT ALL ON {$dbName}.* TO '{$uname}'@'%' IDENTIFIED BY '{$passwd}';
