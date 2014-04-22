@@ -65,7 +65,6 @@ abstract class ContentDaoBase {
 	 * Delete the object form database
 	 */
 	public function delete() {
-Logger::info('delete - '.json_encode($this->var));
 		$this->doDelete();
 		$this->fromdb = false;
 		$this->var[$this->getIdColumnName()] = 0;
@@ -159,7 +158,8 @@ Logger::info('delete - '.json_encode($this->var));
 	public function setServerAddress($shardSequence) {
 		global $dbconfig;
 		$domain = $this->getShardDomain();
-		$this->shardId = $shardSequence%$dbconfig[$domain]['total_shards'];
+		$digitOff = $shardSequence%$dbconfig[$domain]['shards_digit'];
+		$this->shardId = $digitOff%$dbconfig[$domain]['total_shards'];
 		$this->serverAddress = $this->getConfigServerAddress($domain, $this->shardId);
 	}
 
