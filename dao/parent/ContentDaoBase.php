@@ -142,7 +142,8 @@ abstract class ContentDaoBase {
 			$shardSequence = $this->getNextShardSequence();
 		}
 
-		$this->shardId = $shardSequence%$dbconfig[$domain]['total_shards'];
+		$digitOff = $shardSequence%$dbconfig[$domain]['shards_digit'];
+		$this->shardId = $digitOff%$dbconfig[$domain]['total_shards'];
 
 		$this->serverAddress = $this->getConfigServerAddress($domain, $this->shardId);
 
