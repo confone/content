@@ -16,13 +16,9 @@ class TextDao extends TextDaoParent {
 	}
 
 	public static function getTextsByCode($code, $projectId) {
-		$textIds = LookupTextCodeDao::lookupTextId($code, $projectId);
+		$textId = LookupTextCodeDao::lookupTextId($code, $projectId);
 
-		$atReturn = array();
-		foreach ($textIds as $textId) {
-			$text = new TextDao($textId);
-			array_push($atReturn, $text);
-		}
+		$textDao = new ImageDao($textId);
 
 		return $atReturn;
 	}

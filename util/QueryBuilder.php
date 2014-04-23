@@ -167,6 +167,10 @@ class QueryBuilder {
 		return array();
 	}
 
+	public function getQuery() {
+		return $this->query;
+	}
+
 // =========================================================================================== private
 
     private function getConnection() {

@@ -12,9 +12,9 @@ register('POST', '/project', 						 new ProjectCreateHandler(), 		  new ProjectC
 register('POST', '/project/:projectid/path', 		 new ProjectPathCreateHandler(), 	  new ProjectPathCreateValidator());
 register('GET',  '/project/:projectid/path/:pathid', new ProjectPathChildrenGetHandler(), null);
 
-register('GET',  '/text/code/:code', 						new TextCodeGetHandler(), null);
-register('POST', '/text', 									new TextCreateHandler(), new TextCreateValidator());
-register('GET',  '/text/project/:projectid/path/:pathid', 	new TextPathGetHandler(), null);
-register('POST', '/text/:textid/publish', 					new TextPublishHandler(), new TextPublishValidator());
-register('PUT',  '/text/:textid/upload', 					new TextUpdateHandler(), new TextUpdateValidator());
+register('GET',  '/text/code/:code', 			new TextCodeGetHandler(), null);
+register('POST', '/text', 						new TextCreateHandler(), new TextCreateValidator());
+register('GET',  '/text/group/:pathname/texts',	new TextPathGetHandler(), null);
+register('POST', '/text/:textid/publish', 		new TextPublishHandler(), new TextPublishValidator());
+register('PUT',  '/text/:textid/upload', 		new TextUpdateHandler(), new TextUpdateValidator());
 ?>

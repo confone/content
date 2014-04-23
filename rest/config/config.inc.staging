@@ -10,6 +10,9 @@ $autoload_dirs = array( '../util',
                         '../dao',
                         '../dao/parent',
                         'handler', 
+                        'handler/image',
+                        'handler/project',
+                        'handler/text', 
                         'requester', 
                         'validator' );
 

@@ -106,7 +106,7 @@ abstract class ContentDaoBase {
 		$res = $query->insert($this->var, $this->getTableName())
 					 ->query();
 
-		if ($res==-1) { Logger::error($sql); }
+		if ($res==-1) { Logger::error($query->getQuery()); }
 
 		return $res!=-1;
 	}

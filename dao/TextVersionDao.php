@@ -64,7 +64,7 @@ class TextVersionDao extends TextVersionDaoParent {
 		$res = $builder->select('*')
 					   ->where('text_id', $textId)
 					   ->where('language', $language)
-					   ->order('id', true)
+					   ->order('version', true)
 					   ->limit(0, 1)
 					   ->find();
 

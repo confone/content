@@ -55,14 +55,17 @@ class ProjectPath extends Model {
 	}
 
 	public function addText($textId) {
+		$textDao = new TextDao($textId);
+
 		$lookup = new LookupTextProjectPathDao();
 		$lookup->setProjectId($this->dao->getProjectId());
 		$lookup->setProjectPathId($this->getId());
 		$lookup->setTextId($textId);
+		$lookup->setCode($textDao->getCode());
 		$lookup->save();
 
 		if (!empty($this->texts)) {
-			$this->texts[$textId] = new Text($textId);
+			$this->texts[$textId] = new Text($textDao);
 		}
 	}
 

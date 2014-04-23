@@ -6,11 +6,13 @@ abstract class LookupTextProjectPathDaoParent extends ContentDaoBase {
         $this->var['project_path_id'] = '';
         $this->var['project_id'] = '';
         $this->var['text_id'] = '';
+        $this->var['code'] = '';
 
         $this->update['id'] = false;
         $this->update['project_path_id'] = false;
         $this->update['project_id'] = false;
         $this->update['text_id'] = false;
+        $this->update['code'] = false;
     }
 
     public function getId() {
@@ -39,6 +41,14 @@ abstract class LookupTextProjectPathDaoParent extends ContentDaoBase {
     }
     public function getTextId() {
         return $this->var['text_id'];
+    }
+
+    public function setCode($code) {
+        $this->var['code'] = $code;
+        $this->update['code'] = true;
+    }
+    public function getCode() {
+        return $this->var['code'];
     }
 
 // ======================================================================================== override
