@@ -30,6 +30,8 @@ class Project extends Model {
     }
 
     public function addImage($code, $rootPath=false) {
+    	if (empty($code)) { return -1; }
+
 		$image = new ImageDao();
 		$image->setAccountId($this->dao->getOwnerId());
 		$image->setCode($code);
@@ -44,6 +46,8 @@ class Project extends Model {
     }
 
     public function addText($code, $rootPath=false) {
+    	if (empty($code)) { return -1; }
+
 		$text = new TextDao();
 		$text->setAccountId($this->dao->getOwnerId());
 		$text->setCode($code);
