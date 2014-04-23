@@ -41,7 +41,7 @@ class User extends Model {
 			$lookups = LookupProjectAccountDao::getLookupsByAccountId($this->getId());
 			foreach ($lookups as $lookup) {
 				$project = new ProjectDao($lookup->getProjectId());
-				$this->projects[$lookup->getId()] = new Project($project);
+				$this->projects[$lookup->getProjectId()] = new Project($project);
 			}
 		}
 
