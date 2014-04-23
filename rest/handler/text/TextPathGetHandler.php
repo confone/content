@@ -27,7 +27,7 @@ class TextPathGetHandler extends Handler {
 			} else {
 				$textDao = TextVersionDao::getCurrentText($idAndCode['text_id'], $language);
 			}
-			$response['texts'][$idAndCode['code']] = $textDao->getContent();
+			$response['texts'][$idAndCode['code']] = isset($textDao) ? $textDao->getContent() : '';
 		}
 
 		header('Content-type: text/html; charset=utf-8');
