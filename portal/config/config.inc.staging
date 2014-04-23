@@ -9,7 +9,6 @@ $account_url = 'https://staging.account.confone.com';
 // =======================================================================================
 // auto include directory information
 $autoload_dirs = array( '../util',
-						'../model',
 						'../dao',
 						'../dao/parent',
 						'controller',
@@ -17,7 +16,8 @@ $autoload_dirs = array( '../util',
 						'controller/text',
 						'controller/page',
 						'controller/howto',
-						'controller/project' );
+						'controller/project',
+						'model' );
 
 
 //=======================================================================================
