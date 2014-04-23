@@ -28,9 +28,9 @@ class Utility {
     }
 
     public static function generateToken($mid='') {
-    	$token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(7, 9));
+    	$token = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(7, 10));
     	$token.= $mid;
-    	$token.= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(7, 10));
+    	$token.= substr(md5(date('Y-m-d H:i:s')), 0, rand(8, 10));
 
     	return $token;
     }

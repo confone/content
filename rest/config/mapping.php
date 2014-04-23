@@ -4,7 +4,7 @@ register('POST', '/image', 									 new ImageCreateHandler(),  new ImageCreateV
 register('GET',  '/image/display/:imageid', 				 new ImageDisplayHandler(), null);
 register('GET',  '/image/display/:imageid/preview', 		 new ImagePreviewHandler(), null);
 register('GET',  '/image/display/:imageid/version/:version', new ImageVersionHandler(), null);
-register('GET',  '/image/path/:pathid',					 	 new ImagePathGetHandler(), null);
+register('GET',  '/image/group/:pathname/images',		 	 new ImagePathGetHandler(), null);
 register('POST', '/image/:imageid/publish', 				 new ImagePublishHandler(), new ImagePublishValidator());
 register('PUT',  '/image/:imageid/upload', 					 new ImageUpdateHandler(),  new ImageUpdateValidator());
 

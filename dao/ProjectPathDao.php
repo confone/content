@@ -63,6 +63,20 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
 	}
 
+	public static function getProjectPathIdByPathName($projectId, $pathName) {
+		$projectPath = new ProjectPathDao();
+		$sequence = $projectId;
+		$projectPath->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($projectPath);
+		$res = $builder->select('*')
+					   ->where('project_id', $projectId)
+					   ->where('path', $pathName)
+					   ->find();
+
+		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
+	}
+
 	public function delete() {
 		$this->setIsDeleted('Y');
 		$this->save();

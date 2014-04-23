@@ -5,12 +5,16 @@ abstract class ProjectDaoParent extends ContentDaoBase {
         $this->var['id'] = '';
         $this->var['name'] = '';
         $this->var['owner_id'] = '';
+        $this->var['private_key'] = '';
+        $this->var['public_key'] = '';
         $this->var['last_modify'] = '';
         $this->var['create_time'] = '';
 
         $this->update['id'] = false;
         $this->update['name'] = false;
         $this->update['owner_id'] = false;
+        $this->update['private_key'] = false;
+        $this->update['public_key'] = false;
         $this->update['last_modify'] = false;
         $this->update['create_time'] = false;
     }
@@ -33,6 +37,22 @@ abstract class ProjectDaoParent extends ContentDaoBase {
     }
     public function getOwnerId() {
         return $this->var['owner_id'];
+    }
+
+    public function setPrivateKey($privateKey) {
+        $this->var['private_key'] = $privateKey;
+        $this->update['private_key'] = true;
+    }
+    public function getPrivateKey() {
+        return $this->var['private_key'];
+    }
+
+    public function setPublicKey($publicKey) {
+        $this->var['public_key'] = $publicKey;
+        $this->update['public_key'] = true;
+    }
+    public function getPublicKey() {
+        return $this->var['public_key'];
     }
 
     public function setLastModify($lastModify) {

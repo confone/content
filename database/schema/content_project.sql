@@ -3,6 +3,8 @@ CREATE TABLE {$dbName}.project
 	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	name VARCHAR(61),
 	owner_id INT(10) UNSIGNED NOT NULL,
+	private_key VARCHAR(41),
+	public_key VARCHAR(41),
 	last_modify DATETIME,
 	create_time DATETIME,
 

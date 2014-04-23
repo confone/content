@@ -16,7 +16,7 @@ if (!empty($base_uri)) { $uri = substr($uri, strlen($base_uri)); }
 
 if ($access_on!=0) { Logger::access($method.' '.$uri); }
 
-$uri = parseGetparams($uri);
+$uri = parseGetParams($uri);
 
 header('Content-Type: application/json');
 header('X-Powered-By: Confone Inc.');
@@ -124,7 +124,7 @@ function __autoload($class_name) {
  * @param string $uri - input uri
  * @return the same uri with GET parameters removed
  */
-function parseGetparams($uri) {
+function parseGetParams($uri) {
     $gets = explode('?', $uri);
     if (sizeof($gets)>2) {
         header('HTTP/1.0 400 Bad Request');

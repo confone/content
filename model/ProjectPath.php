@@ -29,14 +29,17 @@ class ProjectPath extends Model {
 	}
 
 	public function addImage($imageId) {
+		$imageDao = new ImageDao($imageId);
+
 		$lookup = new LookupImageProjectPathDao();
 		$lookup->setProjectId($this->dao->getProjectId());
 		$lookup->setProjectPathId($this->getId());
 		$lookup->setImageId($imageId);
+		$lookup->setCode($imageDao->getCode());
 		$lookup->save();
 
 		if (!empty($this->images)) {
-			$this->images[$imageId] = new Image($imageId);
+			$this->images[$imageId] = new Image($imageDao);
 		}
 	}
 

@@ -18,6 +18,7 @@ CREATE TABLE {$dbName}.lookup_image_project_path
 	project_path_id INT(10) UNSIGNED,
 	project_id INT(10) UNSIGNED,
 	image_id INT(10) UNSIGNED,
+	code VARCHAR(33),
 
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

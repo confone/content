@@ -33,7 +33,7 @@ abstract class Handler {
             $response = $this->handle($params);
         }
 
-        $response = json_encode($response);
+        $response = json_encode($response, JSON_UNESCAPED_SLASHES);
 
         return $response;
     }
