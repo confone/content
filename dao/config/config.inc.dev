@@ -71,17 +71,6 @@ $dbconfig['content_lookup_text'] =
 		) 
 	);
 
-$dbconfig['content_client'] =
-	array (
-		'total_shards' => 1,
-		'shards_digit' => 1,
-		'username' => 'contentuser',
-		'password' => 'password',
-		'server_list' => array (
-			'localhost' => array('min'=>0, 'max'=>0)
-		) 
-	);
-
 $dbconfig['content_iterm'] =
 	array (
 		'total_shards' => 1,
