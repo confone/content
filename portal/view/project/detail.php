@@ -27,6 +27,10 @@ include 'view/include/header.php';
 </form>
 </div>
 <div>
+Public Key: <?=$project->getPublicKey() ?><br>
+Private Key: <?=$project->getPrivateKey() ?>
+</div>
+<div>
 Groups:<br>
 <?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
 <div><a href="/project/path?project_id=<?=$project->getId() ?>&id=<?=$path->getId() ?>"><?=$path->getPath(); ?></a></div>

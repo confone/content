@@ -75,6 +75,12 @@ class Project extends Model {
     public function getOwnerId() {
         return $this->dao->getOwnerId();
     }
+    public function getPrivateKey() {
+        return $this->dao->getPrivateKey();
+    }
+    public function getPublicKey() {
+        return $this->dao->getPublicKey();
+    }
     public function getLastModify() {
         return $this->dao->getLastModify();
     }
