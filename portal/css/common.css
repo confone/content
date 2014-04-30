@@ -38,6 +38,7 @@ div#logo > span {
 	text-shadow: 1px 1px 0 #855e42;
 }
 div#main {
+	padding-top: 50px;
 	margin: 0 auto;
 	max-width: 980px;
 	min-height: 100px;
