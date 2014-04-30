@@ -21,7 +21,7 @@ global $base_host;
 <body>
 <div id="header">
 <div id="header_inner">
-<div id="logo" onclick="javascript:loadUrl('<?php global $www_url; echo $www_url; ?>');">con<span>fone</span></div>
+<a id="logo" href="<?php global $www_url; echo $www_url; ?>">con<span>fone</span></a>
 </div>
 </div>
 <div id="main">

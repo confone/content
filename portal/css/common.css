@@ -25,15 +25,16 @@ div#header_inner {
 	height: 50px;
 	max-width: 980px;
 }
-div#logo {
-	width: 150px;
-	padding-top: 10px;
+a#logo {
+	position: relative;
+	top: 10px;
 	color: #855e42;
 	text-shadow: 1px 1px 0 #545454;
 	font-size: 28px;
 	cursor: pointer;
+	text-decoration: none;
 }
-div#logo > span {
+a#logo > span {
 	color: #545454;
 	text-shadow: 1px 1px 0 #855e42;
 }
