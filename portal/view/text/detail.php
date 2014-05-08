@@ -10,8 +10,8 @@ $belongs = $text->getProjectPaths();
 <form action="/text/version/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <textarea name="content"></textarea><br>
 <input type="text" name="language" placeholder="(Language)" />
-<input type="hidden" name="text_id" value="<?=$text->getId() ?>" />
-<input type="hidden" name="project_id" value="<?=$text->getProjectId() ?>" />
+<input type="hidden" id="text_id" name="text_id" value="<?=$text->getId() ?>" />
+<input type="hidden" id="project_id" name="project_id" value="<?=$text->getProjectId() ?>" />
 <input type="submit" class="button" value="Submit" />
 </form>
 </div>
@@ -33,7 +33,8 @@ Language <?=$lang ?>:<br>
 <?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { 
 $checked = isset($belongs[$path->getId()]) ? 'checked' : '';
 ?>
-<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeTextGroup(<?=$path->getId() ?>)" <?=$checked ?>/><?=$path->getPath() ?><br>
+<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeTextGroup(<?=$path->getId() ?>)" <?=$checked ?>/>
+<label for="ch_<?=$path->getId() ?>"><?=$path->getPath() ?></label><br>
 <?php } ?>
 </div>
 </div>

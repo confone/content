@@ -30,15 +30,16 @@ echo $paths[1];
 <?php } ?>
 <div class="publish">
 <form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="hidden" id="image_id" name="image_id" value="<?=$image->getId() ?>" />
-<input type="hidden" id="project_id" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
+<input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
 <div id="groups">
 <?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { 
 $checked = isset($belongs[$path->getId()]) ? 'checked' : '';
 ?>
-<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeImageGroup(<?=$path->getId() ?>)" <?=$checked ?>/><?=$path->getPath() ?><br>
+<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeImageGroup(<?=$path->getId() ?>)" <?=$checked ?>/>
+<label for="ch_<?=$path->getId() ?>"><?=$path->getPath() ?></label><br>
 <?php } ?>
 </div>
 </div>
