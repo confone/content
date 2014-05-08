@@ -24,6 +24,7 @@ class TextDetailController extends ViewController {
 		$this->render( array(
 			'title' => 'Text Detail | Confone',
 			'view' => 'text/detail.php',
+			'project' => $project,
 			'text' => $text
 		));
 	}

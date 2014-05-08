@@ -24,6 +24,7 @@ class ImageDetailController extends ViewController {
 		$this->render( array(
 			'title' => 'Image Detail | Confone',
 			'view' => 'image/detail.php',
+			'project' => $project,
 			'image' => $image
 		));
 	}

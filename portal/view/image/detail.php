@@ -32,6 +32,17 @@ echo $paths[1];
 <input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
+<div id="belongs">
+<?php foreach ($image->getProjectPaths() as $path) { ?>
+<div><?=$path->getPath() ?></div>
+<?php } ?>
+</div>
+-----------------------------------
+<div id="groups">
+<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
+<div><?=$path->getPath() ?></div>
+<?php } ?>
+</div>
 </div>
 <?php 
 include 'view/include/footer.php';

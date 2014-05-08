@@ -34,6 +34,20 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
 	}
 
+	public static function hasProjectPath($projectId, $pathId) {
+		$projectPath = new ProjectPathDao();
+		$sequence = $projectId;
+		$projectPath->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($projectPath);
+		$res = $builder->select('COUNT(*) as count')
+					   ->where('project_id', $projectId)
+					   ->where('id', $pathId)
+					   ->find();
+
+		return $res['count']>0;
+	}
+
 	public static function getProjectPath($projectId, $pathId) {
 		$projectPath = new ProjectPathDao();
 		$sequence = $projectId;
@@ -75,6 +89,17 @@ class ProjectPathDao extends ProjectPathDaoParent {
 					   ->find();
 
 		return ContentDaoBase::makeObjectFromSelectResult($res, 'ProjectPathDao');
+	}
+
+	public static function getProjectPathsByIds($projectId, $ids) {
+		$projectPath = new ProjectPathDao();
+		$sequence = $projectId;
+		$projectPath->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($projectPath);
+		$rows = $builder->select('*')->in('id', $ids)->where('path', self::ROOT_PATH, '<>')->findList();
+
+		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
 	}
 
 	public function delete() {

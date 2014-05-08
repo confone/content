@@ -12,6 +12,8 @@ class ImageDisplayHandler extends Handler {
 
 		if ($type=='jpg') {
 			$type = 'jpeg';
+		} else if (strtolower($type)=='ico' || strtolower($type)=='cur') {
+			$type = 'png';
 		}
 
 		$filePath = $image_upload_dir.$file;

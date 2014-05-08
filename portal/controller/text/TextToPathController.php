@@ -2,10 +2,31 @@
 class TextToPathController extends ViewController {
 
 	protected function control() {
-		$this->render( array(
-			'title' => 'Image Detail | Confone',
-			'view' => 'image/detail.php'
-		));
+		$projectId = param('project_id');
+
+		global $_CSESSION;
+		$project = new Project($projectId);
+
+		if ($project->isAvailableToUser($_CSESSION->getUserId())) {
+			$projPathId = param('project_path_id');
+
+			$pathExist = ProjectPathDao::hasProjectPath($projectId, $projPathId);
+
+			if (!$pathExist) {
+				$this->response(array('status'=>'failed'), '409 Conflict');
+			}
+
+			$textId = param('text_id');
+
+			$text = new Text($textId);
+			if ($text->addToProjectPath($projPathId)) {
+				$this->response(array('status'=>'success'));
+			} else {
+				$this->response(array('status'=>'failed'), '500 Internal Server Error');
+			}
+		}
+
+		$this->response(array('status'=>'failed'), '403 Forbidden');
 	}
 }
 ?>

@@ -19,7 +19,8 @@ abstract class ViewController {
 		exit;
 	}
 
-	protected function response($body) {
+	protected function response($body, $status='200 OK') {
+		header('HTTP/1.0 '.$status);
 		echo json_encode($body);
 		exit;
 	}

@@ -63,15 +63,18 @@ class Image extends Model {
 		return ImageVersionDao::publish($this->getId());
 	}
 
-	public function getFilePath() {
-		$path = '';
+	public function getProjectPaths() {
+		$paths = array();
 
-		$versionDao = ImageVersionDao::getCurrentImage($this->getId());
-		if (isset($versionDao)) {
-			$path = $versionDao->getFilePath();
+		$pathIds = LookupImageProjectPathDao::getProjectPaths($this->dao->getProjectId(), $this->getId());
+		$pathDaos = ProjectPathDao::getProjectPathsByIds($this->dao->getProjectId(), $pathIds);
+
+		foreach ($pathDaos as $pathDao) {
+			$path = new ProjectPath($pathDao);
+			array_push($paths, $path);
 		}
 
-		return $path;
+		return $paths;
 	}
 
 	public function getPreviewFilePath() {
@@ -83,6 +86,15 @@ class Image extends Model {
 		}
 
 		return $path;
+	}
+
+	public function addToProjectPath($pathId) {
+		$lookup = new LookupImageProjectPathDao();
+		$lookup->setCode($this->dao->getCode());
+		$lookup->setImageId($this->dao->getId());
+		$lookup->setProjectPathId($pathId);
+		$lookup->setProjectId($this->dao->getProjectId());
+		return $lookup->save();
 	}
 
     public function setCode($code) {

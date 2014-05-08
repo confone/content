@@ -82,6 +82,20 @@ class Text extends Model {
 		return $path;
 	}
 
+	public function getProjectPaths() {
+		$paths = array();
+
+		$pathIds = LookupTextProjectPathDao::getProjectPaths($this->dao->getProjectId(), $this->getId());
+		$pathDaos = ProjectPathDao::getProjectPathsByIds($this->dao->getProjectId(), $pathIds);
+
+		foreach ($pathDaos as $pathDao) {
+			$path = new ProjectPath($pathDao);
+			array_push($paths, $path);
+		}
+
+		return $paths;
+	}
+
 	public function getPreviewContent($language='en') {
 		$path = '';
 
@@ -91,6 +105,15 @@ class Text extends Model {
 		}
 
 		return $path;
+	}
+
+	public function addToProjectPath($pathId) {
+		$lookup = new LookupTextProjectPathDao();
+		$lookup->setCode($this->dao->getCode());
+		$lookup->setTextId($this->dao->getId());
+		$lookup->setProjectPathId($pathId);
+		$lookup->setProjectId($this->dao->getProjectId());
+		return $lookup->save();
 	}
 
     public function setCode($code) {

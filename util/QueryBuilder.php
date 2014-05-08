@@ -98,7 +98,7 @@ class QueryBuilder {
 	public function in($field, $range) {
 		$in = $this->and ? ' AND' : ' WHERE';
 
-		$in = " $field IN (";
+		$in.= " $field IN (";
 		foreach ($range as $value) {
 			$in.= $value.",";
 		}

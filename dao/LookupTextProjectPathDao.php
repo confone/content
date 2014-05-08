@@ -13,7 +13,6 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 						->where('project_id', $projectId)
 						->where('project_path_id', $projectPathId)
 						->findList();
-
 		if ($rows) {
 			$atReturn = array();
 			foreach ($rows as $row) {
@@ -35,11 +34,31 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 						->where('project_id', $projectId)
 						->where('project_path_id', $projectPathId)
 						->findList();
-
 		if ($rows) {
 			$atReturn = array();
 			foreach ($rows as $row) {
 				array_push($atReturn, $row);
+			}
+			return $atReturn;
+		} else {
+			return array();
+		}
+	}
+
+	public static function getProjectPaths($projectId, $textId) {
+		$lookup = new LookupTextProjectPathDao();
+		$sequence = $projectId;
+		$lookup->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		$rows = $builder->select('project_path_id')
+						->where('project_id', $projectId)
+						->where('text_id', $textId)
+						->findList();
+		if ($rows) {
+			$atReturn = array();
+			foreach ($rows as $row) {
+				array_push($atReturn, $row['project_path_id']);
 			}
 			return $atReturn;
 		} else {

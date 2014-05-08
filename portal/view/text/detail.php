@@ -26,8 +26,19 @@ Language <?=$lang ?>:<br>
 <input type="hidden" name="language" value="<?=$lang ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
-</div>
 <?php } ?>
+<div id="belongs">
+<?php foreach ($text->getProjectPaths() as $path) { ?>
+<div><?=$path->getPath() ?></div>
+<?php } ?>
+</div>
+-----------------------------------
+<div id="groups">
+<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
+<div><?=$path->getPath() ?></div>
+<?php } ?>
+</div>
+</div>
 <?php 
 include 'view/include/footer.php';
 ?>
