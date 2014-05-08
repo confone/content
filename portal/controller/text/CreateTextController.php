@@ -12,14 +12,14 @@ class CreateTextController extends ViewController {
 
 			$code = param('code');
 
+			$textId = $project->addText($code, true);
+
 			$isProjectPath = false;
 			if (isset($projPathId) && $projPathId>0) {
 				$projPath = new ProjectPath($projectId, $projPathId);
 				$textId = $project->addText($code);
 				$projPath->addText($textId);
 				$isProjectPath = true;
-			} else {
-				$project->addText($code, true);
 			}
 		}
 

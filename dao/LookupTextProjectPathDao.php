@@ -66,6 +66,19 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 		}
 	}
 
+	public static function removeLookup($projectId, $projectPathId, $textId) {
+		$lookup = new LookupTextProjectPathDao();
+		$sequence = $projectId;
+		$lookup->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		return $builder->delete()
+					   ->where('project_id', $projectId)
+					   ->where('text_id', $textId)
+					   ->where('project_path_id', $projectPathId)
+					   ->query();
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {

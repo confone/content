@@ -1,15 +1,15 @@
 function FileDragHover(e) {
 	e.stopPropagation();
 	e.preventDefault();
-	e.target.className = (e.type == "dragover" ? "hover" : "");
+	e.target.className = (e.type == 'dragover' ? 'hover' : '');
 }
 
 function FileSelectHandler(e) {
 	FileDragHover(e);
 
 	var files = e.target.files || e.dataTransfer.files;
-	var imageId = document.getElementById("image_id").value;
-	var projectId = document.getElementById("project_id").value;
+	var imageId = document.getElementById('image_id').value;
+	var projectId = document.getElementById('project_id').value;
 
 	var formData = new FormData();
 	formData.append('file', files[0]);
@@ -29,20 +29,51 @@ function FileSelectHandler(e) {
 	xhr.send(formData);
 }
 
-if (window.File && window.FileList && window.FileReader) {
-	var fileselect = document.getElementById("fileselect");
-	var filedrag = document.getElementById("filedrag");
-	var submitbutton = document.getElementById("submitbutton");
+function changeImageGroup(pathId) {
+    var action = 'remove';
+    if(document.getElementById('ch_'+pathId).checked) {
+    	action = 'add';
+    }
 
-	fileselect.addEventListener("change", FileSelectHandler, false);
+    var imageId = document.getElementById('image_id').value;
+    var projectId = document.getElementById('project_id').value;
+
+    var params = 'project_id='+projectId+'&project_path_id='+pathId+'&image_id='+imageId+'&action='+action;
+
+    var http = GetXmlHttpObject();
+    http.open('POST', '/image/path', true);
+
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.setRequestHeader("Content-length", params.length);
+    http.setRequestHeader("Connection", "close");
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4) {
+        	 if (http.status == 200) {
+        		 alert('success');
+        	 } else {
+        		 alert('error - '+http.status);
+        	 }
+        }
+    }
+
+    http.send(params);
+}
+
+if (window.File && window.FileList && window.FileReader) {
+	var fileselect = document.getElementById('fileselect');
+	var filedrag = document.getElementById('filedrag');
+	var submitbutton = document.getElementById('submitbutton');
+
+	fileselect.addEventListener('change', FileSelectHandler, false);
 
 	var xhr = new XMLHttpRequest();
 	if (xhr.upload) {
-		filedrag.addEventListener("dragover", FileDragHover, false);
-		filedrag.addEventListener("dragleave", FileDragHover, false);
-		filedrag.addEventListener("drop", FileSelectHandler, false);
-		filedrag.style.display = "block";
+		filedrag.addEventListener('dragover', FileDragHover, false);
+		filedrag.addEventListener('dragleave', FileDragHover, false);
+		filedrag.addEventListener('drop', FileSelectHandler, false);
+		filedrag.style.display = 'block';
 
-		submitbutton.style.display = "none";
+		submitbutton.style.display = 'none';
 	}
 }

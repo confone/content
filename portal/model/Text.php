@@ -90,7 +90,7 @@ class Text extends Model {
 
 		foreach ($pathDaos as $pathDao) {
 			$path = new ProjectPath($pathDao);
-			array_push($paths, $path);
+			$paths[$pathDao->getId()] = $path;
 		}
 
 		return $paths;
@@ -114,6 +114,11 @@ class Text extends Model {
 		$lookup->setProjectPathId($pathId);
 		$lookup->setProjectId($this->dao->getProjectId());
 		return $lookup->save();
+	}
+
+	public function removeFromProjectPath($pathId) {
+		return LookupTextProjectPathDao::removeLookup ( 
+					$this->dao->getProjectId(), $pathId, $this->dao->getId());
 	}
 
     public function setCode($code) {

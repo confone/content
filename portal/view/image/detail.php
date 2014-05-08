@@ -3,6 +3,8 @@ $stylesheets = array('image.css');
 $scripts = array('image-detail.js');
 
 include 'view/include/header.php';
+
+$belongs = $image->getProjectPaths();
 ?>
 <div class="add_version">
 <form action="/image/version/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -28,19 +30,15 @@ echo $paths[1];
 <?php } ?>
 <div class="publish">
 <form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
-<input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="hidden" id="image_id" name="image_id" value="<?=$image->getId() ?>" />
+<input type="hidden" id="project_id" name="project_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
-<div id="belongs">
-<?php foreach ($image->getProjectPaths() as $path) { ?>
-<div><?=$path->getPath() ?></div>
-<?php } ?>
-</div>
------------------------------------
 <div id="groups">
-<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
-<div><?=$path->getPath() ?></div>
+<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { 
+$checked = isset($belongs[$path->getId()]) ? 'checked' : '';
+?>
+<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeImageGroup(<?=$path->getId() ?>)" <?=$checked ?>/><?=$path->getPath() ?><br>
 <?php } ?>
 </div>
 </div>

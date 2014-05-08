@@ -16,10 +16,23 @@ class TextToPathController extends ViewController {
 				$this->response(array('status'=>'failed'), '409 Conflict');
 			}
 
+			$action = param('action');
+
+			if (empty($action)) {
+				$this->response(array('status'=>'failed'), '404 Bad Request');
+			}
+
 			$textId = param('text_id');
 
 			$text = new Text($textId);
-			if ($text->addToProjectPath($projPathId)) {
+
+			if ($action=='add') {
+				$result = $text->addToProjectPath($projPathId);
+			} else if ($action=='remove') {
+				$result = $text->removeFromProjectPath($projPathId);
+			}
+
+			if ($result) {
 				$this->response(array('status'=>'success'));
 			} else {
 				$this->response(array('status'=>'failed'), '500 Internal Server Error');

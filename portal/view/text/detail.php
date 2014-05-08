@@ -3,6 +3,8 @@ $stylesheets = array('text.css');
 $scripts = array('text.js');
 
 include 'view/include/header.php';
+
+$belongs = $text->getProjectPaths();
 ?>
 <div class="add_version">
 <form action="/text/version/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -27,15 +29,11 @@ Language <?=$lang ?>:<br>
 <input type="submit" class="button" value="Publish" />
 </form>
 <?php } ?>
-<div id="belongs">
-<?php foreach ($text->getProjectPaths() as $path) { ?>
-<div><?=$path->getPath() ?></div>
-<?php } ?>
-</div>
------------------------------------
 <div id="groups">
-<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { ?>
-<div><?=$path->getPath() ?></div>
+<?php foreach ($project->getRootPath()->getSubProjectPaths() as $path) { 
+$checked = isset($belongs[$path->getId()]) ? 'checked' : '';
+?>
+<input type="checkbox" id="ch_<?=$path->getId() ?>" onclick="javascript:changeTextGroup(<?=$path->getId() ?>)" <?=$checked ?>/><?=$path->getPath() ?><br>
 <?php } ?>
 </div>
 </div>

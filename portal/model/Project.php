@@ -29,7 +29,7 @@ class Project extends Model {
     	return $this->rootPath;
     }
 
-    public function addImage($code, $rootPath=false) {
+    public function addImage($code) {
     	if (empty($code)) { return -1; }
 
 		$image = new ImageDao();
@@ -38,14 +38,12 @@ class Project extends Model {
 		$image->setProjectId($this->getId());
 		$image->save();
 
-		if ($rootPath) {
-			$this->getRootPath()->addImage($image->getId());
-		}
+		$this->getRootPath()->addImage($image->getId());
 
 		return $image->getId();
     }
 
-    public function addText($code, $rootPath=false) {
+    public function addText($code) {
     	if (empty($code)) { return -1; }
 
 		$text = new TextDao();
@@ -54,9 +52,7 @@ class Project extends Model {
 		$text->setProjectId($this->getId());
 		$text->save();
 
-		if ($rootPath) {
-			$this->getRootPath()->addText($text->getId());
-		}
+		$this->getRootPath()->addText($text->getId());
 
 		return $text->getId();
     }

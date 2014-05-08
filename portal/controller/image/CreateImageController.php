@@ -12,14 +12,13 @@ class CreateImageController extends ViewController {
 
 			$code = param('code');
 
+			$imageId = $project->addImage($code);
+
 			$isProjectPath = false;
 			if (isset($projPathId) && $projPathId>0) {
 				$projPath = new ProjectPath($projectId, $projPathId);
-				$imageId = $project->addImage($code);
 				$projPath->addImage($imageId);
 				$isProjectPath = true;
-			} else {
-				$project->addImage($code, true);
 			}
 		}
 

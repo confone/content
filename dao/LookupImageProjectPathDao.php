@@ -66,6 +66,19 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 		}
 	}
 
+	public static function removeLookup($projectId, $projectPathId, $imageId) {
+		$lookup = new LookupImageProjectPathDao();
+		$sequence = $projectId;
+		$lookup->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		return $builder->delete()
+					   ->where('project_id', $projectId)
+					   ->where('image_id', $imageId)
+					   ->where('project_path_id', $projectPathId)
+					   ->query();
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {
