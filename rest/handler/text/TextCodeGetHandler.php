@@ -15,7 +15,7 @@ class TextCodeGetHandler extends Handler {
 		$response['texts'] = array();
 
 		foreach ($textVersions as $version) {
-			$ver = $version->getVersions();
+			$ver = $version->getVersion();
 			$response['texts'][$ver] = array();
 			$response['texts'][$ver]['url'] = $base_host.$base_uri.'/text/display/'.$textId.'/version/'.$ver;
 		}

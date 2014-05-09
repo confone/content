@@ -89,6 +89,7 @@ class ImageVersionDao extends ImageVersionDaoParent {
 		$builder = new QueryBuilder($imageVersion);
 		$rows = $builder->select('*')
 						->where('image_id', $imageId)
+						->order('id', true)
 						->findList();
 
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ImageVersionDao");

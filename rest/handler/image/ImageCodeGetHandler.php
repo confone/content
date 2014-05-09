@@ -15,7 +15,7 @@ class ImageCodeGetHandler extends Handler {
 		$response['images'] = array();
 
 		foreach ($imageVersions as $version) {
-			$ver = $version->getVersions();
+			$ver = $version->getVersion();
 			$response['images'][$ver] = array();
 			$response['images'][$ver]['url'] = $base_host.$base_uri.'/image/display/'.$imageId.'/version/'.$ver;
 		}
