@@ -79,6 +79,19 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 					   ->query();
 	}
 
+	public static function countProjectTexts($projectId) {
+		$lookup = new LookupTextProjectPathDao();
+		$sequence = $projectId;
+		$lookup->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		$res = $builder->select('COUNT(DISTINCT text_id) as count')
+					   ->where('project_id', $projectId)
+					   ->find();
+
+		return $res['count'];
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {

@@ -102,6 +102,17 @@ class ProjectPathDao extends ProjectPathDaoParent {
 		return ContentDaoBase::makeObjectsFromSelectListResult($rows, "ProjectPathDao");
 	}
 
+	public static function countProjectPaths($projectId) {
+		$projectPath = new ProjectPathDao();
+		$sequence = $projectId;
+		$projectPath->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($projectPath);
+		$res = $builder->select('COUNT(*) as count')->where('project_id', $projectId)->find();
+
+		return $res['count'];
+	}
+
 	public function delete() {
 		$this->setIsDeleted('Y');
 		$this->save();

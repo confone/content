@@ -79,6 +79,19 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 					   ->query();
 	}
 
+	public static function countProjectImages($projectId) {
+		$lookup = new LookupImageProjectPathDao();
+		$sequence = $projectId;
+		$lookup->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($lookup);
+		$res = $builder->select('COUNT(DISTINCT image_id) as count')
+					   ->where('project_id', $projectId)
+					   ->find();
+
+		return $res['count'];
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function beforeInsert() {

@@ -62,6 +62,19 @@ class Project extends Model {
     	return $access != ProjectDao::ACCESSLEVEL_NONE;
     }
 
+    public function getGroupCount() {
+    	$total = ProjectPathDao::countProjectPaths($this->getId());
+   		return $total-1;
+    }
+
+    public function getImageCount() {
+    	return LookupImageProjectPathDao::countProjectImages($this->getId());
+    }
+
+    public function getTextCount() {
+    	return LookupTextProjectPathDao::countProjectTexts($this->getId());
+    }
+
     public function setName($name) {
     	$this->dao->setName($name);
     }
