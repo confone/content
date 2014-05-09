@@ -16,8 +16,11 @@ class TextCodeGetHandler extends Handler {
 
 		foreach ($textVersions as $version) {
 			$ver = $version->getVersion();
-			$response['texts'][$ver] = array();
-			$response['texts'][$ver]['url'] = $version->getContent();
+			if (!isset($response['texts'][$version->getLanguage()])) {
+				$response['texts'][$version->getLanguage()] = array();
+			}
+			$response['texts'][$version->getLanguage()][$ver] = array();
+			$response['texts'][$version->getLanguage()][$ver]['content'] = $version->getContent();
 		}
 
 		return $response;
