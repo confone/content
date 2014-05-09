@@ -43,6 +43,10 @@ class Project extends Model {
 		return $image->getId();
     }
 
+    public function hasImageCode($code) {
+    	return LookupImageCodeDao::hasImageCode($code, $this->getId());
+    }
+
     public function addText($code) {
     	if (empty($code)) { return -1; }
 
@@ -55,6 +59,10 @@ class Project extends Model {
 		$this->getRootPath()->addText($text->getId());
 
 		return $text->getId();
+    }
+
+    public function hasTextCode($code) {
+    	return LookupTextCodeDao::hasTextCode($code, $this->getId());
     }
 
     public function isAvailableToUser($userId) {

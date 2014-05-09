@@ -12,6 +12,10 @@ class CreateImageController extends ViewController {
 
 			$code = param('code');
 
+			if ($project->hasImageCode($code)) {
+				$this->redirect('/application/detail?id='.$projectId.'&err=image code already exists');
+			}
+
 			$imageId = $project->addImage($code);
 
 			$isProjectPath = false;

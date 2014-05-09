@@ -12,6 +12,10 @@ class CreateTextController extends ViewController {
 
 			$code = param('code');
 
+			if ($project->hasTextCode($code)) {
+				$this->redirect('/application/detail?id='.$projectId.'&err=text code already exists');
+			}
+
 			$textId = $project->addText($code, true);
 
 			$isProjectPath = false;
