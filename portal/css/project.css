@@ -1,1 +1,73 @@
 @CHARSET "UTF-8";
+div#new_project {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+div#member {
+	float: right;
+	border: 1px solid #cdcdcd;
+	width: 300px;
+	height: 200px;
+}
+div#member div.title {
+	padding: 12px 15px 12px 15px;
+	font-size:18px;
+	font-weight: bold;
+	background-color: #f6f6f6;
+	border-bottom: 1px solid #cdcdcd;
+}
+div#member img.profile {
+	width:90px;
+	height:90px;
+	padding:5px;
+}
+div#member label#name {
+	position:relative;
+	top:-50px;
+	left:10px;
+}
+
+div#list_porject {
+	margin:20px 0px 20px 0px;
+	width: 660px;
+	min-height: 500px;
+}
+div#list_porject div.title {
+	font-size:18px;
+	padding:20px 10px 10px 10px;
+	border-bottom: 2px solid #cdcdcd;
+}
+button#new_proj_btn {
+	float:right;
+	padding:10px;
+	margin-top:-8px;
+	border:none;
+	outline:none;
+	cursor:pointer;
+	font-weight:bold;
+	background-color: #eeeeee;
+	background-image: -moz-linear-gradient(#fcfcfc, #eee);
+	background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+	background-image: linear-gradient(#fcfcfc, #eee);
+	background-repeat: repeat-x;
+	border: 1px solid #d5d5d5;
+}
+button#new_proj_btn:hover {
+	background:#d5d5d5;
+}
+div#list_porject div.projects div {
+	border-top: 1px solid #cdcdcd;
+	padding:40px 0px 40px 30px;
+}
+div#list_porject div.projects a.project_link {
+	font-weight:bold;
+	color:#4183c4;
+	text-decoration:none;
+}
+div#list_porject div.projects span {
+	color:#545454;
+	margin-top:8px;
+	display:block;
+	font-size:.8em;
+}

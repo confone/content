@@ -7,8 +7,8 @@ class CreateProjectController extends ViewController {
 		$user = new User($_CSESSION->getUserId());
 
 		$name = param('project_name');
-		if (isset($name)) {
-			if ($user->addProject($name)) {
+		if (!empty($name)) {
+			if ($user->addProject($name, param('project_description'))) {
 				$this->redirect('/project/list');
 			} else {
 				$error = 'System Temporarily NOT available!';

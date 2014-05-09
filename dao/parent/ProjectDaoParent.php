@@ -4,6 +4,7 @@ abstract class ProjectDaoParent extends ContentDaoBase {
     protected function init() {
         $this->var['id'] = '';
         $this->var['name'] = '';
+        $this->var['description'] = '';
         $this->var['owner_id'] = '';
         $this->var['private_key'] = '';
         $this->var['public_key'] = '';
@@ -12,6 +13,7 @@ abstract class ProjectDaoParent extends ContentDaoBase {
 
         $this->update['id'] = false;
         $this->update['name'] = false;
+        $this->update['description'] = false;
         $this->update['owner_id'] = false;
         $this->update['private_key'] = false;
         $this->update['public_key'] = false;
@@ -29,6 +31,14 @@ abstract class ProjectDaoParent extends ContentDaoBase {
     }
     public function getName() {
         return $this->var['name'];
+    }
+
+    public function setDescription($description) {
+        $this->var['description'] = $description;
+        $this->update['description'] = true;
+    }
+    public function getDescription() {
+        return $this->var['description'];
     }
 
     public function setOwnerId($ownerId) {

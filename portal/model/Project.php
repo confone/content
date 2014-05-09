@@ -68,6 +68,9 @@ class Project extends Model {
     public function getName() {
         return $this->dao->getName();
     }
+    public function getDescription() {
+    	return $this->dao->getDescription();
+    }
     public function getOwnerId() {
         return $this->dao->getOwnerId();
     }

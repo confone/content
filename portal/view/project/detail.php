@@ -9,21 +9,21 @@ include 'view/include/header.php';
 <input type="text" name="project_path" placeholder="(Project Path)" />
 <input type="hidden" name="parent_path_id" value="0" />
 <input type="hidden" name="project_id" value="<?=$project->getId() ?>" />
-<input type="submit" class="button" value="Submit" />
+<input type="submit" class="button round4" value="Submit" />
 </form>
 </div>
 <div class="new_image">
 <form action="/image/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="text" name="code" placeholder="(Image Code)" />
 <input type="hidden" name="project_id" value="<?=$project->getId() ?>" />
-<input type="submit" class="button" value="Submit" />
+<input type="submit" class="button round4" value="Submit" />
 </form>
 </div>
 <div class="new_text">
 <form action="/text/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="text" name="code" placeholder="(Text Code)" />
 <input type="hidden" name="project_id" value="<?=$project->getId() ?>" />
-<input type="submit" class="button" value="Submit" />
+<input type="submit" class="button round4" value="Submit" />
 </form>
 </div>
 <div>

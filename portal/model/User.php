@@ -2,6 +2,8 @@
 class User extends Model {
 
 	private $projects = array();
+	private $image = null;
+	private $name = null;
 
 	public function getId() {
 		return $this->getInput();
@@ -10,11 +12,15 @@ class User extends Model {
 	protected function init() {}
     public function persist() {}
 
-	public function addProject($name) {
+	public function addProject($name, $description=null) {
 		$rv = false;
 
 		$project = new ProjectDao();
 		$project->setName($name);
+		if (empty($description)) {
+			$description = '(no description)';
+		}
+		$project->setDescription($description);
 		$project->setOwnerId($this->getId());
 		$rv = $project->save();
 
@@ -46,6 +52,19 @@ class User extends Model {
 		}
 
 		return $this->projects;
+	}
+
+	public function setProfileImage($image) {
+		$this->image = $image;
+	}
+	public function getProfileImage() {
+		return $this->image;
+	}
+	public function setName($name) {
+		$this->name = $name;
+	}
+	public function getName() {
+		return $this->name;
 	}
 }
 ?>

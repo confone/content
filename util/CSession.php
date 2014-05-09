@@ -3,6 +3,8 @@ class CSession {
 
 	public static $SESSION_KEY = 'CONFONESESSIONID';
     private static $AUTHINDEX = 'auth_index';
+    private static $PROFILEIMG = 'auth_profile_img';
+    private static $PROFILENAME = 'auth_profile_name';
 
 	private $sessionId = null;
 	private $sessionCache = null;
@@ -75,6 +77,20 @@ class CSession {
 		$session = $this->sessionCache->get($this->sessionId);
 		$this->sessionCache->set($this->sessionId, $session, $session_expires_in);
 		return $session[self::$AUTHINDEX];
+	}
+
+	public function getUserProfileImage() {
+		global $session_expires_in;
+		$session = $this->sessionCache->get($this->sessionId);
+		$this->sessionCache->set($this->sessionId, $session, $session_expires_in);
+		return $session[self::$PROFILEIMG];
+	}
+
+	public function getUserName() {
+		global $session_expires_in;
+		$session = $this->sessionCache->get($this->sessionId);
+		$this->sessionCache->set($this->sessionId, $session, $session_expires_in);
+		return $session[self::$PROFILENAME];
 	}
 }
 ?>

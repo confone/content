@@ -5,6 +5,8 @@ class ProjectListController extends ViewController {
 		global $_CSESSION;
 
 		$user = new User($_CSESSION->getUserId());
+		$user->setName($_CSESSION->getUserName());
+		$user->setProfileImage($_CSESSION->getUserProfileImage());
 
 		$this->render( array(
 			'title' => 'My Projects | Confone',
