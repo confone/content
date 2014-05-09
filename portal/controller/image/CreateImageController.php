@@ -2,7 +2,7 @@
 class CreateImageController extends ViewController {
 
 	protected function control() {
-		$projectId = param('project_id');
+		$projectId = param('application_id');
 
 		global $_CSESSION;
 		$project = new Project($projectId);
@@ -23,10 +23,10 @@ class CreateImageController extends ViewController {
 		}
 
 		if ($isProjectPath) {
-			$this->redirect('/project/path?project_id='.$projectId.'&id='.$projPathId);
+			$this->redirect('/application/group?application_id='.$projectId.'&id='.$projPathId);
 		}
 
-		$this->redirect('/project/detail?id='.$projectId);
+		$this->redirect('/application/detail?id='.$projectId);
 
 //		$this->response(array());
 	}

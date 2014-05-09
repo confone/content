@@ -5,7 +5,7 @@ class ProjectDetailController extends ViewController {
 		$projectId = param('id');
 
 		if (!isset($projectId)) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
 
 		global $_CSESSION;
@@ -13,13 +13,18 @@ class ProjectDetailController extends ViewController {
 		$project = new Project($projectId);
 
 		if (!$project->isAvailableToUser($_CSESSION->getUserId())) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
+
+		$user = new User($_CSESSION->getUserId());
+		$user->setName($_CSESSION->getUserName());
+		$user->setProfileImage($_CSESSION->getUserProfileImage());
 
 		$this->render( array(
 			'title' => 'Project Information | Confone',
 			'view' => 'project/detail.php',
-			'project' => $project
+			'project' => $project,
+			'user' => $user
 		));
 	}
 }

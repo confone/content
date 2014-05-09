@@ -2,13 +2,13 @@
 class TextDetailController extends ViewController {
 
 	protected function control() {
-		$projectId = param('project_id');
+		$projectId = param('application_id');
 
 		global $_CSESSION;
 		$project = new Project($projectId);
 
 		if (!$project->isAvailableToUser($_CSESSION->getUserId())) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
 
 		$textId = param('id');
@@ -16,9 +16,9 @@ class TextDetailController extends ViewController {
 		$text = new Text($textId);
 
 		if ($text->getProjectId()!=$projectId) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		} else if ($text->getAccountId()!=$_CSESSION->getUserId()) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
 
 		$this->render( array(

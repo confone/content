@@ -11,7 +11,7 @@ $belongs = $text->getProjectPaths();
 <textarea name="content"></textarea><br>
 <input type="text" name="language" placeholder="(Language)" />
 <input type="hidden" id="text_id" name="text_id" value="<?=$text->getId() ?>" />
-<input type="hidden" id="project_id" name="project_id" value="<?=$text->getProjectId() ?>" />
+<input type="hidden" id="application_id" name="application_id" value="<?=$text->getProjectId() ?>" />
 <input type="submit" class="button" value="Submit" />
 </form>
 </div>
@@ -24,7 +24,7 @@ Language <?=$lang ?>:<br>
 <div class="publish">
 <form action="/text/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="text_id" value="<?=$text->getId() ?>" />
-<input type="hidden" name="project_id" value="<?=$text->getProjectId() ?>" />
+<input type="hidden" name="application_id" value="<?=$text->getProjectId() ?>" />
 <input type="hidden" name="language" value="<?=$lang ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>

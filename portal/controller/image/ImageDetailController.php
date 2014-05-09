@@ -2,13 +2,13 @@
 class ImageDetailController extends ViewController {
 
 	protected function control() {
-		$projectId = param('project_id');
+		$projectId = param('application_id');
 
 		global $_CSESSION;
 		$project = new Project($projectId);
 
 		if (!$project->isAvailableToUser($_CSESSION->getUserId())) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
 
 		$imageId = param('id');
@@ -16,9 +16,9 @@ class ImageDetailController extends ViewController {
 		$image = new Image($imageId);
 
 		if ($image->getProjectId()!=$projectId) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		} else if ($image->getAccountId()!=$_CSESSION->getUserId()) {
-			$this->redirect('/project/list');
+			$this->redirect('/application/list');
 		}
 
 		$this->render( array(

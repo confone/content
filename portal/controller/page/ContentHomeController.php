@@ -2,7 +2,7 @@
 class ContentHomeController extends ViewController {
 
 	protected function control() {
-		$this->redirect('/project/list');
+		$this->redirect('/application/list');
 
 //		$this->render( array(
 //			'title' => 'Content Management | Confone',

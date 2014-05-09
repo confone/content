@@ -2,7 +2,7 @@
 class CreateProjectPathController extends ViewController {
 
 	protected function control() {
-		$projectId = param('project_id');
+		$projectId = param('application_id');
 	
 		global $_CSESSION;
 		$project = new Project($projectId);
@@ -23,7 +23,7 @@ class CreateProjectPathController extends ViewController {
 			}
 		}
 
-		$this->redirect('/project/detail?id='.$projectId);
+		$this->redirect('/application/detail?id='.$projectId);
 
 //		$this->response(array());
 	}

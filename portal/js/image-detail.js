@@ -9,12 +9,12 @@ function FileSelectHandler(e) {
 
 	var files = e.target.files || e.dataTransfer.files;
 	var imageId = document.getElementById('image_id').value;
-	var projectId = document.getElementById('project_id').value;
+	var projectId = document.getElementById('application_id').value;
 
 	var formData = new FormData();
 	formData.append('file', files[0]);
 	formData.append('image_id', imageId);
-	formData.append('project_id', projectId);
+	formData.append('application_id', projectId);
 
 	var xhr = new GetXmlHttpObject();
 	xhr.open('POST', '/image/version/new');
@@ -36,12 +36,12 @@ function changeImageGroup(pathId) {
     }
 
     var imageId = document.getElementById('image_id').value;
-    var projectId = document.getElementById('project_id').value;
+    var projectId = document.getElementById('application_id').value;
 
-    var params = 'project_id='+projectId+'&project_path_id='+pathId+'&image_id='+imageId+'&action='+action;
+    var params = 'application_id='+projectId+'&project_path_id='+pathId+'&image_id='+imageId+'&action='+action;
 
     var http = GetXmlHttpObject();
-    http.open('POST', '/image/path', true);
+    http.open('POST', '/image/group', true);
 
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 

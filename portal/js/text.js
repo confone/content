@@ -5,12 +5,12 @@ function changeTextGroup(pathId) {
     }
 
     var textId = document.getElementById('text_id').value;
-    var projectId = document.getElementById('project_id').value;
+    var projectId = document.getElementById('application_id').value;
 
-    var params = 'project_id='+projectId+'&project_path_id='+pathId+'&text_id='+textId+'&action='+action;
+    var params = 'application_id='+projectId+'&project_path_id='+pathId+'&text_id='+textId+'&action='+action;
 
     var http = GetXmlHttpObject();
-    http.open('POST', '/text/path', true);
+    http.open('POST', '/text/group', true);
 
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 

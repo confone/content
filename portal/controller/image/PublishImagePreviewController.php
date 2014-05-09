@@ -2,7 +2,7 @@
 class PublishImagePreviewController extends ViewController {
 
 	protected function control() {
-		$projectId = param('project_id');
+		$projectId = param('application_id');
 	
 		global $_CSESSION;
 		$project = new Project($projectId);
@@ -15,7 +15,7 @@ class PublishImagePreviewController extends ViewController {
 			$image->publishNewVersion();
 		}
 
-		$this->redirect('/image/detail?project_id='.$projectId.'&id='.$imageId);
+		$this->redirect('/image/detail?application_id='.$projectId.'&id='.$imageId);
 
 //		$this->response(array());
 	}

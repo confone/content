@@ -16,7 +16,7 @@ Files to upload:
 </div>
 <!-- input type="text" name="path" placeholder="(Image File Path)" / -->
 <input type="hidden" id="image_id" name="image_id" value="<?=$image->getId() ?>" />
-<input type="hidden" id="project_id" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="hidden" id="application_id" name="application_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Submit" id="submitbutton" />
 </form>
 </div>
@@ -31,7 +31,7 @@ echo $paths[1];
 <div class="publish">
 <form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
-<input type="hidden" name="project_id" value="<?=$image->getProjectId() ?>" />
+<input type="hidden" name="application_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
 <div id="groups">

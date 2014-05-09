@@ -8,9 +8,9 @@ register('GET',  '/image/group/:pathname/images',            new ImagePathGetHan
 //register('POST', '/image/:imageid/publish',                  new ImagePublishHandler(), new ImagePublishValidator());
 //register('PUT',  '/image/:imageid/upload',                   new ImageUpdateHandler(),  new ImageUpdateValidator());
 
-register('POST', '/project',                         new ProjectCreateHandler(),          new ProjectCreateValidator());
-register('POST', '/project/:projectid/path',         new ProjectPathCreateHandler(),      new ProjectPathCreateValidator());
-register('GET',  '/project/:projectid/path/:pathid', new ProjectPathChildrenGetHandler(), null);
+register('POST', '/application',                          new ProjectCreateHandler(),          new ProjectCreateValidator());
+register('POST', '/application/:projectid/group',         new ProjectPathCreateHandler(),      new ProjectPathCreateValidator());
+register('GET',  '/application/:projectid/gropu/:pathid', new ProjectPathChildrenGetHandler(), null);
 
 register('GET',  '/text/code/:code',            new TextCodeGetHandler(), null);
 register('GET',  '/text/group/:pathname/texts', new TextPathGetHandler(), null);

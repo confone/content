@@ -9,13 +9,13 @@ class CreateProjectController extends ViewController {
 		$name = param('project_name');
 		if (!empty($name)) {
 			if ($user->addProject($name, param('project_description'))) {
-				$this->redirect('/project/list');
+				$this->redirect('/application/list');
 			} else {
 				$error = 'System Temporarily NOT available!';
 			}
 		}
 
-		$this->redirect('/project/list');
+		$this->redirect('/application/list');
 
 //		$this->response(array());
 	}
