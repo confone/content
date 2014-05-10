@@ -1,16 +1,16 @@
 @CHARSET "UTF-8";
-div#new_project {
+div.new_holder {
 	padding:10px;
 	background-color:#cdcdcd;
 	display:none;
 }
-div#new_project input#project_name {
+div.new_holder input.holder_name {
 	border:none;
 	width:160px;
 	height:30px;
 	padding-left:6px;
 }
-div#new_project input#project_description {
+div.new_holder input.holder_description {
 	border:none;
 	width:340px;
 	height:30px;
@@ -35,17 +35,17 @@ div#member label#name {
 	left:10px;
 }
 
-div#list_porject {
+div.list_holders {
 	margin:20px 0px 20px 0px;
 	width: 660px;
 	min-height: 500px;
 }
-div#list_porject div.title {
+div.list_holders div.title {
 	font-size:18px;
 	padding:20px 10px 10px 10px;
 	border-bottom: 2px solid #cdcdcd;
 }
-button#new_proj_btn {
+button.new_holder_btn {
 	float:right;
 	padding:8px 10px 8px 10px;
 	margin-top:-6px;
@@ -62,31 +62,31 @@ button#new_proj_btn {
 	background-repeat: repeat-x;
 	border: 1px solid #d5d5d5;
 }
-button#new_proj_btn:hover {
+button.new_holder_btn:hover {
 	background:#d5d5d5;
 }
-div#list_porject div.projects div.section {
+div.list_holders div.holders div.section {
 	border-top: 1px solid #cdcdcd;
 	padding:25px 0px 35px 30px;
 }
-div#list_porject div.projects a.project_link {
+div.list_holders div.holders a.project_link {
 	font-weight:bold;
 	color:#4183c4;
 	text-decoration:none;
 }
-div#list_porject div.projects span.description {
+div.list_holders div.holders span.description {
 	color:#999;
 	margin-top:5px;
 	display:block;
 	font-size:.8em;
 }
-div#list_porject div.projects div.pdata {
+div.list_holders div.holders div.pdata {
 	float:right;
 	font-size:.8em;
 	color:#545454;
 	padding:30px 20px 0px 0px;
 }
-div#list_porject div.projects span.detail {
+div.list_holders div.holders span.detail {
 	color:#aaa;
 	margin-right:10px;
 	font-size:.8em;

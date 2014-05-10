@@ -9,7 +9,7 @@ class ProjectListController extends ViewController {
 		$user->setProfileImage($_CSESSION->getUserProfileImage());
 
 		$this->render( array(
-			'title' => 'My Projects | Confone',
+			'title' => 'My Apps | Content Management',
 			'view' => 'project/list.php',
 			'user' => $user
 		));

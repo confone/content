@@ -7,16 +7,16 @@ include 'view/include/right-member.php';
 $projects = $user->getProjects();
 ?>
 <div>
-<div id="list_porject">
-<div class="title"><button id="new_proj_btn" class="round4" onclick="javascript:newProject()">+ | new application</button>Your Content Management Apps</div>
-<div id="new_project">
+<div class="list_holders">
+<div class="title"><button class="new_holder_btn round4" onclick="javascript:newProject()">+ | new application</button>Your Content Management Apps</div>
+<div id="new_project" class="new_holder">
 <form action="/application/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<input type="text" class="round4" id="project_name" name="project_name" placeholder="(Application Name)" />
-<input type="text" class="round4" id="project_description" name="project_description" placeholder="(Description)" />
+<input type="text" class="round4 holder_name" name="project_name" placeholder="(Application Name)" />
+<input type="text" class="round4 holder_description" name="project_description" placeholder="(Description)" />
 <input type="submit" class="button round4" value="Create" />
 </form>
 </div>
-<div class="projects">
+<div class="holders">
 <?php if (!empty($projects)) {
 foreach ($projects as $project) { ?>
 <div class="pdata">

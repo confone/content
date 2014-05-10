@@ -111,6 +111,14 @@ class ProjectPath extends Model {
 		return $this->subProjectPaths;
 	}
 
+    public function getImageCount() {
+    	return LookupImageProjectPathDao::countProjectPathImages($this->getProjectId(), $this->getId());
+    }
+
+    public function getTextCount() {
+    	return LookupTextProjectPathDao::countProjectPathTexts($this->getProjectId(), $this->getId());
+    }
+
     public function getProjectId() {
         return $this->dao->getProjectId();
     }
