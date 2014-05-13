@@ -79,6 +79,22 @@ div#member {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
+.round4top {
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.round4bottom {
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
 .round10 {
 	-webkit-border-top-right-radius: 10px;
 	-webkit-border-top-left-radius: 10px;
