@@ -5,7 +5,7 @@ class ContentHomeController extends ViewController {
 		$this->redirect('/application/list');
 
 //		$this->render( array(
-//			'title' => 'Content Management | Confone',
+//			'title' => 'Content | Confone',
 //			'view' => 'page/home.php'
 //		));
 	}

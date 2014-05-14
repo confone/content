@@ -9,7 +9,7 @@ class ProjectListController extends ViewController {
 		$user->setProfileImage($_CSESSION->getUserProfileImage());
 
 		$this->render( array(
-			'title' => 'My Apps | Content Management',
+			'title' => 'My Apps | Content',
 			'view' => 'project/list.php',
 			'user' => $user
 		));

@@ -8,7 +8,7 @@ $projects = $user->getProjects();
 ?>
 <div>
 <div class="list_holders">
-<div class="title"><button class="new_holder_btn round4" onclick="javascript:newProject()">+ | new application</button>Your Content Management Apps</div>
+<div class="title"><button class="new_holder_btn round4" onclick="javascript:newProject()">+ | new application</button>Your Content Apps</div>
 <div id="new_project" class="new_holder">
 <form action="/application/new" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="text" class="round4 holder_name" name="project_name" placeholder="(Application Name)" />

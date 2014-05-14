@@ -21,7 +21,7 @@ class ProjectDetailController extends ViewController {
 		$user->setProfileImage($_CSESSION->getUserProfileImage());
 
 		$this->render( array(
-			'title' => 'Content Management Application | Confone',
+			'title' => 'Content Application | Confone',
 			'view' => 'project/detail.php',
 			'project' => $project,
 			'user' => $user
