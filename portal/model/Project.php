@@ -44,7 +44,7 @@ class Project extends Model {
     }
 
     public function hasImageCode($code) {
-    	return LookupImageCodeDao::hasImageCode($code, $this->getId());
+    	return LookupImageCodeDao::hasProjectImageCode($code, $this->getId());
     }
 
     public function addText($code) {

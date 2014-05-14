@@ -2,6 +2,11 @@
 class ImageVersionHandler extends Handler {
 
 	protected function handle($params) {
+		if (!LookupImageCodeDao::hasImageCode($params['code'], $params['imageid'])) {
+			header('HTTP/1.0 404 Not Found');
+			return array('status'=>'error', 'description'=>'Image Not Found');
+		}
+
 		$imageVersionDao = ImageVersionDao::getVersionImage($params['imageid'], $params['version']);
 
 		if (!isset($imageVersionDao)) {
