@@ -30,6 +30,9 @@ div#profile div#profile-hide div#links a:hover {
 	color:#ffffff;
 	background-color:#4183c4;
 }
+div#profile div#profile-hide div#links a.logout {
+	border:none;
+}
 div#profile button.register {
 	margin:7px 0px 0px 0px;border:none;color:#f3f3f3;outline:none;font-size:.8em;font-weight:bold;background:#60b044;background:-moz-linear-gradient(top, #60b044 0%, #569e3d 50%, #60b044 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#60b044), color-stop(50%,#569e3d), color-stop(100%,#60b044));background:-webkit-linear-gradient(top, #60b044 0%,#569e3d 50%,#60b044 100%);background:-o-linear-gradient(top, #60b044 0%,#569e3d 50%,#60b044 100%);background:-ms-linear-gradient(top, #60b044 0%,#569e3d 50%,#60b044 100%);background:linear-gradient(to bottom, #60b044 0%,#569e3d 50%,#60b044 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#60b044', endColorstr='#60b044',GradientType=0 );border:none!important;height:36px;width:90px;cursor:pointer;
 }
