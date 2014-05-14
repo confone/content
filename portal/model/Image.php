@@ -1,6 +1,8 @@
 <?php
 class Image extends Model {
 
+	const PREVIEW_VERSION = ImageVersionDao::PREVIEW_VERSION;
+
 	private $dao = null;
 
 	private $owner = null;
@@ -48,12 +50,20 @@ class Image extends Model {
 	public function getAllVersionFiles() {
 		if (empty($this->versions)) {
 			$imageVersionDaos = ImageVersionDao::getImages($this->getId());
+			$preview = array();
 			foreach ($imageVersionDaos as $imageVersionDao) {
 				$version = $imageVersionDao->getVersion();
-				$this->versions[$version] = array();
-				$this->versions[$version]['file_path'] = $imageVersionDao->getFilePath();
-				$this->versions[$version]['create_time'] = $imageVersionDao->getCreateTime();
+				if ($version == ImageVersionDao::PREVIEW_VERSION) {
+					$preview['file_path'] = $imageVersionDao->getFilePath();
+					$preview['create_time'] = $imageVersionDao->getCreateTime();
+				} else {
+					$this->versions[$version] = array();
+					$this->versions[$version]['file_path'] = $imageVersionDao->getFilePath();
+					$this->versions[$version]['create_time'] = $imageVersionDao->getCreateTime();
+				}
 			}
+
+			$this->versions[ImageVersionDao::PREVIEW_VERSION] = $preview;
 		}
 
 		return $this->versions;
