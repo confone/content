@@ -16,9 +16,9 @@ $max = max($keys);
 $versionFiles = $image->getAllVersionFiles();
 ?>
 <div>
+Image links:
 <table>
 <thead>
-<tr><td>image</td><td>link</td></tr>
 </thead>
 <tbody>
 <tr><td>current:</td><td class="link"><?=$published ?></td></tr>
@@ -42,34 +42,38 @@ Files to upload:
 <input type="submit" class="button" value="Submit" id="submitbutton" />
 </form>
 </div>
-Versions:
-<div>
+<div style="height:90px;">
 <label><span style="color:#800000">Preview</span>: <img style="vertical-align:middle;max-width:100px;max-height:80px;margin:5px;" src="<?=$preview ?>"/> <?php 
 $paths = explode($image_separator, $versionFiles[Image::PREVIEW_VERSION]['file_path']); 
 echo $paths[1];
 ?></label>
 </div>
-<?php foreach ($versionFiles as $key=>$version) { 
-if ($key==Image::PREVIEW_VERSION) { continue; }
-if ($key==$max) {
-	$label = '<span style="color:#008000">Current</span>';
-} else {
-	$label = '<span>Version '.$key.'</span>';
-}
-?>
-<div>
-<label><?=$label ?>: <img style="vertical-align:middle;max-width:100px;max-height:80px;margin:5px;" src="<?=$versions.$key ?>"/> <?php 
-$paths = explode($image_separator, $version['file_path']); 
+<div style="height:90px;">
+<label><span style="color:#008000">Current</span>: <img style="vertical-align:middle;max-width:100px;max-height:80px;margin:5px;" src="<?=$published ?>"/> <?php 
+$paths = explode($image_separator, $versionFiles[$max]['file_path']); 
 echo $paths[1];
 ?></label>
 </div>
-<?php } ?>
-<div class="publish">
 <form action="/image/publish" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="image_id" value="<?=$image->getId() ?>" />
 <input type="hidden" name="application_id" value="<?=$image->getProjectId() ?>" />
 <input type="submit" class="button" value="Publish" />
 </form>
+Previous Versions:<br>
+<div style="height:100px;">
+<?php foreach ($versionFiles as $key=>$version) { 
+if ($key==Image::PREVIEW_VERSION || $key==$max) { continue; }
+?>
+<div style="float:left;vertical-align:middle;">
+<center><?='<span>Version '.$key.'</span>' ?>
+<div style="height:90px;width:110px;vertical-align:middle;">
+<img style="max-width:100px;max-height:80px;margin:5px;" src="<?=$versions.$key ?>"/>
+</div>
+</center>
+</div>
+<?php } ?>
+</div>
+<div class="publish">
 <br>
 Groups:<br>
 <div id="groups">
