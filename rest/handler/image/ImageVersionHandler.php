@@ -7,7 +7,7 @@ class ImageVersionHandler extends Handler {
 			return array('status'=>'error', 'description'=>'Image Not Found');
 		}
 
-		if (empty($params['version']) || !is_int($params['version'])) {
+		if (empty($params['version']) || !is_numeric($params['version'])) {
 			header('HTTP/1.0 400 Bad Request');
 			return array('status'=>'error', 'description'=>'Invalid Request');
 		}
