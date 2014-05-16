@@ -9,6 +9,8 @@ abstract class ContentDaoBase {
 
 	protected $fromdb = false;
 
+	protected $asyncInsert = false;
+
 	private $shardId = -1;
 
 	private $serverAddress = '';
@@ -102,11 +104,14 @@ abstract class ContentDaoBase {
 	private function insert() {
 		$idColumn = $this->getIdColumnName();
 
-		$query = new QueryBuilder($this);
+		$query = new QueryBuilder($this, $this->asyncInsert);
 		$res = $query->insert($this->var, $this->getTableName())
 					 ->query();
 
-		if ($res==-1) { Logger::error($query->getQuery()); }
+		if (!$this->asyncInsert) {
+			$sql = $query->getQuery();
+			if ($res==-1) { Logger::error($sql); }
+		}
 
 		return $res!=-1;
 	}

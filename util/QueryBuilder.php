@@ -2,14 +2,16 @@
 class QueryBuilder {
 
 	private $object = null;
+	private $async = false;
 	private $query = '';
 	private $and = false;
 	private $isInsert = false;
 	private $connection = null;
 	private $result = null;
 
-	public function __construct($object) {
+	public function __construct($object, $async=false) {
 		$this->object = $object;
+		$this->async = $async;
 		$this->getConnection();
 	}
 
@@ -129,10 +131,14 @@ class QueryBuilder {
 
 	public function query() {
 		if ($this->isInsert) {
-			if ($this->connection->query($this->query)) {
-				$this->result = $this->connection->insert_id;
+			if ($this->async) {
+				$this->result = $this->connection->query($this->query, MYSQLI_ASYNC);
 			} else {
-				$this->result = -1;
+				if ($this->connection->query($this->query)) {
+					$this->result = $this->connection->insert_id;
+				} else {
+					$this->result = -1;
+				}
 			}
 		} else {
 			$this->result = $this->connection->query($this->query); 
@@ -181,7 +187,7 @@ class QueryBuilder {
 
 		$db_username = $dbconfig[$domain]['username'];
 		$db_password = $dbconfig[$domain]['password'];
-Logger::info($this->object->getServerAddress().', '.$db_username.', '.$db_password.', '.$this->object->getShardedDatabaseName());
+
 		$this->connection = mysqli_connect( 'p:'.$this->object->getServerAddress(), 
 											$db_username,
 											$db_password,
