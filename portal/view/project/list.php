@@ -3,7 +3,7 @@ $stylesheets = array('project.css');
 $scripts = array('project.js');
 
 include 'view/include/header.php';
-include 'view/include/right-member.php';
+include 'view/project/part/list-right.php';
 $projects = $user->getProjects();
 ?>
 <div>

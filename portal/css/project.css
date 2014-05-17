@@ -17,19 +17,19 @@ div.new_holder input.holder_description {
 	padding-left:6px;
 	margin-right:10px;
 }
-div#member div.title {
+div#right div.title {
 	padding: 12px 15px 12px 15px;
 	font-size:18px;
 	font-weight: bold;
 	background-color: #f6f6f6;
 	border-bottom: 1px solid #cdcdcd;
 }
-div#member img.profile {
+div#right img.profile {
 	width:90px;
 	height:90px;
 	padding:5px;
 }
-div#member label#name {
+div#right label#name {
 	position:relative;
 	top:-50px;
 	left:10px;
