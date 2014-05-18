@@ -39,11 +39,19 @@ div.list_holders {
 	margin:20px 0px 20px 0px;
 	width: 660px;
 	min-height: 500px;
+	display: block;
 }
 div.list_holders div.title {
 	font-size:18px;
 	padding:20px 10px 10px 10px;
 	border-bottom: 2px solid #cdcdcd;
+}
+div.list_holders div.title a {
+	text-decoration:none;
+	color:#000080;
+}
+div.list_holders div.title span {
+	font-size:.6em;
 }
 button.new_holder_btn {
 	float:right;
@@ -67,7 +75,7 @@ button.new_holder_btn:hover {
 }
 div.list_holders div.holders div.section {
 	border-top: 1px solid #cdcdcd;
-	padding:25px 0px 35px 30px;
+	padding:20px 0px 25px 30px;
 }
 div.list_holders div.holders a.project_link {
 	font-weight:bold;
@@ -84,7 +92,15 @@ div.list_holders div.holders div.pdata {
 	float:right;
 	font-size:.8em;
 	color:#545454;
-	padding:30px 20px 0px 0px;
+	padding:25px 20px 0px 0px;
+}
+div.list_holders div.holders div.pdata img {
+	width:40px;
+	height:40px;
+	vertical-align:top;
+	margin-right:10px;
+	position:relative;
+	top:-10px;
 }
 div.list_holders div.holders span.detail {
 	color:#aaa;

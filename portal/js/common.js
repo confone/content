@@ -17,3 +17,28 @@ function GetXmlHttpObject() {
 	}
 	return null;
 }
+
+function hideShowDiv(divId) {
+	var div = document.getElementById(divId);
+
+	if (div.style.display==='none') {
+		div.style.display = 'block';
+	} else {
+		div.style.display = 'none';
+	}
+}
+
+function showHideDiv(divId) {
+	var div = document.getElementById(divId);
+
+	if (div.style.display==='block') {
+		div.style.display = 'none';
+	} else {
+		div.style.display = 'block';
+	}
+}
+
+function updateText(id, text) {
+	var elem = document.getElementById(id);
+	elem.innerHTML = text;
+}

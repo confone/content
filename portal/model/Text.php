@@ -96,6 +96,10 @@ class Text extends Model {
 		return $paths;
 	}
 
+	public function countProjectPaths() {
+		return LookupTextProjectPathDao::countTextProjectPaths($this->dao->getProjectId(), $this->getId());
+	}
+
 	public function getPreviewContent($language='en') {
 		$path = '';
 
@@ -119,6 +123,10 @@ class Text extends Model {
 	public function removeFromProjectPath($pathId) {
 		return LookupTextProjectPathDao::removeLookup ( 
 					$this->dao->getProjectId(), $pathId, $this->dao->getId());
+	}
+
+	public function getLanguageCount() {
+		return TextVersionDao::countLanguages($this->getId());
 	}
 
     public function setCode($code) {

@@ -111,6 +111,19 @@ class TextVersionDao extends TextVersionDaoParent {
 		return $currentTextContent == $previewTextContent;
 	}
 
+	public static function countLanguages($textId) {
+		$textVersion = new TextVersionDao();
+		$sequence = $textId;
+		$textVersion->setServerAddress($sequence);
+
+		$builder = new QueryBuilder($textVersion);
+		$res = $builder->select('COUNT(DISTINCT language) as count')
+					   ->where('text_id', $textId)
+					   ->find();
+
+		return $res['count'];
+	}
+
 // ============================================ override functions ==================================================
 
 	protected function doDelete() {

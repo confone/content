@@ -87,6 +87,10 @@ class Image extends Model {
 		return $paths;
 	}
 
+	public function countProjectPaths() {
+		return LookupImageProjectPathDao::countImageProjectPaths($this->dao->getProjectId(), $this->getId());
+	}
+
 	public function getPreviewFilePath() {
 		$path = '';
 
