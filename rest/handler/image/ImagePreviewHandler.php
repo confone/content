@@ -8,6 +8,13 @@ class ImagePreviewHandler extends Handler {
 		}
 
 		$imageVersionDao = ImageVersionDao::getPreviewImage($params['imageid']);
+	
+		if (!$imageVersionDao) {
+			global $image_none;
+    		header('Content-Type: image/png');
+			readfile($image_none);
+			exit;
+		}
 
 		$file = $imageVersionDao->getFilePath();
 

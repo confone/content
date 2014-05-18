@@ -15,11 +15,10 @@ class ImageVersionHandler extends Handler {
 		$imageVersionDao = ImageVersionDao::getVersionImage($params['imageid'], $params['version']);
 
 		if (!isset($imageVersionDao)) {
-			header('HTTP/1.0 404 Image Not Found');
-			$response = array();
-			$response['status'] = 'error';
-			$response['description'] = 'Image Not Found';
-			return $response;
+			global $image_none;
+    		header('Content-Type: image/png');
+			readfile($image_none);
+			exit;
 		}
 
 		$file = $imageVersionDao->getFilePath();

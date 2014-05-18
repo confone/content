@@ -9,6 +9,13 @@ class ImageDisplayHandler extends Handler {
 
 		$imageVersionDao = ImageVersionDao::getCurrentImage($params['imageid']);
 
+		if (!$imageVersionDao) {
+			global $image_none;
+    		header('Content-Type: image/png');
+			readfile($image_none);
+			exit;
+		}
+
 		$file = $imageVersionDao->getFilePath();
 
 		global $image_upload_dir;
