@@ -35,7 +35,7 @@ foreach ($groups as $group) { ?>
 </div>
 <?php } 
 } else { ?>
-<center><div id="no_project">No project yet, <a id="create_now" href="javascript:showHideDiv('new_path')">create now</a> !</div></center>
+<center><div id="no_project">No group yet, <a id="create_now" href="javascript:showHideDiv('new_path')">create now</a> !</div></center>
 <?php } ?>
 </div>
 </div>
@@ -52,7 +52,8 @@ foreach ($groups as $group) { ?>
 </form>
 </div>
 <div id="image_list" class="holders">
-<?php foreach ($images as $image) { ?>
+<?php if (!empty($images)) {
+foreach ($images as $image) { ?>
 <div class="pdata">
 <span class="detail">preview: </span><img src="<?=$base_host ?>/rest/image/display/<?=$image->getId() ?>/<?=$image->getCode() ?>/preview" />
 <span class="detail">current: </span><img src="<?=$base_host ?>/rest/image/display/<?=$image->getId() ?>/<?=$image->getCode() ?>" />
@@ -60,6 +61,9 @@ foreach ($groups as $group) { ?>
 </div>
 <div class="section"><a class="project_link" href="/image/detail?application_id=<?=$project->getId() ?>&id=<?=$image->getId() ?>"><?=$image->getCode(); ?></a>
 </div>
+<?php } 
+} else { ?>
+<center><div id="no_project">No image yet, <a id="create_now" href="javascript:showHideDiv('new_image')">create now</a> !</div></center>
 <?php } ?>
 </div>
 </div>
@@ -76,13 +80,17 @@ foreach ($groups as $group) { ?>
 </form>
 </div>
 <div id="text_list" class="holders">
-<?php foreach ($texts as $text) { ?>
+<?php if (!empty($texts)) {
+foreach ($texts as $text) { ?>
 <div class="pdata">
 <span class="detail">languages: <?=$text->getLanguageCount() ?></span>
 <span class="detail">belongs to: <?=$text->countProjectPaths() ?> groups</span>
 </div>
 <div class="section"><a class="project_link" href="/text/detail?application_id=<?=$project->getId() ?>&id=<?=$text->getId() ?>"><?=$text->getCode(); ?></a>
 </div>
+<?php } 
+} else { ?>
+<center><div id="no_project">No text yet, <a id="create_now" href="javascript:showHideDiv('new_text')">create now</a> !</div></center>
 <?php } ?>
 </div>
 </div>

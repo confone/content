@@ -109,7 +109,7 @@ div.list_holders div.holders span.detail {
 }
 div#no_project {
 	color:#545454;
-	margin-top:60px;
+	margin:50px 0px 30px 0px;
 }
 a#create_now {
 	text-decoration:none;

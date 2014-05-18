@@ -1,5 +1,4 @@
 <div id="right" class="round4">
-<div class="title"><label>Owner</label></div>
-<img class="profile" src="<?=$user->getProfileImage() ?>" />
-<label id="name"><?=$user->getName() ?></label>
+<div class="title"><label>Content Apps</label></div>
+<label id="name"></label>
 </div>

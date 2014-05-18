@@ -30,7 +30,7 @@ foreach ($projects as $project) { ?>
 <span class="description"><?=$project->getDescription(); ?></span></div>
 <?php } 
 } else { ?>
-<center><div id="no_project">No project yet, <a id="create_now" href="javascript:newProject()">create now</a> !</div></center>
+<center><div id="no_project">No application yet, <a id="create_now" href="javascript:showHideDiv('new_project')">create now</a> !</div></center>
 <?php } ?>
 </div>
 </div>
