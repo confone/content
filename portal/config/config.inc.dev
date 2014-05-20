@@ -4,6 +4,8 @@ $base_host = 'http://local.content.confone.com';
 $www_url = 'http://local.www.confone.com';
 $security_url = 'http://local.security.confone.com';
 $account_url = 'http://local.account.confone.com';
+$doc_url = 'http://local.doc.confone.com';
+$help_url = 'http://local.help.confone.com';
 
 
 // =======================================================================================

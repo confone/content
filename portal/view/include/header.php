@@ -1,5 +1,5 @@
 <?php 
-global $base_host, $account_url; 
+global $base_host, $account_url, $www_url, $doc_url, $help_url;
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +25,10 @@ global $base_host, $account_url;
 <div id="header_inner">
 <div id="profile"></div>
 <div id="header_link">
-<a href="http://local.doc.confone.com/">Documentation</a>
-<a href="http://local.doc.confone.com/">Help &amp; Support</a>
+<a href="<?=$doc_url ?>">Documentation</a>
+<a href="<?=$help_url ?>">Help &amp; Support</a>
 </div>
-<a id="logo" href="<?php global $www_url; echo $www_url; ?>">con<span>fone</span></a>
+<a id="logo" href="<?=$www_url; ?>">con<span>fone</span></a>
 </div>
 </div>
 <div id="main">
