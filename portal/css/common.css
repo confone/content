@@ -31,6 +31,7 @@ div#header_inner div#header_link {
 	font-size:.7em;
 }
 div#header_inner div#header_link a {
+	font-weight:normal;
 	color:#666;
 	text-decoration:none;
 	padding:10px;
