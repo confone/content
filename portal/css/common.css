@@ -25,6 +25,19 @@ div#header_inner {
 	height: 50px;
 	max-width: 980px;
 }
+div#header_inner div#header_link {
+	float:right;
+	margin:19px 10px 0px 10px;
+	font-size:.7em;
+}
+div#header_inner div#header_link a {
+	color:#666;
+	text-decoration:none;
+	padding:10px;
+}
+div#header_inner div#header_link a:hover {
+	color:#333;
+}
 a#logo {
 	position: relative;
 	top: 10px;

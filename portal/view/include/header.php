@@ -24,6 +24,10 @@ global $base_host, $account_url;
 <div id="header">
 <div id="header_inner">
 <div id="profile"></div>
+<div id="header_link">
+<a href="http://local.doc.confone.com/">Documentation</a>
+<a href="http://local.doc.confone.com/">Help & Support</a>
+</div>
 <a id="logo" href="<?php global $www_url; echo $www_url; ?>">con<span>fone</span></a>
 </div>
 </div>
