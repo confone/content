@@ -18,7 +18,7 @@ class CreateProjectPathController extends ViewController {
 
 			$path = param('project_path');
 
-			if (isset($path)) {
+			if (!empty($path)) {
 				$parentPath->addSubProjectPath($path);
 			}
 		}
