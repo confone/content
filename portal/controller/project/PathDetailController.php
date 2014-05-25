@@ -27,7 +27,7 @@ class PathDetailController extends ViewController {
 		$this->render( array(
 			'title' => 'Project Path Detail | Confone',
 			'view' => 'project/path-detail.php',
-			'projectId' => $projectId,
+			'project' => $project,
 			'projectPath' => $projectPath,
 			'user' => $user
 		));
