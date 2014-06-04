@@ -2,6 +2,9 @@
 class TextPathGetHandler extends Handler {
 
 	protected function handle($params) {
+		$start = $_GET['start'];
+		$size = $_GET['size'];
+
 		$response = array();
 		$response['status'] = 'success';
 
@@ -17,7 +20,8 @@ class TextPathGetHandler extends Handler {
 
 		$projectPathDao = ProjectPathDao::getProjectPathIdByPathName($_PROJECTID, $pathName);
 
-		$idAndCodes = LookupTextProjectPathDao::getTextIdsAndCodes($_PROJECTID, $projectPathDao->getId());
+		$idAndCodes = LookupTextProjectPathDao::getTextIdsAndCodes ( 
+						$_PROJECTID, $projectPathDao->getId(), $start, $size );
 
 		$response['texts'] = array();
 		foreach ($idAndCodes as $idAndCode) {

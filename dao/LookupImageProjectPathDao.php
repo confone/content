@@ -24,7 +24,7 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 		}
 	}
 
-	public static function getImageIdsAndCodes($projectId, $projectPathId) {
+	public static function getImageIdsAndCodes($projectId, $projectPathId, $start, $size) {
 		$lookup = new LookupImageProjectPathDao();
 		$sequence = $projectId;
 		$lookup->setServerAddress($sequence);
@@ -33,6 +33,7 @@ class LookupImageProjectPathDao extends LookupImageProjectPathDaoParent {
 		$rows = $builder->select('image_id, code')
 						->where('project_id', $projectId)
 						->where('project_path_id', $projectPathId)
+						->limit($start, $size)
 						->findList();
 		if ($rows) {
 			$atReturn = array();

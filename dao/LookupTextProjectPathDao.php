@@ -24,16 +24,22 @@ class LookupTextProjectPathDao extends LookupTextProjectPathDaoParent {
 		}
 	}
 
-	public static function getTextIdsAndCodes($projectId, $projectPathId) {
+	public static function getTextIdsAndCodes($projectId, $projectPathId, $start=null, $size=null) {
 		$lookup = new LookupTextProjectPathDao();
 		$sequence = $projectId;
 		$lookup->setServerAddress($sequence);
 
 		$builder = new QueryBuilder($lookup);
-		$rows = $builder->select('text_id, code')
-						->where('project_id', $projectId)
-						->where('project_path_id', $projectPathId)
-						->findList();
+		$builder->select('text_id, code')
+				->where('project_id', $projectId)
+				->where('project_path_id', $projectPathId);
+
+		if (!empty($start) && !empty($size)) {
+			$builder->limit($start, $size);
+		}
+
+		$rows = $builder->findList();
+
 		if ($rows) {
 			$atReturn = array();
 			foreach ($rows as $row) {
